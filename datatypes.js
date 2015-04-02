@@ -20,65 +20,106 @@ var properties = {
 };
 
 var prototypes = {
-    "initiator": {
+    initiator: {
         init: function (parameters) {
-
+            console.log("initiator.init called");
         }
     },
-    "states": {
-        dependencies: {
-            properties: [
-                "testdep"
-            ]
-        },
+    states: {
+        dependencies: ["states"],
+
+        /**
+         * Помечает объект как активный
+         * @param {Boolean} flag Логическое значение вкл./выкл.
+         */
         active: function (flag) {
             if (flag !== undefined && flag.constructor === Boolean) {
                 this.isActive = flag;
             }
         },
+
+        /**
+         * Помечает объект как выбранный
+         * @param {Boolean} flag Логическое значение вкл./выкл.
+         */
         select: function (flag) {
             if (flag !== undefined && flag.constructor === Boolean) {
                 this.isSelected = flag;
             }
         }
+    },
+    test: {
+        testfunc: function () {}
     }
 };
 
-function TestObj () {
-    this.properties = [
-        "states",
-        "contacts"
-    ];
-    this.prototypes = [
-        "initiator"
-    ];
 
-    this.onCreate = this.prototypes["initiator"]["init"];
-};
+
 
 
 /**
  * Устанавливает у объекта выбранную группу свойств
- * @param propname - имя группы свойств
- * @param destination - объект-приемник свойств
+ *
+ * @param {String} propname - имя группы свойств
+ * @param {Object} destination - объект-приемник свойств
  */
 function setProperties (propname, destination) {
     if (propname !== undefined && destination !== undefined) {
         if (properties.hasOwnProperty(propname)) {
-            for (var prop in properties[propname]) {
-                destination[prop] = properties[propname][prop];
-            }
+            destination[propname] = properties[propname];
         }
     }
 };
 
 
+
+
+
+/**
+ * Устанавливает у объекта выбранную группу методов
+ *
+ * @param {String} protname - имя группы методов
+ * @param {Object} destination - объект-приемник методов
+ */
 function setPrototypes (protname, destination) {
     if (protname !== undefined && destination !== undefined) {
         if (prototypes.hasOwnProperty(protname)) {
             if (prototypes[protname].hasOwnProperty("dependencies")) {
-                for (var dep in prototypes[protname]["dependencies"]) {
-                    if (prototypes.hasOwnProperty(prototypes[]))
+                for (var prop in prototypes[protname]["dependencies"])
+                    setProperties(prototypes[protname]["dependencies"][prop], destination);
+            }
+
+            for (var proto in prototypes[protname]) {
+                if (proto !== "dependencies") {
+                    /*** Если у объекта-приемника доступно свойство prototype ***/
+                    if (destination.prototype !== undefined) {
+                        /**
+                         * Если родителем объекта-приемника не является Object,
+                         * тогда устанавливаем метод для всех наследников объекта
+                         */
+                        if (destination.prototype.constructor !== Object)
+                            destination.prototype[proto] = prototypes[protname][proto];
+                        /**
+                         * Если родителем объекта-приемника является Object,
+                         * тогда устанавливаем метод только для экземпляра объекта
+                         */
+                        else
+                            destination[proto] = prototypes[protname][proto];
+                        /*** Если у объекта-приемника доступно свойство __proto__ ***/
+                    } else if (destination.__proto__ !== undefined) {
+                        /**
+                         * Если родителем объекта-приемника не является Object,
+                         * тогда устанавливаем метод для всех наследников объекта
+                         */
+                        if (destination.__proto__.constructor !== Object)
+                            destination.__proto__[proto] = prototypes[protname][proto];
+                        /**
+                         * Если родителем объекта-приемника является Object,
+                         * тогда устанавливаем метод только для экземпляра объекта
+                         */
+                        else
+                            destination[proto] = prototypes[protname][proto];
+                    }
                 }
             }
         }
@@ -86,50 +127,47 @@ function setPrototypes (protname, destination) {
 };
 
 
+
+
+
 /**
  * Фабрика объектов
- * @param props - массив групп свойств объекта
- * @param protos - массив групп методов объекта
- * @returns {{}}
+ *
+ * @param props {Array} Массив групп свойств объекта
+ * @param protos {Array} Массив групп методов объекта
+ * @returns {{}} Новый объект с заданными группами свойств и методами
  */
-function Factory (props, protos) {
-    var result = {};
+function Factory (props, protos, destination) {
 
+    /**
+     * Если указан объект-приемник destination, то добавляем свойства
+     * и методов к нему, иначе создаем и конструируем новый объект
+     */
+    var result = destination !== undefined ? destination : {};
+
+    /**
+     *  Установка групп свойств конструируемому объекту,
+     *  группы свойств указаны в массиве props
+     */
     if (props !== undefined) {
         for (var prop in props) {
             setProperties(props[prop], result);
         }
     }
 
+    /**
+     *  Установка Групп методов конструироемому объекту .
+     *  группы методов укзаны в массиве protos
+     */
     if (protos !== undefined) {
         for (var proto in protos) {
-            console.log(protos[proto]);
-            if (prototypes.hasOwnProperty(protos[proto])) {
-                console.log(protos[proto] + " found");
-                /*
-                if (prototypes[protos[proto]].hasOwnProperty("dependencies")) {
-                    console.log(protos[proto] + " have dependencies");
-                    for (var dep in prototypes[protos[proto]]["dependencies"]) {
-                        if (prototypes.hasOwnProperty(protos[proto]["dependencies"][dep])) {
-                            for (var prop_item in properties[props[prop]]) {
-                                result[prop_item] = properties[props[prop]][prop_item];
-                            }
-                        }
-                    }
-
-                }
-                */
-                for (var proto_item in prototypes[protos[proto]]) {
-                    if (result.prototype !== undefined)
-                        result.prototype[proto_item] = prototypes[protos[proto]][proto_item];
-                    else
-                        result.__proto__[proto_item] = prototypes[protos[proto]][proto_item];
-                    console.log("method '" + proto_item + "' attached to object");
-                }
-            }
+            setPrototypes(protos[proto], result);
         }
     }
 
+    /**
+     * Возвращаем сконструированные объект
+     */
     return result;
 };
 
