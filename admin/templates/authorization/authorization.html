@@ -1,0 +1,84 @@
+<!-- BEGIN: main -->
+<!DOCTYPE html>
+<html ng-app="core.auth">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="resources/styles/framework.css"/>
+    <!-- Подключение библиотек -->
+    <script src="../libs/angularjs/angular.min.js"></script>
+</head>
+<body>
+
+    <!-- Контейнер авторизации -->
+    <div id="authorization-form-container">
+
+        <!-- ЗАГОЛОВОК ФОРМЫ -->
+        <span class="form-title" ng-show="authorization.inRemindPasswordMode === false" ng-cloak>АВТОРИЗАЦИЯ</span>
+        <span class="form-title" ng-show="authorization.inRemindPasswordMode === true" ng-cloak>НАПОМИНАНИЕ ПАРОЛЯ</span>
+        <span class="gears-logo right">gears</span>
+        <hr/>
+
+        <!-- Форма авторизации польователя -->
+        <form id="authorization-form" ng-submit="authorization.validate()">
+            <!-- Поле ввода имени пользователя -->
+            <label for="user-login">Имя пользователя</label>
+            <input type="text"
+                   id="user-login"
+                   maxlength="16"
+                   placeholder="Имя пользователя"
+                   ng-model="authorization.username"
+                   ng-class="{'error' : authorization.errors.username.length > 0}"/>
+
+            <!-- Поле ввода пароля -->
+            <label for="user-password" ng-show="authorization.inRemindPasswordMode === false">
+                Пароль
+                <a href class="right" ng-click="authorization.remindPasswordMode()">Забыли пароль?</a>
+            </label>
+            <input type="password"
+                   id="user-password"
+                   maxlength="16"
+                   placeholder="Пароль"
+                   ng-show="authorization.inRemindPasswordMode === false"
+                   ng-model="authorization.password"
+                   ng-class="{'error' : authorization.errors.password.length > 0}"/>
+
+            <!-- Кнопка валидации введенных данных при авторизации -->
+            <button class="btn block blue"
+                    ng-show="authorization.inRemindPasswordMode === false">
+                Войти
+            </button>
+        </form>
+
+        <!-- Кнопка валидации данных при напоминании пароля-->
+        <button class="btn block blue"
+                ng-show="authorization.inRemindPasswordMode === true"
+                ng-click="authorization.validate()"
+                ng-cloak>
+            Напомнить пароль
+        </button>
+
+        <!-- Кнопка возврата в режим авторизации -->
+        <button class="btn block blue"
+                ng-show="authorization.inRemindPasswordMode === true"
+                ng-click="authorization.remindPasswordMode()"
+                ng-cloak>
+            Вернуться назад к авторизации
+        </button>
+
+        <!-- Ошибки валидации введенных данных -->
+        <div id="authorization-form-errors"
+             ng-show="authorization.errors.username.length !== 0 || authorization.errors.password.length !== 0"
+             ng-cloak>
+            <span class="error-item" ng-repeat="error in authorization.errors.username track by $index">{{ error }}</span>
+            <span class="error-item" ng-repeat="error in authorization.errors.password track by $index">{{ error }}</span>
+        </div>
+    </div>
+
+    <!-- Подключение библиотек -->
+    <script src="../libs/angularjs/angular-cookies.min.js"></script>
+    <script src="../modules/core.js"></script>
+    <script src="../modules/core.auth.js"></script>
+</body>
+</html>
+<!-- END: main -->

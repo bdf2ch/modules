@@ -1,20 +1,8 @@
 "use strict";
 
 
-var shop = angular.module("shell.shop", [])
+var shop = angular.module("application.shop", [])
     .config(function ($provide) {
-
-        /**
-         * $shopClasses
-         * Сервис, содержащий описание классов модуля
-         */
-        $provide.factory("$shopClasses", [function () {
-            var shopClasses = {};
-
-            shopClasses.classes = {};
-
-            return shopClasses;
-        }]);
 
         /**
          * $cart

@@ -1,0 +1,195 @@
+
+/*****
+* ПОЛЯ ВВОДА
+*****/
+
+input {
+  display: block;
+  padding: 7px;
+  border: 1px solid lightgrey;
+
+  &.error {
+    border: 1px solid #DE7878;
+  }
+}
+
+input[type='submit'] {
+  display: block;
+  background: red;
+  margin-left: -10px;
+}
+
+
+
+
+
+/*****
+* КНОПКИ
+*****/
+
+.btn {
+  display: block;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  /* Кнопка шириной во весь родительский контейнер */
+  &.block {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Синяя кнопка */
+  &.blue {
+    color: white;
+    background: #4699F2;
+
+    &:hover {
+      background: #2C77C7;
+    }
+    
+  }
+}
+
+
+
+/*****
+* ПОЗИЦИОНИРОВАНИЕ ЭЛЕМЕНТОВ
+*****/
+
+/* Позиционирование элемента слева */
+.left {
+  float: left;
+}
+
+/* Позиционирование элемента справа */
+.right {
+  float: right;
+}
+
+/* Позиционирование элемента по центру */
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/*****
+* ВЫРАВНИВАНИЕ ТЕКСА ВНУТРИ ЭЛЕМЕНТА
+*****/
+
+/* Выравнивание текста внутри элемента слева */
+.text-left {
+  text-align: left;
+}
+
+/* Выравнивание текста внутри элемента справа */
+.text-right {
+  text-align: right;
+}
+
+/* Выравнивание текста внутри элемента по центру */
+.text.center {
+  text-align: center;
+}
+
+
+
+/*****
+* AUTHORIZATION
+* ФОРМА АВТОРИЗАЦИИ
+*****/
+#authorization-form-container {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #FAFAF7;
+  border: 1px solid #F0F0FA;
+  border-bottom: 1px solid #D3D3D3;
+  border-radius: 4px;
+
+  .form-title {
+    display: inline-block;
+    color: gray;
+    font-family: "Helvetica";
+    font-size: 14px;
+    margin-bottom: 0px;
+  }
+
+  hr {
+    margin-top: 2px;
+    margin-bottom: 15px;
+    border-color: #D3D3D3;
+    border-width: 0px;
+    border-bottom: 1px dotted #D3D3D3;
+  }
+
+  label {
+    display: block;
+    //margin-right: 10px;
+    margin-bottom: 2px;
+    padding-left: 3px;
+    font-family: "Helvetica";
+    font-size: 13px;
+    color: gray;
+  }
+
+  input {
+    width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    font-size: 15px;
+  }
+
+  a {
+    display: inline-block;
+    height: 14px;
+    font-size: 12px;
+    text-decoration: none;
+    color: #3EBAF0;
+
+    &:hover {
+      color: #107EAD;
+    }
+  }
+
+  button {
+    margin-bottom: 5px;
+  }
+
+  #authorization-form-errors {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: -10px;
+    //margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: "Helvetica";
+    font-size: 15px;
+    background: #F2CECE;
+  }
+
+  .error-item {
+    display: block;
+    color: #C44D4D;
+  }
+
+  .gears-logo {
+    display: inline-block;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: bold;
+    color: #C6CCCF;
+  }
+}

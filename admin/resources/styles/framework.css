@@ -1,0 +1,154 @@
+/*****
+* ���� �����
+*****/
+input {
+  display: block;
+  padding: 7px;
+  border: 1px solid lightgrey;
+}
+input.error {
+  border: 1px solid #DE7878;
+}
+input[type='submit'] {
+  display: block;
+  background: red;
+  margin-left: -10px;
+}
+/*****
+* ������
+*****/
+.btn {
+  display: block;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* ������ ������� �� ���� ������������ ��������� */
+  /* ����� ������ */
+}
+.btn.block {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn.blue {
+  color: white;
+  background: #4699F2;
+}
+.btn.blue:hover {
+  background: #2C77C7;
+}
+/*****
+* ���������������� ���������
+*****/
+/* ���������������� �������� ����� */
+.left {
+  float: left;
+}
+/* ���������������� �������� ������ */
+.right {
+  float: right;
+}
+/* ���������������� �������� �� ������ */
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+/*****
+* ������������ ����� ������ ��������
+*****/
+/* ������������ ������ ������ �������� ����� */
+.text-left {
+  text-align: left;
+}
+/* ������������ ������ ������ �������� ������ */
+.text-right {
+  text-align: right;
+}
+/* ������������ ������ ������ �������� �� ������ */
+.text.center {
+  text-align: center;
+}
+/*****
+* AUTHORIZATION
+* ����� �����������
+*****/
+#authorization-form-container {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #FAFAF7;
+  border: 1px solid #F0F0FA;
+  border-bottom: 1px solid #D3D3D3;
+  border-radius: 4px;
+}
+#authorization-form-container .form-title {
+  display: inline-block;
+  color: gray;
+  font-family: "Helvetica";
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+#authorization-form-container hr {
+  margin-top: 2px;
+  margin-bottom: 15px;
+  border-color: #D3D3D3;
+  border-width: 0px;
+  border-bottom: 1px dotted #D3D3D3;
+}
+#authorization-form-container label {
+  display: block;
+  margin-bottom: 2px;
+  padding-left: 3px;
+  font-family: "Helvetica";
+  font-size: 13px;
+  color: gray;
+}
+#authorization-form-container input {
+  width: 330px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+#authorization-form-container a {
+  display: inline-block;
+  height: 14px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #3EBAF0;
+}
+#authorization-form-container a:hover {
+  color: #107EAD;
+}
+#authorization-form-container button {
+  margin-bottom: 5px;
+}
+#authorization-form-container #authorization-form-errors {
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: -10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: "Helvetica";
+  font-size: 15px;
+  background: #F2CECE;
+}
+#authorization-form-container .error-item {
+  display: block;
+  color: #C44D4D;
+}
+#authorization-form-container .gears-logo {
+  display: inline-block;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: bold;
+  color: #C6CCCF;
+}

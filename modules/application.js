@@ -1,20 +1,25 @@
 "use strict";
 
-/**
- * Модуль shell.classes
- * Определяет сервис $shellClasses, содержащий описание классов, используемых в приложении
- */
-var shellClasses = angular.module("shell.classes", [])
+
+
+var application = angular.module("application", [
+        "ngRoute",          // Подключаем модуль управления рутами
+        "core",             // Подключаем модуль с сервисами ядра системы
+        "application.titules",
+        "application.nodes"
+    ])
     .config(function ($provide) {
 
         /**
-         * $shellClasses
-         * Содержит описание классов, используемых в приложении
+         * $application
+         * Сервис приложения
          */
-        $provide.factory("$shellClasses", [function () {
-            var shellClasses = {};
+        $provide.factory("$application", [function () {
+            var application = {};
 
-            shellClasses.classes = {
+            application.title = "Test application";
+            application.description = "This is a test application provided by Shell Framework";
+            application.classes = {
 
                 /**
                  * Набор свойств, описывающих цветок
@@ -55,10 +60,22 @@ var shellClasses = angular.module("shell.classes", [])
                 }
             };
 
-            return shellClasses;
+            return application;
         }]);
     })
-    .run(function () {
+    .run(function ($log, $application, $rootScope, $modules, $factory) {
+        $modules.load($application);
+        $rootScope.application = $application;
+        $log.log("Welcome to " + $application.title);
+        $log.log($application.description);
 
-    }
-);
+        var f = new $factory.make({ classes: ["Flower", "Model", "Backup", "States"], base_class: "Flower" });
+        var json = {
+            flower_id: 158,
+            flower_title: "test flower title",
+            flower_description: "test flower description"
+        };
+        f._backup_.setup();
+        f._model_.fromJSON(json);
+        console.log(f);
+    });
