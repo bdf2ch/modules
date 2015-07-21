@@ -12,6 +12,9 @@ var titules = angular.module("application.titules",[])
             var titules = {};
 
 
+            /**
+             * Наборы свойст и методов, описывающих модели данных
+             */
             titules.classes = {
                 /**
                  * Titule
@@ -48,7 +51,11 @@ var titules = angular.module("application.titules",[])
                 }
             };
 
+            titules.titules = $factory.make({ classes: ["Collection"], base_class: "Collection" });
 
+            /**
+             * Получает список всех титулов и помещает их в коллекцию
+             */
             titules.query = function () {
                 $http.post("serverside/controllers/titules.php", {action: "query"})
                     .success(function (data) {
@@ -57,6 +64,7 @@ var titules = angular.module("application.titules",[])
                                 var titule = $factory.make({ classes: ["Titule", "Model", "Backup", "States"], base_class: "Titule" });
                                 titule._model_.fromJSON(titule_data);
                                 titule._backup_.setup();
+                                titules.titules.append(titule);
                             });
                         }
                     }
@@ -64,14 +72,30 @@ var titules = angular.module("application.titules",[])
             };
 
 
-            titules.add = function () {
-
+            /**
+             * Отправляет данные нового титула на сервер и добавляет его в коллекцию
+             * @param titule
+             */
+            titules.add = function (titule) {
+                $http.post("")
+                    .success(function (data) {
+                        if (data !== undefined) {
+                            var added_titule = $factory.make({ classes: ["Titule", "Model", "Backup", "States"], base_class: "Titule" });
+                            added_titule._model_.fromJSON(data);
+                            added_titule._backup_.setup();
+                            titules.titules.append(added_titule);
+                        }
+                    }
+                );
             };
+
 
             return titules;
         }]);
     })
-    .run(function ($modules, $titules) {
+    .run(function ($modules, $titules, $log) {
         $modules.load($titules);
         $titules.query();
+        $log.log($titules.titules);
+        $titules.titules.display();
     });

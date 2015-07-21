@@ -8,9 +8,13 @@ var nodes = angular.module("application.nodes", [])
          * $nodes
          * Сервис, содержащий функционал для работы с узлами
          */
-        $provide.factory("$nodes", ["$log", function ($log) {
+        $provide.factory("$nodes", ["$log", "$factory", "$menu", function ($log, $factory, $menu) {
             var nodes = {};
 
+
+            /**
+             * Наборы свойст и методов, описывающих модели данных
+             */
             nodes.classes = {
                 /**
                  * NodeType
@@ -59,6 +63,15 @@ var nodes = angular.module("application.nodes", [])
                     voltage: new Field({ source: "VOLTAGE", value: 0, default_value: 0, backupable: true, required: true })
                 }
             };
+
+
+            /**
+             * Описание раздела меню
+             */
+            nodes.menu = $menu.set({
+                id: 1,
+                title: "Nodes Menu Item"
+            });
 
             return nodes;
         }]);

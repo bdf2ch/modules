@@ -34,8 +34,14 @@ var core = angular.module("core", [])
          * $modules
          * Сервис, осуществляющий загрузку модулей системы
          ********************/
-        $provide.factory("$modules", ["$log", "$classes", function ($log, $classes) {
+        $provide.factory("$modules", ["$log", "$classes", "$factory", "$menu", function ($log, $classes, $factory, $menu) {
             var modules = {};
+
+            /**
+             * Переменные сервиса
+             */
+            modules.items = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+
 
             /**
              * Звгружает модуль/сервис в систему
@@ -51,6 +57,9 @@ var core = angular.module("core", [])
                             result = true;
                             $log.log("Класс " + class_ + " загружен в стек классов.");
                         }
+                    }
+                    if (module.menu !== undefined) {
+                        $menu.load(module.menu);
                     }
                 }
                 return result;
@@ -82,26 +91,92 @@ var core = angular.module("core", [])
 
 
         /********************
+         * $menu
+         * Сервис, реализующий функционал для управления меню
+         ********************/
+        $provide.factory("$menu", ["$log", "$factory", function ($log, $factory) {
+            var menu = {};
+
+            /**
+             * Наборы свойст и методов, описывающих модели данных
+             */
+            menu.classes = {
+
+                /**
+                 * MenuItem
+                 * Набор свойст, описывающих пункт меню
+                 */
+                MenuItem: {
+                    id: 0,
+                    title: "",
+                    description: "",
+                    url: "",
+                    template: "",
+                    controller: "",
+                    submenu: [],
+
+                    init: function (parameters) {
+                        if (parameters !== undefined) {
+                            for (var param in parameters) {
+                                if (this.hasOwnProperty(param))
+                                    this[param] = parameters[param];
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            /**
+             * Переменные сервиса
+             */
+            menu.items = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+
+
+            /**
+             * Загружает раздел меню в систему
+             * @param menuItem
+             */
+            menu.load = function (menuItem) {
+                if (menuItem !== undefined) {
+                    if (menuItem.__class__ !== undefined && menuItem.__class__ === "MenuItem") {
+                        menu.items.append(menuItem);
+                        $log.info("Раздел меню " + menuItem.title + " добавлен в стек разделов меню.");
+                    }
+                }
+            };
+
+
+            /**
+             * Устанавливает раздел меню
+             * @param parameters
+             * @returns {boolean}
+             */
+            menu.set = function (parameters) {
+                var result = false;
+                if (parameters !== undefined) {
+                    var menuItem = $factory.make({ classes: ["MenuItem"], base_class: "MenuItem" });
+                    menuItem.init(parameters);
+                    result = menuItem;
+                }
+                return result;
+            };
+
+            return menu;
+        }]);
+
+
+        /********************
          * $classes
          * Сервис, содержащий описание базовых и пользовательских классов
          ********************/
         $provide.factory("$classes", [function () {
             var classes = {};
 
+            /**
+             * Наборы свойст и методов, описывающих модели данных
+             */
             classes.classes = {
-
-                /**
-                 * Testclass
-                 * Тестовый класс
-                 */
-                Testclass: {
-                    __dependencies__: [],
-                    testclass_prop_one: "testprop",
-                    testclass_prop_two: 64,
-                    func_one: function () {},
-                    func_two: function () {}
-                },
-
 
                 /**
                  * Model
@@ -253,6 +328,7 @@ var core = angular.module("core", [])
 
 
                 /**
+                 * Backup
                  * Набор свойств и методов для бэкапа свойств объекта
                  */
                 Backup: {
@@ -297,6 +373,7 @@ var core = angular.module("core", [])
 
 
                 /**
+                 * Collection
                  * Набор свойств, описывающих коллекцию объектов
                  */
                 Collection: {
@@ -340,16 +417,12 @@ var core = angular.module("core", [])
                         if (field !== undefined && value !== undefined) {
                             console.log("finding item by field and value");
                             for (var i = 0; i < length; i++) {
-                                /* Если элемент коллекции является экземпляром класса Model */
-                                if (this.items[i].constructor === Model) {
-                                    if (this.items[i][field] !== undefined && this.items[i][field] === Field) {
+                                if (this.items[i][field] !== undefined) {
+                                    if (this.items[i][field].constructor === Field) {
                                         if (this.items[i][field].value === value) {
                                             result = this.items[i];
                                         }
-                                    }
-                                    /* Если элемент коллекции является объектом */
-                                } else {
-                                    if (this.items[i][field] !== undefined) {
+                                    } else {
                                         if (this.items[i][field] === value) {
                                             result = this.items[i];
                                         }
@@ -369,7 +442,67 @@ var core = angular.module("core", [])
                         }
 
                         return result;
+                    },
+
+
+                    /**
+                     * Добавляет элемент в конец коллекции
+                     * @param item {Any} - Элемент, добавляемый в коллекцию
+                     * @returns {boolean / Number} - Возвращает новую длину коллекции, false в случае некорректного завершения
+                     */
+                    append: function (item) {
+                        var result = false;
+                        if (item !== undefined) {
+                            result = this.items.push(item);
+                        }
+                        return result;
+                    },
+
+
+                    /**
+                     * Удаляет элементы по значению поля и по значению
+                     * @param field {String} - Наименование поля
+                     * @param value {Any} - Значение поля
+                     * @returns {Number} - Возвращает количество удаленных элементов
+                     */
+                    delete: function (field, value) {
+                        var result = 0;
+                        var length = this.items.length;
+
+                        /* Если требуется удалить элементы коллекции по полю и его значению */
+                        if (field !== undefined && value !== undefined) {
+                            console.log("deleting by field and value");
+                            for (var i = 0; i < length; i++) {
+                                if (this.items[i][field] !== undefined) {
+                                    if (this.items[i][field].constructor === Field) {
+                                        if (this.items[i][field].value === value) {
+                                            this.items.splice(i, 1);
+                                            result++;
+                                        }
+                                    } else {
+                                        if (this.items[i][field] === value) {
+                                            this.items.splice(i, 1);
+                                            result++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        /* Если требуется удалить элементы по значению */
+                        if (field !== undefined && value === undefined) {
+                            console.log("deleting by value");
+                            for (var i = 0; i < length; i++) {
+                                if (this.items[i] === field) {
+                                    this.items.splice(i, 1);
+                                    result++;
+                                }
+                            }
+                        }
+
+                        return result;
                     }
+
                 }
             };
 
@@ -385,6 +518,11 @@ var core = angular.module("core", [])
         $provide.factory("$factory", ["$log", "$classes", function ($log, $classes) {
             var factory = {};
 
+            /**
+             * Собирает объект на основе заданных наборов свойств и методов
+             * @param parameters {Object} - Параметры сборки объекта
+             * @returns {Object} - Возвращает собранный объект
+             */
             factory.make = function (parameters) {
                 var result = undefined;
 
@@ -406,16 +544,13 @@ var core = angular.module("core", [])
                                 target_class = $classes.classes[classes[parent_class]];
 
                             if (target_class !== undefined) {
-
-                                if (target_class.hasOwnProperty("__dependencies__") &&
-                                    target_class.__dependencies__.length > 0) {
+                                if (target_class.hasOwnProperty("__dependencies__") && target_class.__dependencies__.length > 0) {
                                     //TODO: add dependencies injection
                                 } else
                                     console.log(classes[parent_class] + " have no dependencies");
 
                                 for (var member in target_class) {
-                                    if (target_class[member] !== undefined &&
-                                        target_class[member].constructor === Function) {
+                                    if (target_class[member] !== undefined && target_class[member].constructor === Function) {
                                         if (result.prototype !== undefined) {
                                             if (result.prototype.constructor !== Object)
                                                 result.prototype[member] = target_class[member];
@@ -427,8 +562,7 @@ var core = angular.module("core", [])
                                             else
                                                 result[member] = target_class[member];
                                         }
-                                    } else if (target_class[member] !== undefined &&
-                                        target_class[member].constructor !== Function) {
+                                    } else if (target_class[member] !== undefined && target_class[member].constructor !== Function) {
                                         if (member !== "__dependencies__") {
                                             result[member] = target_class[member];
                                             if (result[member]["__instance__"] !== undefined)
@@ -452,157 +586,8 @@ var core = angular.module("core", [])
         }]);
 
 
-
     })
-    .run(function ($modules, $classes) {
+    .run(function ($modules, $classes, $menu) {
         $modules.load($classes);
+        $modules.load($menu);
     });
-
-
-
-
-
-
-
-
-
-/**
- * Коллекция элементов
- * @constructor
- */
-function Collection () {
-    this.items = [];
-
-
-    /**
-     * Возвращает количество элементов в коллекции
-     * @returns {Number} - Возвращает размер коллекции
-     */
-    Collection.prototype.size = function () {
-        var result = 0;
-        result = this.items.length;
-        return result;
-    };
-
-
-    /**
-     * Выводит в консоль все элементы коллекции
-     * @returns {Number} - Возвращает количество элементов в коллекции
-     */
-    Collection.prototype.display = function () {
-        var result = this.items.length;
-        if (console !== undefined) {
-            console.log(this.items);
-        }
-        return result;
-    };
-
-
-    /**
-     * Возвращает элемент коллекции, поле field которого равен value
-     * @param field {String} - Наименование поля
-     * @param value - Значение искомого поля
-     * @returns {boolean/Any} - Возвращает искомый элемент коллекции, в противном случае false
-     */
-    Collection.prototype.find = function (field, value) {
-        var result = false;
-        var length = this.items.length;
-
-        /* Если требуется найти элемент коллекции по значению поля */
-        if (field !== undefined && value !== undefined) {
-            console.log("finding item by field and value");
-            for (var i = 0; i < length; i++) {
-                /* Если элемент коллекции является экземпляром класса Model */
-                if (this.items[i].constructor === Model) {
-                    if (this.items[i][field] !== undefined && this.items[i][field] === Field) {
-                        if (this.items[i][field].value === value) {
-                            result = this.items[i];
-                        }
-                    }
-                /* Если элемент коллекции является объектом */
-                } else {
-                    if (this.items[i][field] !== undefined) {
-                        if (this.items[i][field] === value) {
-                            result = this.items[i];
-                        }
-                    }
-                }
-            }
-        }
-
-        /* Если требуется найти элемент коллекции по значению */
-        if (field !== undefined && value === undefined) {
-            console.log("finding item by value");
-            for (var i = 0; i < length; i++) {
-                if (this.items[i] === field) {
-                    result = this.items[i];
-                }
-            }
-        }
-
-        return result;
-    };
-
-
-    /**
-     * Добавляет элемент в конец коллекции
-     * @param item {Any} - Элемент, добавляемый в коллекцию
-     * @returns {boolean / Number} - Возвращает новую длину коллекции, false в случае некорректного завершения
-     */
-    Collection.prototype.append = function (item) {
-        var result = false;
-        if (item !== undefined) {
-            result = this.items.push(item);
-        }
-        return result;
-    };
-
-
-    /**
-     * Удаляет элементы по значению поля и по значению
-     * @param field {String} - Наименование поля
-     * @param value {Any} - Значение поля
-     * @returns {Number} - Возвращает количество удаленных элементов
-     */
-    Collection.prototype.delete = function (field, value) {
-        var result = 0;
-        var length = this.items.length;
-
-        /* Если требуется удалить элементы коллекции по полю и его значению */
-        if (field !== undefined && value !== undefined) {
-            console.log("deleting by field and value");
-            for (var i = 0; i < length; i++) {
-                /* Если элемент коллекции является экземпляром класса Model */
-                if (this.items[i].constructor === Model) {
-                    if (this.items[i][field] !== undefined && this.items[i][field].constructor === Field) {
-                        if (this.items[i][field].value === value) {
-                            this.items.splice(i, 1);
-                            result++;
-                        }
-                    }
-                /* Если элемент коллекции является объектом */
-                } else {
-                    if (this.items[i][field] !== undefined) {
-                        if (this.items[i][field] === value) {
-                            this.items.splice(i, 1);
-                            result++;
-                        }
-                    }
-                }
-            }
-        }
-
-        /* Если требуется удалить элементы по значению */
-        if (field !== undefined && value === undefined) {
-            console.log("deleting by value");
-            for (var i = 0; i < length; i++) {
-                if (this.items[i] === field) {
-                    this.items.splice(i, 1);
-                    result++;
-                }
-            }
-        }
-
-        return result;
-    };
-};
