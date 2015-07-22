@@ -1,0 +1,308 @@
+<div id="template-bouquet" class="units-row">
+    <div class="unit-25">
+        <!-- Способы оплаты -->
+        <div class="units-row side-panel lightgreen">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption green">Мы принимаем к оплате</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/cash.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">Наличные деньги</span>
+                    <span class="sidebar-text">Оплата при получении заказа</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/visa.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">карты Visa</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/mastercard.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">карты MasterCard</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Доставка -->
+        <div class="units-row side-panel purple">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption purple">Условия доставки</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/money.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Стоимость</span>
+                    <span class="sidebar-text">В Мурманск, Североморск - 350 р.</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/clock.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Сроки</span>
+                    <span class="sidebar-text">Доставим Ваш заказ в течении 2-х часов</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/box.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Самовывоз</span>
+                    <span class="sidebar-text">Ежедневно, в нашем офисе, круглосуточно</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Гарантия качества -->
+        <div class="units-row side-panel lightblue">
+            <div class="units-row end units-split">
+                <div class="unit-100">
+                    <span class="caption blue">Гарантия качества</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/flower.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Только свежие цветы</span>
+                    <span class="sidebar-text">Букет еще долго будет радовать Вас</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="unit-40 bouquet-item-images">
+        <div class="units-row">
+            <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+        </div>
+        <div class="units-row">
+            <ul class="blocks-5">
+                <li>
+                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                </li>
+                <li>
+                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                </li>
+                <li>
+                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                </li>
+                <li>
+                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                </li>
+                <li>
+                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="unit-60 bouquet-item-description">
+        <div class="units-row">
+            <div class="unit-100">
+                <span class="bouquet-title">
+                    {{ bouquet.title.value }}
+                </span>
+            </div>
+        </div>
+        <div class="units-row">
+            <div class="unit-100">
+                <i>
+                    {{ bouquet.description_full.value }}
+                </i>
+            </div>
+        </div>
+
+        <div class="units-row">
+            <div class="unit-100">
+
+
+                <div class="units-row">
+                    <div class="unit-60">
+                        <div class="units-row end">
+                            <div class="unit-100 text-centered">
+                                <strong>Цветы и декоративные материалы в составе букета:</strong>
+                            </div>
+                        </div>
+
+                        <div class="units-row end bouquet-flowers text-centered">
+                            <div class="unit-20">
+                                <img src="resources/bouquets/test1.jpg" alt=""/>
+                            </div>
+                            <div class="unit-80">
+                                <div class="units-row end">
+                                    <div class="unit-75 text-left">
+                                        цветок 1<br>
+                                       <i class="grey">280 р.</i>
+                                    </div>
+                                    <div class="unit-25 text-centered">
+                                        <i>5 шт.</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="units-row end bouquet-flowers text-centered">
+                            <div class="unit-20">
+                                <img src="resources/bouquets/test1.jpg" alt=""/>
+                            </div>
+                            <div class="unit-80">
+                                <div class="units-row end">
+                                    <div class="unit-75 text-left">
+                                        цветок 1<br>
+                                        <i class="grey">280 р.</i>
+                                    </div>
+                                    <div class="unit-25 text-centered">
+                                        <i>5 шт.</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="units-row bouquet-flowers text-centered">
+                            <div class="unit-20">
+                                <img src="resources/bouquets/test1.jpg" alt=""/>
+                            </div>
+                            <div class="unit-80">
+                                <div class="units-row end">
+                                    <div class="unit-75 text-left">
+                                        цветок 1<br>
+                                        <i class="grey">280 р.</i>
+                                    </div>
+                                    <div class="unit-25 text-centered">
+                                        <i>5 шт.</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Цена букета -->
+                    <div class="unit-40">
+                        <div class="units-row end">
+                            <div class="unit-100 text-centered">
+                                <span class="bouquet-price">{{ bouquet.price.value + ' р.' }}</span>
+                            </div>
+                        </div>
+                        <div class="units-row">
+                            <div class="unit-100 text-centered">
+                                <span class="btn-single centered">
+                                    <button class="btn btn-big btn-yellow" ng-click="cart.add(bouquet.id.value)">В корзину</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="units-row units-split service-info">
+                    <div class="unit-10">
+                        <img src="client/resources/img/delivery_icon.png" alt=""/>
+                    </div>
+                    <div class="unit-90 service-content text-left">
+                        <span class="service-caption">Мы доставим Ваш заказ в течении 3-х часов.</span><br>
+                        Стоимость доставки по Мурманску - <span class="black">350 р</span>. Доставка в Североморск - <span class="black">бесплатно</span>.
+                    </div>
+                </div>
+
+                <div class="units-row units-split service-info">
+                    <div class="unit-10">
+                        <img src="client/resources/img/wallet_icon.png" alt=""/>
+                    </div>
+                    <div class="unit-90 service-content text-left">
+                        <span class="service-caption">Оплатите заказ удобным для Вас способом</span><br>
+                        Вы можете оплатить Ваш заказ наличными, а так же картами <span class="black">Visa</span> и <span class="black">MasterCard</span>
+                    </div>
+                </div>
+
+                <div class="units-row units-split service-info">
+                    <div class="unit-10">
+                        <img src="client/resources/img/phone_icon.png" alt=""/>
+                    </div>
+                    <div class="unit-90 service-content text-left">
+                        <span class="service-caption">Вы можете сделать заказ по телефону <span class="black">(8152) 208-205</span></span> <br> Наши менеджеры ответят на все Ваши вопросы и помогут определиться с выбором
+                    </div>
+                </div>
+
+                <div class="units-row">
+
+                    <!-- Похожие букеты -->
+                    <div class="unit-50 related-bouquets">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                <span class="title">Похожие букеты</span>
+                            </div>
+                        </div>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                <ul class="blocks-2">
+                                    <li ng-repeat="bouquet in relatedBouquets | limitTo: 4">
+                                        <a href="{{ '#/bouquet/' + bouquet.id.value }}">
+                                            <img class="width-100" src="" alt=""/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Букеты по схожей цене -->
+                    <div class="unit-50 related-bouquets same-price">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                <span class="title">За ту же сумму</span>
+                            </div>
+                        </div>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                <ul class="blocks-2">
+                                    <li ng-repeat="bouquet in samePrice | limitTo: 4">
+                                        <a href="{{ '#/bouquet/' + bouquet.id.value }}">
+                                            <img class="width-100" src="" alt=""/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

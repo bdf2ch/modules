@@ -26,6 +26,9 @@ function Field (parameters) {
 };
 
 
+function Factory () {
+
+};
 
 
 
@@ -148,7 +151,7 @@ var core = angular.module("core", [])
              * Переменные сервиса
              */
             menu.items = $factory.make({ classes: ["Collection"], base_class: "Collection" });
-            menu.activeMenuItemId = -1;
+            menu.activeMenuItem = undefined;
 
 
             /**
@@ -202,7 +205,7 @@ var core = angular.module("core", [])
                     angular.forEach(menu.items.items, function (menuItem) {
                         if (menuItem.id === menuItemId) {
                             menuItem.active = true;
-                            menu.activeMenuItemId = menuItemId;
+                            menu.activeMenuItem = menuItem;
                             result = menuItem;
                         } else
                             menuItem.active = false;
@@ -441,7 +444,6 @@ var core = angular.module("core", [])
                         return result;
                     },
 
-
                     /**
                      * Выводит в консоль все элементы коллекции
                      * @returns {Number} - Возвращает количество элементов в коллекции
@@ -509,7 +511,6 @@ var core = angular.module("core", [])
                         return result;
                     },
 
-
                     /**
                      * Удаляет элементы по значению поля и по значению
                      * @param field {String} - Наименование поля
@@ -575,10 +576,10 @@ var core = angular.module("core", [])
              * @returns {Object} - Возвращает собранный объект
              */
             factory.make = function (parameters) {
-                var result = undefined;
+                var result = new Factory();
 
                 if (parameters !== undefined) {
-                    result = parameters["destination"] !== undefined ? parameters["destination"] : {};
+                    result = parameters["destination"] !== undefined ? parameters["destination"] : new Object();
 
                     if (parameters["base_class"] !== undefined) {
                         if ($classes.classes.hasOwnProperty(parameters["base_class"]))
@@ -597,8 +598,8 @@ var core = angular.module("core", [])
                             if (target_class !== undefined) {
                                 if (target_class.hasOwnProperty("__dependencies__") && target_class.__dependencies__.length > 0) {
                                     //TODO: add dependencies injection
-                                } else
-                                    console.log(classes[parent_class] + " have no dependencies");
+                                } //else
+                                    //console.log(classes[parent_class] + " have no dependencies");
 
                                 for (var member in target_class) {
                                     if (target_class[member] !== undefined && target_class[member].constructor === Function) {
@@ -634,6 +635,76 @@ var core = angular.module("core", [])
             };
 
             return factory;
+        }]);
+
+
+        /**
+         * $pagination
+         * Сервис пагинации
+         */
+        $provide.factory("$pagination", ["$log", function ($log) {
+            var pagination = {};
+
+
+            /**
+             * Переменные сервиса
+             */
+            pagination.totalPages = 0;
+            pagination.currentPage = 0;
+            pagination.itemsOnPage = 0;
+
+            /**
+             * Переход на следующую страницу
+             */
+            pagination.next = function () {
+                if (pagination.currentPage < pagination.totalPages)
+                    pagination.currentPage++;
+            };
+
+            /**
+             * Переход на предыдущую страницу
+             */
+            pagination.previous = function () {
+                if (pagination.currentPage > 1)
+                    pagination.currentPage--;
+            };
+
+            /**
+             * Пееходит на указанную страницу
+             * @param pageNumber {umber} - номер страницы
+             */
+            pagination.set = function (pageNumber) {
+                if (pageNumber !== undefined) {
+                    if (isNaN(pageNumber) === false) {
+                        if (pageNumber > 0 && pageNumber <= pagination.totalPages) {
+                            pagination.currentPage = pageNumber;
+                            console.log("currentPage = ", pagination.currentPage);
+                        } else
+                            $log.error("$pagination: Номер страницы не может быть меньше 0 и больше общего количества страниц");
+                    } else
+                        $log.error("$pagination: Номер страницы должен быть числовым значением");
+                } else
+                    $log.error("$pagination: Не указан номер страницы, на которую требуется перейти");
+            };
+
+
+            pagination.init = function (parameters) {
+                if (parameters !== undefined) {
+                    if (parameters.hasOwnProperty("itemsOnPage")) {
+                        if (isNaN(parameters["itemsOnPage"]) === false) {
+                            pagination.itemsOnPage = parameters["itemsOnPage"];
+                        }
+                    }
+                    if (parameters.hasOwnProperty("itemsCount")) {
+                        if (isNaN(parameters["itemsCount"]) === false) {
+                            pagination.totalPages = Math.ceil(parameters["itemsCount"] / parameters["itemsOnPage"]);
+                        }
+                    }
+                }
+            };
+
+
+            return pagination;
         }]);
 
 

@@ -1,0 +1,190 @@
+<div id="template-cart" class="units-row">
+    <div class="unit-25">
+
+        <!-- Способы оплаты -->
+        <div class="units-row side-panel lightgreen">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption green">Мы принимаем к оплате</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/cash.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">Наличные деньги</span>
+                    <span class="sidebar-text">Оплата при получении заказа</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/visa.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">карты Visa</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/mastercard.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">карты MasterCard</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Доставка -->
+        <div class="units-row side-panel purple">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption purple">Условия доставки</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/money.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Стоимость</span>
+                    <span class="sidebar-text">В Мурманск, Североморск - 350 р.</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/clock.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Сроки</span>
+                    <span class="sidebar-text">Доставим Ваш заказ в течении 2-х часов</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/box.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Самовывоз</span>
+                    <span class="sidebar-text">Ежедневно, в нашем офисе, круглосуточно</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Гарантия качества -->
+        <div class="units-row side-panel lightblue">
+            <div class="units-row end units-split">
+                <div class="unit-100">
+                    <span class="caption blue">Гарантия качества</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/flower.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Только свежие цветы</span>
+                    <span class="sidebar-text">Букет еще долго будет радовать Вас</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="unit-75">
+
+        <div class="units-row end units-split">
+            <div class="unit-90 text-left">
+                <span class="title-caption">Корзина</span>
+            </div>
+            <div class="unit-10">
+                <img class="title-image" src="client/resources/img/package.png" alt=""/>
+            </div>
+        </div>
+
+        <!-- Заглушка на случай отсутствия товаров в корзине -->
+        <div id="cart-no-items" class="units-row" ng-show="cart.items.length === 0">
+            <div class="unit-100 text-centered">
+                <div class="unit-30">
+                    <img class="right" src="client/resources/img/package.png" alt=""/>
+                </div>
+                <div class="unit-50 text-left">
+                    На данный момент в Вашей корзине ничего нет.<br>
+                    Вы можете выбрать понравившийся Вам букет в <a href="#/">Каталоге букетов</a>
+                    или позвонить нам по номеру <span class="black">(8152) 208-205</span> и наши консультанты помогут Вам сделать подходящий выбор.
+                </div>
+                <div class="unit-20">&nbsp;</div>
+            </div>
+        </div>
+
+        <!-- Список товаров в корзине -->
+        <div id="cart-items" class="units-row">
+            <div class="unit-100">
+
+
+                <div class="units-row end cart-item" ng-repeat="item in cart.items">
+                    <div class="unit-40">
+                        <a href="{{ '#/bouquet/' + item.id.value }}">
+                            <img ng-src="{{ item.image_url.value }}" alt=""/>
+                            <span class="item-title">{{ item.title.value }}</span>
+                        </a>
+                    </div>
+                    <div class="unit-30 text-right">
+                        <div class="unit-90 amount text-right">
+                            <div class="units-row end units-split">
+                                <div class="unit-100">
+                                    <div class="units-row end units-split end">
+                                        <div class="unit-100 text-centered amount">{{ item.amount }}</div>
+                                    </div>
+                                    <div class="units-row end units-split">
+                                        <div class="unit-100 text-centered">
+                                            <span class="btn-group">
+                                                <button class="btn btn-small btn-yellow" title="Уменьшить количество" ng-click="cart.decreaseAmount(item.id.value)">-</button>
+                                                <button class="btn btn-small btn-yellow" title="Увеличить количество" ng-click="cart.increaseAmount(item.id.value)">+</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="unit-30 text-right">
+                        <span class="item-price">{{ item.price.value * item.amount + " р." }}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Итоговая сумма -->
+        <div id="total-summ" class="units-row" ng-show="cart.items.length > 0">
+            <div class="unit-30">
+                <span class="total">Итого:</span>
+            </div>
+            <div class="unit-70 text-right">
+                <span class="total-summ-value">{{ cart.totalPrice + " р." }}</span>
+            </div>
+        </div>
+
+        <!-- Кнопки -->
+        <div class="units-row" ng-show="cart.items.length > 0">
+            <div class="unit-50">
+                <button class="btn btn-red btn-big width-100"
+                        ng-click="cart.clear()">Очистить корзину</button>
+            </div>
+            <div class="unit-50">
+                <button class="btn btn-green btn-big width-100" ng-click="gotoOrder()">Оформить заказ</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

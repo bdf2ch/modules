@@ -1,0 +1,370 @@
+<div id="template-confirmation" class="units-row">
+    <div class="unit-25">
+        <!-- Способы оплаты -->
+        <div class="units-row side-panel lightgreen">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption green">Мы принимаем к оплате</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/cash.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">Наличные деньги</span>
+                    <span class="sidebar-text">Оплата при получении заказа</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/visa.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">карты Visa</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/mastercard.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">карты MasterCard</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Доставка -->
+        <div class="units-row side-panel purple">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption purple">Условия доставки</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/money.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Стоимость</span>
+                    <span class="sidebar-text">В Мурманск, Североморск - 350 р.</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/clock.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Сроки</span>
+                    <span class="sidebar-text">Доставим Ваш заказ в течении 2-х часов</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/box.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Самовывоз</span>
+                    <span class="sidebar-text">Ежедневно, в нашем офисе, круглосуточно</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Гарантия качества -->
+        <div class="units-row side-panel lightblue">
+            <div class="units-row end units-split">
+                <div class="unit-100">
+                    <span class="caption blue">Гарантия качества</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/flower.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Только свежие цветы</span>
+                    <span class="sidebar-text">Букет еще долго будет радовать Вас</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="unit-75">
+
+        <!-- Заголовок -->
+        <div class="units-row end units-split">
+            <div class="unit-90 text-left">
+                <span class="title-caption">Подтверждение заказа</span>
+            </div>
+            <div class="unit-10">
+                <img class="title-image" src="client/resources/img/confirmation.png" alt=""/>
+            </div>
+        </div>
+
+
+
+        <div class="units-row end units-split">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="subtitle-caption">
+                        Товары
+                    </span>
+                </div>
+            </div>
+
+            <div class="units-row end confirmation-cart-items" ng-repeat="bouquet in cart.items">
+                <div class="unit-10">
+                    <a href="{{ '#/' + bouquet.id.value }}">
+                        <img src="{{ bouquet.image_url.value }}" alt=""/>
+                    </a>
+                </div>
+                <div class="unit-70 text-left">
+                    {{ bouquet.title.value }}
+                </div>
+                <div class="unit-10 text-right">
+                    {{ bouquet.amount + " шт." }}
+                </div>
+                <div class="unit-10 text-right">
+                    {{ bouquet.price.value * bouquet.amount + " р." }}
+                </div>
+            </div>
+
+            <div class="units-row confirmation-delivery" ng-show="orders.order.deliveryMethodId.value === 2">
+                <div class="unit-10">
+                    <img src="client/resources/img/delivery_icon.png" alt=""/>
+                </div>
+                <div class="unit-70 delivery">
+                    Доставка<br>
+                    <span class="sidebar-text grey">
+                        {{ "в " + misc.getCityById(orders.order.cityId.value).title.value }}
+                    </span>
+                </div>
+                <div class="unit-20 text-right">
+                    {{ misc.getDeliveryById(orders.order.deliveryMethodId.value).price.value + " р."}}
+                </div>
+            </div>
+
+            <div class="units-row confirmation-total-price">
+                <div class="unit-50">
+                    Итого:
+                </div>
+                <div class="unit-50 text-right total">
+                    {{ cart.totalPrice + " р." }}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="units-row units-split">
+
+            <!-- Информация о заказчике, комментарий к заказу, способ оплаты -->
+            <div class="unit-50 confirmation-left">
+                <div class="units-row end">
+                    <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Заказчик
+                            </span>
+                    </div>
+                </div>
+
+                <div class="units-row end">
+                    <div class="unit-30 conformation-order-label">
+                        Имя:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        {{ orders.order.customerName.value + " " + orders.order.customerFname.value + " " + orders.order.customerSurname.value }}
+                    </div>
+                </div>
+
+                <div class="units-row">
+                    <div class="unit-30 conformation-order-label">
+                        Контакты:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                {{ orders.order.customerPhone.value }}
+                            </div>
+                        </div>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                {{ orders.order.customerEmail.value }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="units-row end units-split">
+                    <div class="unit-100">
+                            <span class="subtitle-caption">
+                                О заказе
+                            </span>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-30 conformation-order-label">
+                            Комментарий к заказу:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            <span ng-show="orders.order.comment.value !== ''">{{ orders.order.comment.value }}</span>
+                            <span ng-show="orders.order.comment.value === ''">Отсутствует</span>
+                        </div>
+                    </div>
+                    <div class="units-row">
+                        <div class="unit-30 conformation-order-label">
+                            Способ оплаты:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            {{ misc.getPaymentMethodById(orders.order.paymentMethodId.value).title.value }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Информация о получателе, адрес доставки -->
+            <div class="unit-50 confirmation-right">
+
+                <div class="units-row end" ng-show="orders.order.customerIsReciever.value === false">
+                    <div class="unit-100">
+                        <span class="subtitle-caption">
+                            Получатель
+                        </span>
+                    </div>
+                </div>
+
+                <div class="units-row end" ng-show="orders.order.customerIsReciever.value === false">
+                    <div class="unit-30 conformation-order-label">
+                        Имя:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        {{ orders.order.recieverName.value + " " + orders.order.recieverFname.value + " " +
+                        orders.order.recieverSurname.value }}
+                    </div>
+                </div>
+
+                <div class="units-row" ng-show="orders.order.customerIsReciever.value === false">
+                    <div class="unit-30 conformation-order-label">
+                        Контакты:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                {{ orders.order.recieverPhone.value }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="units-row end units-split" ng-show="orders.order.deliveryMethodId.value !== 1">
+                    <div class="unit-100">
+                        <span class="subtitle-caption">
+                            Адрес и срок доставки
+                        </span>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-30 confirmation-order-label">
+                            Адрес доставки:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            {{ "г. " + misc.getCityById(orders.order.cityId.value).title.value + ", ул. " + orders.order.street.value + ", дом " + orders.order.building.value }}
+                            <span ng-show="orders.order.buildingIndex.value !== ''">{{ " / " + orders.order.buildingIndex.value }}</span>
+                            {{ ", кв." + orders.order.flat.value }}
+                        </div>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-30 conformation-order-label">
+                            Дата и время доставки:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            {{ orders.order.deliveryStart.value | dateview }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="units-row end units-split" ng-show="orders.order.deliveryMethodId.value === 1">
+                    <div class="unit-100">
+                        <span class="subtitle-caption">
+                            Адрес для самовывоза
+                        </span>
+                    </div>
+                    <div class="units-row end">
+                        <span class="sidebar-text"> Забрать Ваш заказ Вы можете по адресу:<br>
+                        город Североморск, улица Советская, дом 4.<br>
+                        Мы работаем круглосуточно.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="units-row units-split confirmation-success">
+            <div class="unit-20">
+                <img src="client/resources/img/success.png" alt="Ваш заказ принят"/>
+            </div>
+            <div class="unit-80">
+                <div class="units-row end">
+                    <div class="unit-100">
+                        <span class="order-success-title">Ваш заказ принят</span>
+                    </div>
+                </div>
+                <div class="units-row">
+                    <div class="unit-100">
+                        Благодарим Вас за заказ в нашем магазине.<br> В ближайшее время с Вами свяжется наш менеджер для уточнения деталей Вашего заказа.<br>
+                        <a href="#/">Продолжить покупки</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="units-row units-split confirmation-account">
+            <div class="unit-20">
+                <img src="client/resources/img/woman.png" alt="Для Вас создана учетная запись"/>
+            </div>
+            <div class="unit-80">
+                <div class="units-row end">
+                    <div class="unit-100">
+                        <span class="confirmation-account-title">Мы создали для Вас учетную запись</span>
+                    </div>
+                </div>
+                <div class="units-row">
+                    <div class="unit-100">
+                        Вы можете заходить на сайт, используя Вашу электронную почту, либо номер телефона.<br>
+                        Мы отправили Вам письмо с информацией о Вашей учетной записи.<br>
+                        <a href="#/account">Перейти в личный кабинет</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="units-row" ng-show="orderIsConfirmed === false">
+            <div class="unit-50">
+                <button class="btn btn-yellow btn-big right width-100" ng-click="gotoOrder()">Изменить детали заказа</button>
+            </div>
+            <div class="unit-50 text-centered">
+                <button class="btn btn-green btn-big right width-100" ng-click="orders.add(orders.order)">
+                    Подтвердить заказ
+                </button>
+            </div>
+        </div>
+
+        <div class="units-row" ng-show="orders.loading === true">
+            <div class="unit-100 text-centered">
+                <img src="client/resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
+                <span>Мы обрабатываем Ваш заказ...</span>
+            </div>
+        </div>
+    </div>
+</div>

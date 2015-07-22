@@ -1,0 +1,369 @@
+<div id="template-order" class="units-row">
+    <div class="unit-25">
+        <!-- Способы оплаты -->
+        <div class="units-row side-panel lightgreen">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption green">Мы принимаем к оплате</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/cash.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">Наличные деньги</span>
+                    <span class="sidebar-text">Оплата при получении заказа</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/visa.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">карты Visa</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/mastercard.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">карты MasterCard</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Доставка -->
+        <div class="units-row side-panel purple">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption purple">Условия доставки</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/money.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Стоимость</span>
+                    <span class="sidebar-text">В Мурманск, Североморск - 350 р.</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/clock.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Сроки</span>
+                    <span class="sidebar-text">Доставим Ваш заказ в течении 2-х часов</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/box.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Самовывоз</span>
+                    <span class="sidebar-text">Ежедневно, в нашем офисе, круглосуточно</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Гарантия качества -->
+        <div class="units-row side-panel lightblue">
+            <div class="units-row end units-split">
+                <div class="unit-100">
+                    <span class="caption blue">Гарантия качества</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/flower.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">Только свежие цветы</span>
+                    <span class="sidebar-text">Букет еще долго будет радовать Вас</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="unit-75">
+
+        <!-- Заголовок -->
+        <div class="units-row end units-split">
+            <div class="unit-90 text-left">
+                <span class="title-caption">Оформление заказа</span>
+            </div>
+            <div class="unit-10">
+                <img class="title-image" src="client/resources/img/order.png" alt=""/>
+            </div>
+        </div>
+
+
+
+        <div class="units-row units-split">
+
+            <!-- Информация о заказчике -->
+            <div id="customer" class="unit-50">
+                <form method="post" action="" class="forms">
+                    <div class="units-row end">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Расскажите нам о себе
+                            </span>
+                        </div>
+                    </div>
+                    <label>
+                        Как к Вам обращаться
+                        <select name="customer-gender"
+                                id="customer-gender"
+                                class="width-100"
+                                ng-options="gender.id as gender.title for gender in misc.genders"
+                                ng-model="order.customerGenderId.value">
+                        </select>
+                    </label>
+                    <label>
+                        Ваше имя <span class="error right" ng-show="errors.customer.name !== false">{{ errors.customer.name }}</span>
+                        <input type="text" id="customer-name" name="customer-name" class="width-100" ng-class="{'input-error': errors.customer.name !== false}" placeholder="Имя" ng-model="order.customerName.value" />
+                    </label>
+                    <label>
+                        Ваше отчество <span class="error right" ng-show="errors.customer.fname !== false">{{ errors.customer.fname }}</span>
+                        <input type="text" id="customer-fname" name="customer-fname" class="width-100" ng-class="{'input-error': errors.customer.fname !== false}" placeholder="Отчество" ng-model="order.customerFname.value" />
+                    </label>
+                    <label>
+                        Ваша фамилия <span class="error right" ng-show="errors.customer.surname !== false">{{ errors.customer.surname }}</span>
+                        <input type="text" id="customer-surname" name="customer-surname" class="width-100" ng-class="{'input-error': errors.customer.surname !== false}" placeholder="Фамилия" ng-model="order.customerSurname.value" />
+                    </label>
+
+                    <div class="units-row end">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Как с Вами связаться
+                            </span>
+                        </div>
+                    </div>
+                    <label>
+                        Ваш контактный телефон <span class="error right" ng-show="errors.customer.phone !== false">{{ errors.customer.phone }}</span>
+                        <input type="text" id="customer-phone" name="customer-phone" class="width-100" ng-class="{'input-error': errors.customer.phone !== false}" placeholder="Контактный телефон" ng-model="order.customerPhone.value" />
+                        <div class="forms-desc">По указанному телефону с Вами свяжется наш менеджер для подтверждения Вашего заказа.</div>
+                    </label>
+                    <label>
+                        Ваш e-mail <span class="error right" ng-show="errors.customer.email !== false">{{ errors.customer.email }}</span>
+                        <input type="email" id="customer-email" name="customer-email" class="width-100" ng-class="{'input-error': errors.customer.email !== false}" placeholder="E-mail" ng-model="order.customerEmail.value" />
+                        <div class="forms-desc">На указанный адрес электронной почты мы отправим подтверждение заказа. Так же на этот адрес будут приходить наши рассылки.</div>
+                    </label>
+                    <label>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Способ оплаты заказа
+                            </span>
+                            </div>
+                        </div>
+                        Способ оплаты
+                        <select name="payment-method"
+                                id="payment-method"
+                                class="width-100"
+                                ng-options="payment.id.value as payment.title.value for payment in misc.paymentMethods"
+                                ng-model="order.paymentMethodId.value">
+                        </select>
+                    </label>
+                    <label>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Способ доставки заказа
+                            </span>
+                            </div>
+                        </div>
+                        Способ доставки
+                        <select name="delivery-method"
+                                id="delivery-method"
+                                class="width-100"
+                                ng-options="delivery.id.value as delivery.title.value for delivery in misc.deliveryMethods"
+                                ng-model="order.deliveryMethodId.value">
+                        </select>
+                    </label>
+                    <ul class="forms-list">
+                        <li>
+                            <input type="checkbox" name="customer-is-reciever" id="customer-is-reciever" ng-model="order.customerIsReciever.value" />
+                            <label for="customer-is-reciever">Заказчик и получатель это одно лицо</label>
+                            <div class="forms-desc">Отметьте, если Вы заказываете букет для себя.</div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+
+            <!-- Информация о получателе -->
+            <div id="reciever" class="unit-50">
+                <form method="post" action="" class="forms">
+                    <div class="units-row end" ng-show="order.customerIsReciever.value !== true">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Информация о получателе
+                            </span>
+                        </div>
+                    </div>
+
+                    <label ng-show="order.customerIsReciever.value !== true">
+                        Как обращаться к получателю
+                        <select name="reciever-gender"
+                                id="reciever-gender"
+                                class="width-100"
+                                ng-options="gender.id as gender.title for gender in misc.genders"
+                                ng-model="order.recieverGenderId.value">
+                        </select>
+                    </label>
+                    <label ng-show="order.customerIsReciever.value !== true">
+                        Имя получателя <span class="error right" ng-show="errors.reciever.name !== false">{{ errors.reciever.name }}</span>
+                        <input type="text" id="reciever-name" name="reciever-name" class="width-100" ng-class="{'input-error': errors.reciever.name !== false}" placeholder="Имя получателя" ng-model="order.recieverName.value" />
+                    </label>
+                    <label ng-show="order.customerIsReciever.value !== true">
+                        Отчество получателя <span class="error right" ng-show="errors.reciever.fname !== false">{{ errors.reciever.fname }}</span>
+                        <input type="text" id="reciever-fname" name="reciever-fname" class="width-100" ng-class="{'input-error': errors.reciever.fname !== false}" placeholder="Отчество получателя" ng-model="order.recieverFname.value" />
+                    </label>
+                    <label ng-show="order.customerIsReciever.value !== true">
+                        Фамилия получателя <span class="error right" ng-show="errors.reciever.surname !== false">{{ errors.reciever.surname }}</span>
+                        <input type="text" id="reciever-surname" name="reciever-surname" class="width-100" ng-class="{'input-error': errors.reciever.surname !== false}" placeholder="Фамилия получателя" ng-model="order.recieverSurname.value" />
+                    </label>
+
+                    <div class="units-row end" ng-show="order.customerIsReciever.value !== true">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Как связаться с получателем
+                            </span>
+                        </div>
+                    </div>
+                    <label ng-show="order.customerIsReciever.value !== true">
+                        Контактный телефон получателя <span class="error right" ng-show="errors.reciever.phone !== false">{{ errors.reciever.phone }}</span>
+                        <input type="text" id="reciever-phone" name="reciever-phone" class="width-100" ng-class="{'input-error': errors.reciever.phone !== false}" placeholder="Контактный телефон получателя" ng-model="order.recieverPhone.value" />
+                        <div class="forms-desc">Мы свяжемся с получателем по указанному телефону перед вручением заказа.</div>
+                    </label>
+
+                    <div class="units-row end"  ng-show="order.deliveryMethodId.value === 2">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Адрес доставки
+                            </span>
+                        </div>
+                    </div>
+                    <div class="units-row end"  ng-show="order.deliveryMethodId.value === 1">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Адрес для самовывоза
+                            </span>
+                        </div>
+                    </div>
+                    <span class="sidebar-text" ng-show="order.deliveryMethodId.value === 1"> Забрать Ваш заказ Вы можете по адресу:<br>
+                        город Североморск, улица Советская, дом 4.<br>
+                        Мы работаем круглосуточно.</span>
+                    <label ng-show="order.deliveryMethodId.value === 2">
+                        Город
+                        <select name="address-city"
+                                id="address-city"
+                                class="width-100"
+                                ng-show="order.deliveryMethodId.value === 2"
+                                ng-options="city.id.value as city.title.value for city in misc.cities"
+                                ng-model="order.cityId.value">
+                        </select>
+                        <div class="forms-desc" ng-show="order.deliveryMethodId.value === 2">Мы доставляем заказы в Мурманск и Североморск.</div>
+                    </label>
+                    <label ng-show="order.deliveryMethodId.value === 2">
+                        Улица <span class="error right" ng-show="errors.address.street !== false">{{ errors.address.street }}</span>
+                        <input type="text" name="reciever-address-street" ng-class="{'input-error': errors.address.street !== false}" id="reciever-address-street" class="width-100" placeholder="Улица" ng-model="order.street.value" />
+                    </label>
+                    <label ng-show="order.deliveryMethodId.value === 2">
+                        Дом <span class="error right" ng-show="errors.address.building !== false">{{ errors.address.building }}</span>
+                        <input type="text" name="reciever-address-building" id="reciever-address-building" class="width-100" ng-class="{'input-error': errors.address.building !== false}" placeholder="Номер дома" ng-model="order.building.value" />
+                    </label>
+                    <label ng-show="order.deliveryMethodId.value === 2">
+                        Корпус
+                        <input type="text" name="reciever-address-building-index" id="reciever-address-building-index" class="width-100" placeholder="Корпус" ng-model="buildingIndex" />
+                        <div class="forms-desc">Если не требуется - оставьте это поле пустым.</div>
+                    </label>
+                    <label ng-show="order.deliveryMethodId.value === 2">
+                        Квартира <span class="error right" ng-show="errors.address.flat !== false">{{ errors.address.flat }}</span>
+                        <input type="text" name="reciever-address-flat" id="reciever-address-flat" class="width-100" ng-class="{'input-error': errors.address.flat !== false}" placeholder="Квартира" ng-model="order.flat.value" />
+                    </label>
+
+                    <div class="units-row end" ng-show="order.deliveryMethodId.value === 2">
+                        <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Срок доставки
+                            </span>
+                        </div>
+                    </div>
+                    <label ng-show="order.deliveryMethodId.value === 2">
+                        Дата и время доставки <span class="error right" ng-show="errors.delivery.date !== false">{{ errors.delivery.date }}</span>
+
+                        <ul class="forms-inline-list width-100">
+                            <li class="width-30">
+                                <input type="text"
+                                       name="delivery-date"
+                                       id="delivery-date"
+                                       class="width-100"
+                                       placeholder="Дата"
+                                       ng-class="{'input-error': errors.delivery.date !== false}"
+                                       ng-model="deliveryDate" />
+                                <div class="forms-desc">Формат дд.мм.гггг</div>
+                            </li>
+                            <li class="width-30">
+                                <select name="delivery-hours"
+                                        id="delivery-hours"
+                                        class="width-100"
+                                        ng-options="hour as hour for hour in misc.hours"
+                                        ng-model="deliveryHours">
+                                </select>
+                                <div class="forms-desc">Часы</div>
+                            </li>
+                            <li class="width-30">
+                                <select name="delivery-minutes"
+                                        id="delivery-minutes"
+                                        class="width-100"
+                                        ng-options="minute as minute for minute in misc.minutes"
+                                        ng-model="deliveryMinutes">
+                                </select>
+                                <div class="forms-desc">Минуты</div>
+                            </li>
+                        </ul>
+                    </label>
+
+
+                    <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Комментарий к заказу
+                            </span>
+                    </div>
+                    <label for="order-comments">
+                        Комментарий к Вашему заказу
+                        <textarea id="order-comments" name="order-comments" rows="4" class="width-100" ng-model="order.comment.value"></textarea>
+                    </label>
+
+
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="units-row">
+            <div class="unit-50">
+                <button class="btn btn-yellow btn-big right width-100" ng-click="gotoMain()">Продолжить покупки</button>
+            </div>
+            <div class="unit-50">
+                <button class="btn btn-green btn-big right width-100" ng-click="validate()">Перейти к подтверждению заказа</button>
+            </div>
+            <div class="unit-25">&nbsp;</div>
+        </div>
+
+    </div>
+</div>

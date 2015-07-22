@@ -3,8 +3,139 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>{{ application.title }}</title>
+    <link rel="stylesheet" href="resources/styles/kube.min.css"/>
+    <link rel="stylesheet" href="resources/styles/lotos.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lobster&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
 </head>
 <body>
+
+<div id="header">
+    <div class="units-row units-split header-container">
+
+        <!-- Логотип -->
+        <div id="logo" class="unit-10">
+            <img src="resources/img/logo_small.png" alt="Флористический салон Белый Лотос"/>
+        </div>
+
+        <!-- Меню -->
+        <div id="menu" class="unit-50">
+            <nav class="navbar navbar-pills">
+                <ul>
+                    <li><a href="#/">Каталог</a></li>
+                    <!-- <li><a href="#">Доставка и оплата</a></li>-->
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Пользователь и корзина -->
+        <div id="user-panel" class="unit-40">
+            <div class="units-row units-split end">
+
+                <!-- Пользователь -->
+                <div id="user" class="unit-50 clearfix">
+                    <div class="units-row units-split end">
+                        <div id="user-icon" class="unit-30"></div>
+                        <div id="user-info" class="unit-70 text-centered" ng-show="false">
+                            Здравствуйте, <a href="">Василисуалий</a><br>
+
+                        </div>
+
+                        <div id="user-info" class="unit-70 text-centered" ng-show="true">
+                            Мы рады Вас видеть! &nbsp;
+                            <a href="" ng-show="session.inLoginMode === false" ng-click="session.loginMode()">Войти</a>
+                            <a href="" ng-show="session.inLoginMode === true" ng-click="session.loginMode()">Отмена</a>
+                        </div>
+                    </div>
+                    <div id="user-login-form" class="units-row end" ng-show="session.inLoginMode === true">
+                        <div class="unit-100">
+                            <form action="">
+                                <input type="text"
+                                       class="width-100"
+                                       name="user-login"
+                                       id="user-login"
+                                       placeholder="Телефон (9215566777)"
+                                       ng-model="session.username"
+                                       ng-class="{'input-error': session.username_error !== ''}" />
+                                <input type="text"
+                                       class="width-100"
+                                       name="user-password"
+                                       id="user-password"
+                                       placeholder="Пароль"
+                                       ng-model="session.password"
+                                       ng-class="{'input-error': session.password_error !== ''}" />
+                            </form>
+                            <submit class="btn btn-green btn-small width-100" ng-click="session.login()">Войти</submit>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Корзина -->
+                <div id="cart" class="unit-50">
+                    <a href="#/cart">
+                        <div id="cart-icon">
+                            <span class="badge badge-red right"
+                                  ng-show="cart.totalAmount > 0">{{ cart.totalAmount }}
+                            </span>
+                        </div>
+                        <span id="empty-cart"
+                              ng-show="cart.items.length === 0">
+                            Ваша корзина пуста
+                        </span>
+                        <span id="cart-total-price"
+                              ng-show="cart.items.length > 0">
+                            {{ cart.totalPrice + " р."}}
+                        </span>
+                </div>
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="wrapper">
+    <!--
+    <div id="sidebar" ng-include="sidebar.template" ng-controller="SidebarController"></div>
+    -->
+    <div id="content" ng-view></div>
+
+
+</div>
+
+<div id="footer">
+    <div class="units-row end">
+        <div class="unit-25 text-left copyrights">&copy; флористический салон «Белый лотос»<br>
+            &nbsp; &nbsp; 2015 г.
+        </div>
+        <!--
+        <div class="unit-40">
+            <div class="units-row end units-split">
+                <div class="unit-33 text-centered">
+                    <a href="">О нас</a>
+                </div>
+                <div class="unit-33 text-centered">
+                    <a href="">Доставка и оплата</a>
+                </div>
+                <div class="unit-33 text-centered">
+                    <a href="">Контакты</a>
+                </div>
+            </div>
+        </div>
+        <div class="unit-35">
+            <div class="unit-100 text-right">
+                <a href="">Напишите нам письмо</a>
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+
+
+
+<!-- Подключение библиотек и модулей -->
     <script src="libs/momentjs/moment-with-locales.min.js"></script>
     <script src="libs/angularjs/angular.min.js"></script>
     <script src="libs/angularjs/angular-route.min.js"></script>
@@ -12,7 +143,6 @@
 
     <script src="modules/application.js"></script>
     <script src="modules/core.js"></script>
-    <script src="modules/application.titules.js"></script>
-    <script src="modules/application.nodes.js"></script>
+    <script src="modules/application.flowers.js"></script>
 </body>
 </html>

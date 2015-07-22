@@ -1,0 +1,211 @@
+<div id="template-account" class="units-row">
+    <div class="unit-25">
+
+        <!-- Способы оплаты -->
+        <div class="units-row side-panel lightgreen">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption green">Штонить</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/cash.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">Наличные деньги</span>
+                    <span class="sidebar-text">Оплата при получении заказа</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/visa.png" alt=""/>
+                </div>
+                <div class="unit-70">
+                    <span class="sidebar-leading">карты Visa</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-30">
+                    <img src="client/resources/img/mastercard.png" alt=""/>
+                </div>
+                <div class="unit-70 text-left">
+                    <span class="sidebar-leading">карты MasterCard</span>
+                    <span class="sidebar-text">
+                        Оплата при получении заказа, через терминал
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="unit-75">
+
+        <!-- Заголовок -->
+        <div class="units-row end units-split">
+            <div class="unit-90 text-left">
+                <span class="title-caption">Личный кабинет</span>
+            </div>
+            <div class="unit-10">
+                <img class="title-image" src="client/resources/img/woman.png" alt=""/>
+            </div>
+        </div>
+
+
+        <div class="units-row end">
+            <div class="unit-100">
+                <nav class="nav-tabs">
+                    <ul>
+                        <li ng-repeat="tab in tabs">
+                            <a href ng-show="tab.selected === false" ng-click="selectTab(tab.id)">{{ tab.title }}</a>
+                            <span ng-show="tab.selected === true">{{ tab.title }}</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="units-row">
+            <div class="unit-100" ng-include="activeTab.template">
+
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="units-row units-split">
+
+            <!-- Информация о заказчике, комментарий к заказу, способ оплаты -->
+            <div class="unit-50 confirmation-left">
+                <div class="units-row end">
+                    <div class="unit-100">
+                            <span class="subtitle-caption">
+                                Заказчик
+                            </span>
+                    </div>
+                </div>
+
+                <div class="units-row end">
+                    <div class="unit-30 conformation-order-label">
+                        Имя:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        {{ orders.order.customerName.value + " " + orders.order.customerFname.value + " " +
+                        orders.order.customerSurname.value }}
+                    </div>
+                </div>
+
+                <div class="units-row">
+                    <div class="unit-30 conformation-order-label">
+                        Контакты:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                {{ orders.order.customerPhone.value }}
+                            </div>
+                        </div>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                {{ orders.order.customerEmail.value }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="units-row end units-split">
+                    <div class="unit-100">
+                            <span class="subtitle-caption">
+                                О заказе
+                            </span>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-30 conformation-order-label">
+                            Комментарий к заказу:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            {{ orders.order.comment.value }}
+                        </div>
+                    </div>
+                    <div class="units-row">
+                        <div class="unit-30 conformation-order-label">
+                            Способ оплаты:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            Банковской картой, курьеру
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Информация о получателе, адрес доставки -->
+            <div class="unit-50 confirmation-right">
+                <div class="units-row end">
+                    <div class="unit-100">
+                        <span class="subtitle-caption">
+                            Получатель
+                        </span>
+                    </div>
+                </div>
+
+                <div class="units-row end">
+                    <div class="unit-30 conformation-order-label">
+                        Имя:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        {{ orders.order.recieverName.value + " " + orders.order.recieverFname.value + " " +
+                        orders.order.recieverSurname.value }}
+                    </div>
+                </div>
+
+                <div class="units-row">
+                    <div class="unit-30 conformation-order-label">
+                        Контакты:
+                    </div>
+                    <div class="unit-70 confirmation-order-content">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                {{ orders.order.recieverPhone.value }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="units-row end units-split">
+                    <div class="unit-100">
+                        <span class="subtitle-caption">
+                            Адрес и срок доставки
+                        </span>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-30 confirmation-order-label">
+                            Адрес доставки:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            г. Мурманск, Кольский, д. 112/2, кв. 254
+                        </div>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-30 conformation-order-label">
+                            Дата и время доставки:
+                        </div>
+                        <div class="unit-70 confirmation-order-content">
+                            15.08.2015, с 14:00 до 15:00
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

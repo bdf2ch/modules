@@ -1,0 +1,167 @@
+<div class="units-row end">
+    <div id="sidebar" class="unit-20">
+
+        <!-- Повод -->
+        <div class="units-row">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption blue">Повод</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-100">
+                    <a href class="sidebar-link"
+                       ng-class="{'active' : reason.isActive === true}"
+                       ng-repeat="reason in bouquets.reasons"
+                       ng-click="bouquets.setReason(reason.id.value)">{{ reason.title.value }}</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Адресат -->
+        <div class="units-row">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption blue">Адресат</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-100">
+                    <a href class="sidebar-link"
+                       ng-repeat="addressee in bouquets.addressees"
+                       ng-class="{'active' : addressee.isActive === true}"
+                       ng-click="bouquets.setAddressee(addressee.id.value)">{{ addressee.title.value }}</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Цветы в составе -->
+        <div class="units-row">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption blue">Цветы в букете</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-100">
+                    <a href class="sidebar-link"
+                       ng-repeat="flower in bouquets.flowers"
+                       ng-class="{'active' : flower.isActive === true}"
+                       ng-click="bouquets.setAddressee(flower.id.value)">{{ flower.title.value }}</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Цена -->
+        <div class="units-row">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption blue">Цена букета</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-100">
+                    <select class="width-90 centered" name="" id="">
+                        <option value="1">от 1000 р. до 2000 р.</option>
+                        <option value="1">от 2000 р. до 3000 р.</option>
+                        <option value="1">от 3000 р. до 4000 р.</option>
+                        <option value="1">от 4000 р. до 5000 р.</option>
+                        <option value="1">от 5000 р.</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="unit-80">
+
+        <div class="units-row end">
+            <!-- Пагинация -->
+            <div class="units-row end">
+                <div class="unit-100">
+                    <ul class="pagination right">
+                        <li ng-show="pagination.currentPage > 1">
+                            <a href title="Предыдущая страница" ng-click="pagination.previous()">&larr;</a>
+                        </li>
+                        <li ng-show="(pagination.currentPage - 1) > 0">
+                            <a href ng-click="pagination.set(pagination.currentPage - 1)">{{ pagination.currentPage - 1 }}</a>
+                        </li>
+                        <li class="active-page">
+                            <a href ng-click="pagination.set(pagination.currentPage)">{{ pagination.currentPage }}</a>
+                        </li>
+                        <li ng-show="(pagination.currentPage + 1) <= pagination.totalPages">
+                            <a href ng-click="pagination.set(pagination.currentPage + 1)">{{ pagination.currentPage + 1 }}</a>
+                        </li>
+                        <li ng-show="pagination.currentPage < pagination.totalPages">
+                            <a href title="Следующая страница" ng-click="pagination.next()">&rarr;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Список букетов -->
+            <div class="units-row end">
+                <div class="unit-100">
+                    <ul class="blocks-3">
+                        <!--<li ng-repeat="bouquet in bouquets.items | paginator:bouquets.limit:bouquets.currentPage" class="bouquet">-->
+                        <li ng-repeat="bouquet in flowers.bouquets.items track by $id(bouquet)" class="bouquet">
+                            <!-- Изображение букета -->
+                            <div class="units-row end bouquet-img">
+                                <a href="{{ '#/bouquet/' + bouquet.id.value }}">
+                                    <img src="resources/img/test1.jpg" alt="{{ bouquet.title.value }}"/>
+                                </a>
+                                <!--
+                                <div class="bouquet-labels">
+                                    <span class="label label-red right">ХИТ ПРОДАЖ</span>
+                                    <span class="label label-green right">Скидка 10%</span>
+                                </div>
+                                -->
+                            </div>
+                            <!-- Информация о букете -->
+                            <div class="units-row end bouquet-info">
+                                <div class="unit-60 clip">
+                                    <span class="bouquet-title">{{ bouquet.title.value }}</span>
+                                </div>
+                                <div class="unit-40">
+                                    <button class="btn btn-small btn-yellow right width-100"
+                                            ng-click="cart.add(bouquet.id.value)">
+                                        <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>
+                                        В корзину
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Пагинация -->
+            <div class="units-row pagination-bottom">
+                <div class="unit-100">
+                    <ul class="pagination right">
+                        <li ng-show="bouquets.currentPage > 1">
+                            <a href title="Предыдущая страница" ng-click="bouquets.prevPage()">&larr;</a>
+                        </li>
+                        <li ng-show="(bouquets.currentPage - 1) > 0">
+                            <a href ng-click="bouquets.setPage(bouquets.currentPage - 1)">{{ bouquets.currentPage - 1 }}</a>
+                        </li>
+                        <li class="active-page">
+                            <a href ng-click="bouquets.setPage(bouquets.currentPage)">{{ bouquets.currentPage }}</a>
+                        </li>
+                        <li ng-show="(bouquets.currentPage + 1) <= bouquets.pages">
+                            <a href ng-click="bouquets.setPage(bouquets.currentPage + 1)">{{ bouquets.currentPage + 1 }}</a>
+                        </li>
+                        <li ng-show="bouquets.currentPage < bouquets.pages">
+                            <a href title="Следующая страница" ng-click="bouquets.nextPage()">&rarr;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
