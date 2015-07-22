@@ -48,15 +48,86 @@ var titules = angular.module("application.titules",[])
                     endObjectTypeId: new Field({ source: "END_OBJECT_TYPE_ID", value: 0, default_value: 0, backupable: true, required: true }),
                     endObjectId: new Field({ source: "END_OBJECT_ID", value: 0, default_value: 0, backupable: true, required: true }),
                     length: new Field({ source: "LENGTH", value: 0, default_value: 0, backupable: true })
+                },
+
+                /**
+                 * TituleNodes
+                 * Набор свойст и методов, описывающих иерархию узлов, входящих в титул
+                 */
+                TituleNodes: {
+                    nodes: [],
+                    path: {
+                        __instance__: "",
+                        nodes: [],
+
+                        append: function (node) {
+                            if (node !== undefined) {
+                                if (this.__instance__.path.nodes.length > 0) {
+                                    node.previousNodeId = this.__instance__.path.nodes[this.__instance__.path.nodes.length - 1].id.value;
+                                    this.__instance__.path.nodes[this.__instance__.path.nodes.length - 1].nextNodeId = node.id.value;
+                                } else
+                                    node.previousNodeId = -1;
+
+                                node.nextNodeId = -1;
+                                node.haveBranches = node.branchesCount.value > 0 ? true : false;
+                                node.collapsed = true;
+
+                                this.__instance__.path.nodes.push(node);
+                                this.__instance__.nodes.push(node);
+                            }
+                        }
+                    },
+
+                    /**
+                     * Возвращает узел с заданным идентификатором
+                     * @param nodeId {number} - Идентификатор узла
+                     * @returns {boolean / object} - Возвращает искомый узел, в противном случае - false
+                     */
+                    getNode: function (nodeId) {
+                        var result = false;
+                        if (nodeId !== undefined) {
+                            var length = this.nodes.length;
+                            for (var i = 0; i < length; i++) {
+                                if (this.nodes[i].id.value === nodeId)
+                                    result = this.nodes[i];
+                            }
+                        }
+                        return result;
+                    },
+
+                    /**
+                     * Возвращает массив ответвлений узла с заданныи идентификатором
+                     * @param nodeId {number} - Идентификатор узла
+                     * @returns {boolean / array} - Возвращает массив ответвлений узла, в противном случае - false
+                     */
+                    getBranches: function (nodeId) {
+                        var result = false;
+                        if (nodeId !== undefined) {
+                            var length = this.nodes.length;
+                            for (var i = 0; i < length; i++) {
+                                if (this.nodes[i].branches !== undefined)
+                                    result = this.nodes[i].branches;
+                            }
+                        }
+                        return result;
+                    }
                 }
+
+
             };
 
+
+            /**
+             * Переменные сервиса
+             */
             titules.titules = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            titules.parts = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+
 
             /**
              * Получает список всех титулов и помещает их в коллекцию
              */
-            titules.query = function () {
+            titules.titulesQuery = function () {
                 $http.post("serverside/controllers/titules.php", {action: "query"})
                     .success(function (data) {
                         if (data !== undefined) {
@@ -65,6 +136,25 @@ var titules = angular.module("application.titules",[])
                                 titule._model_.fromJSON(titule_data);
                                 titule._backup_.setup();
                                 titules.titules.append(titule);
+                            });
+                        }
+                    }
+                );
+            };
+
+
+            /**
+             * Получает список частей титулов всех титулов
+             */
+            titules.partsQuery = function () {
+                $http.post("serverside/controllers/titule-parts.php", {action: "query"})
+                    .succes(function (data) {
+                        if (data !== undefined) {
+                            angular.forEach(data, function (titule_part) {
+                                var part = $factory.make({ classes: ["TitulePart", "Model", "Backup", "States"], base_class: "TitulePart" });
+                                part._model_.fromJSON(titule_part);
+                                part._backup_.setup();
+                                titules.parts.append(part);
                             });
                         }
                     }
@@ -95,7 +185,7 @@ var titules = angular.module("application.titules",[])
     })
     .run(function ($modules, $titules, $log) {
         $modules.load($titules);
-        $titules.query();
+        $titules.titulesQuery();
         $log.log($titules.titules);
         $titules.titules.display();
     });

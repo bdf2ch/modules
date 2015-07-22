@@ -2,6 +2,8 @@
 
 
 
+
+
 /**
  * Класс поля модели данных
  * @param parameters {Object} - Параметры инициализации создаваемого объекта
@@ -25,6 +27,12 @@ function Field (parameters) {
 
 
 
+
+
+/********************
+ * Модуль core
+ * Содержит базовые сервисы системы
+ ********************/
 var core = angular.module("core", [])
     .config(function ($provide) {
 
@@ -58,12 +66,13 @@ var core = angular.module("core", [])
                             $log.log("Класс " + class_ + " загружен в стек классов.");
                         }
                     }
-                    if (module.menu !== undefined) {
+                    if (module.menu !== undefined)
                         $menu.load(module.menu);
-                    }
-                }
+                } else
+                    $log.error("$menu: Не указан модуль, который требуется загрузить.");
                 return result;
             };
+
 
             /**
              * Выгружает заданный модуль/сервис из системы
@@ -81,7 +90,8 @@ var core = angular.module("core", [])
                             }
                         }
                     }
-                }
+                } else
+                    $log.error("$menu: Не указан модуль, который требуется выгрузить.");
                 return result;
             };
 
@@ -104,7 +114,7 @@ var core = angular.module("core", [])
 
                 /**
                  * MenuItem
-                 * Набор свойст, описывающих пункт меню
+                 * Набор свойст и методов, описывающих пункт меню
                  */
                 MenuItem: {
                     id: 0,
@@ -113,17 +123,24 @@ var core = angular.module("core", [])
                     url: "",
                     template: "",
                     controller: "",
+                    active: false,
                     submenu: [],
 
+                    /**
+                     * Инициализирует пункт меню заданными параметрами
+                     * @param parameters
+                     */
                     init: function (parameters) {
                         if (parameters !== undefined) {
                             for (var param in parameters) {
                                 if (this.hasOwnProperty(param))
                                     this[param] = parameters[param];
                             }
-                        }
+                        } else
+                            $log.error("$menu: Не указаны параметры инициализации раздела меню.");
                     }
                 }
+
             };
 
 
@@ -131,6 +148,7 @@ var core = angular.module("core", [])
              * Переменные сервиса
              */
             menu.items = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            menu.activeMenuItemId = -1;
 
 
             /**
@@ -162,8 +180,41 @@ var core = angular.module("core", [])
                 return result;
             };
 
+
+            /**
+             * Возвращает активный раздел меню
+             * @returns {MenuItem} - Возвращает активный раздел меню
+             */
+            menu.getActive = function () {
+                var result = menu.items.find("active", true);
+                return result;
+            };
+
+
+            /**
+             * Делает раздел меню с идентификатором menuItemId активным
+             * @param menuItemId - Идентификатор раздела меню
+             * @returns {MenuItem} - Возвращает активный раздел меню
+             */
+            menu.select = function (menuItemId) {
+                var result = false;
+                if (menuItemId !== undefined) {
+                    angular.forEach(menu.items.items, function (menuItem) {
+                        if (menuItem.id === menuItemId) {
+                            menuItem.active = true;
+                            menu.activeMenuItemId = menuItemId;
+                            result = menuItem;
+                        } else
+                            menuItem.active = false;
+                    });
+                } else  $log.error("$menu: Не указан идентификатор раздела меню");
+                return result;
+            };
+
+
             return menu;
         }]);
+
 
 
         /********************
