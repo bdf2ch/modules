@@ -5,7 +5,8 @@
 var application = angular.module("application", [
         "ngRoute",          // Подключаем модуль управления рутами
         "core",             // Подключаем модуль с сервисами ядра системы
-        "application.flowers"
+        "application.flowers",
+        "application.titules"
     ])
     .config(function ($provide, $routeProvider) {
 

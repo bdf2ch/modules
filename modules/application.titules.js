@@ -8,7 +8,7 @@ var titules = angular.module("application.titules",[])
          * $titules
          * Сервис, одержащий функционал для работы с титулами
          */
-        $provide.factory("$titules", ["$log", "$http", "$factory", function ($log, $http, $factory) {
+        $provide.factory("$titules", ["$log", "$http", "$factory", "$f", function ($log, $http, $factory, $f) {
             var titules = {};
 
 
@@ -120,7 +120,8 @@ var titules = angular.module("application.titules",[])
             /**
              * Переменные сервиса
              */
-            titules.titules = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            //titules.titules = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            titules.titules = $f({ classes: ["Collection"], base_class: "Collection" });
             titules.parts = $factory.make({ classes: ["Collection"], base_class: "Collection" });
 
 
@@ -131,13 +132,20 @@ var titules = angular.module("application.titules",[])
                 $http.post("serverside/controllers/titules.php", {action: "query"})
                     .success(function (data) {
                         if (data !== undefined) {
-                            angular.forEach(data, function (titule_data) {
-                                var titule = $factory.make({ classes: ["Titule", "Model", "Backup", "States"], base_class: "Titule" });
-                                titule._model_.fromJSON(titule_data);
-                                titule._backup_.setup();
-                                titules.titules.append(titule);
+                            angular.forEach(data, function (titule_data, key) {
+                                //var titule = $factory.make({ classes: ["Titule", "Model", "Backup", "States"], base_class: "Titule" });
+                                //titule._model_.fromJSON(titule_data);
+                                //titule._backup_.setup();
+                                //titules.titules.append(titule);
+
+                                var test = $f({ classes: ["Model", "Titule", "Backup"], base_class: "Titule" });
+                                test._model_.fromJSON(titule_data);
+                                titules.titules.append(test);
+                                test._backup_.setup();
+                                $log.log("f = ", test);
                             });
                         }
+                        $log.log(titules.titules);
                     }
                 );
             };
@@ -186,6 +194,6 @@ var titules = angular.module("application.titules",[])
     .run(function ($modules, $titules, $log) {
         $modules.load($titules);
         $titules.titulesQuery();
-        $log.log($titules.titules);
-        $titules.titules.display();
+        //$log.log($titules.titules);
+        //$titules.titules.display();
     });

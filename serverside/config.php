@@ -1,7 +1,7 @@
 <?php
     /* Настройки БД */
-    $db_host = "mysql.lotos51.myjino.ru";
-    $db_name = "lotos51";
-    $db_user = "lotos51";
-    $db_password = "l1mpb1zk1t";
+    $db_host = "192.168.50.68/orcldev";
+    $db_name = "espreso";
+    $db_user = "espreso";
+    $db_password = "espreso";
 ?>

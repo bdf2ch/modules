@@ -26,9 +26,6 @@ function Field (parameters) {
 };
 
 
-function Factory () {
-
-};
 
 
 
@@ -248,11 +245,14 @@ var core = angular.module("core", [])
                          * @returns {number} - Возвращает количество полей, проинициализированных из JSON-данных
                          */
                         fromJSON: function (JSONdata) {
+                            //console.log(JSONdata);
                             var result = 0;
                             for (var data in JSONdata) {
                                 for (var prop in this.__instance__) {
+                                    //console.log(this.__instance__[prop]);
                                     if (this.__instance__[prop].constructor === Field &&
                                         this.__instance__[prop].source === data) {
+                                        //console.log("prop " + prop + " found");
                                         if (isNaN(JSONdata[data]) === false)
                                             this.__instance__[prop].value = parseInt(JSONdata[data]);
                                         else
@@ -563,11 +563,135 @@ var core = angular.module("core", [])
 
 
 
+        $provide.factory("$f", ["$log", "$classes", function ($log, $classes) {
+
+            function FactoryObject (parameters) {
+
+                var clone = function _clone(obj) {
+                    if (obj instanceof Array) {
+                        var out = [];
+                        for (var i = 0, len = obj.length; i < len; i++) {
+                            var value = obj[i];
+                            out[i] = (value !== null && typeof value === "object") ? _clone(value) : value;
+                        }
+                    } else {
+                        var out = new obj.constructor();
+                        for (var key in obj) {
+                            if (obj.hasOwnProperty(key)) {
+                                var value = obj[key];
+                                out[key] = (value !== null && typeof value === "object") ? _clone(value) : value;
+                            }
+                        }
+                    }
+                    return out;
+                };
+
+                var _clone = function (it) {
+                    return this._clone({
+                        it: it
+                    }).it;
+                };
+
+
+                var addProperty = function (prop) {
+                    var result = undefined;
+                    if (prop !== undefined) {
+                        switch (prop.constructor) {
+                            case Array:
+                                result = new Array();
+                                break;
+                            case Field:
+                                result = new Field();
+                                break;
+                            case Object:
+                                result = new Object();
+                                break;
+                            case Function:
+                                result = prop;
+                                break;
+                        }
+                    }
+                    return result;
+                };
+
+                var addClass = function (className, destination) {
+                    if (className !== undefined && destination !== undefined) {
+                        if ($classes.classes.hasOwnProperty(className)) {
+                            for (var prop in $classes.classes[className]) {
+                                if (prop !== "__dependencies__") {
+                                    if ($classes.classes[className][prop].constructor !== Function) {
+
+                                        /*
+                                        destination[prop] = {};
+                                        var constr = $classes.classes[className][prop].constructor;
+                                        angular.copy($classes.classes[className][prop], destination[prop]);
+
+                                        if (destination[prop].__proto__ !== undefined) {
+                                            destination[prop].__proto__.constructor = constr;
+                                            destination[prop].constructor = constr;
+                                        }
+                                        if (destination[prop].prototype !== undefined) {
+                                            destination[prop].prototype = constr;
+                                        }
+
+                                        if (destination[prop]["__instance__"] !== undefined)
+                                            destination[prop]["__instance__"] = destination;
+                                            */
+                                        //if ($classes.classes[className][prop].constructor === Object)
+                                        //destination[prop] = {};
+
+
+                                        destination[prop] = clone($classes.classes[className][prop]);
+                                        if (destination[prop]["__instance__"] !== undefined)
+                                            destination[prop]["__instance__"] = destination;
+
+                                    } else
+                                        destination[prop] = $classes.classes[className][prop];
+                                }
+                            }
+                        }
+                    }
+                };
+
+
+                if (parameters !== undefined) {
+                    if (parameters.hasOwnProperty("classes")) {
+                        if (parameters["classes"].constructor === Array) {
+                            for (var parent in parameters["classes"]) {
+                                var class_name = parameters["classes"][parent];
+                                $log.log("parent class = ", parent);
+                                addClass(class_name, this);
+                            }
+                        }
+                    }
+                    if (parameters.hasOwnProperty("base_class")) {
+                        if ($classes.classes.hasOwnProperty(parameters["base_class"])) {
+                            this.__class__ = parameters["base_class"];
+                        }
+                    }
+                }
+
+            };
+
+            return function (parameters) {
+                return new FactoryObject(parameters);
+            };
+
+        }]);
+
+
+
         /********************
          * $factory
          * Сервис фабрики объектов
          *******************/
         $provide.factory("$factory", ["$log", "$classes", function ($log, $classes) {
+
+            function Factory () {
+
+            };
+
+
             var factory = {};
 
             /**
@@ -576,10 +700,10 @@ var core = angular.module("core", [])
              * @returns {Object} - Возвращает собранный объект
              */
             factory.make = function (parameters) {
-                var result = new Factory();
+                var result = undefined;
 
                 if (parameters !== undefined) {
-                    result = parameters["destination"] !== undefined ? parameters["destination"] : new Object();
+                    result = parameters["destination"] !== undefined ? parameters["destination"] : {};
 
                     if (parameters["base_class"] !== undefined) {
                         if ($classes.classes.hasOwnProperty(parameters["base_class"]))
@@ -605,18 +729,18 @@ var core = angular.module("core", [])
                                     if (target_class[member] !== undefined && target_class[member].constructor === Function) {
                                         if (result.prototype !== undefined) {
                                             if (result.prototype.constructor !== Object)
-                                                result.prototype[member] = target_class[member];
+                                                result.prototype[member] = angular.copy(target_class[member]);
                                             else
-                                                result[member] = target_class[member];
+                                                result[member] = angular.copy(target_class[member]);
                                         } else if (result.__proto__ !== undefined) {
                                             if (result.__proto__.constructor !== Object)
-                                                result.__proto__[member] = target_class[member];
+                                                result.__proto__[member] = angular.copy(target_class[member]);
                                             else
                                                 result[member] = target_class[member];
                                         }
                                     } else if (target_class[member] !== undefined && target_class[member].constructor !== Function) {
                                         if (member !== "__dependencies__") {
-                                            result[member] = target_class[member];
+                                            result[member] = angular.copy(target_class[member]);
                                             if (result[member]["__instance__"] !== undefined)
                                                 result[member]["__instance__"] = result;
                                         }

@@ -104,8 +104,9 @@
             <div class="units-row end">
                 <div class="unit-100">
                     <ul class="blocks-3">
+                        {{  }}
                         <!--<li ng-repeat="bouquet in bouquets.items | paginator:bouquets.limit:bouquets.currentPage" class="bouquet">-->
-                        <li ng-repeat="bouquet in flowers.bouquets.items track by $id(bouquet)" class="bouquet">
+                        <li ng-repeat="bouquet in titules.titules.items track by $id(bouquet)" class="bouquet">
                             <!-- Изображение букета -->
                             <div class="units-row end bouquet-img">
                                 <a href="{{ '#/bouquet/' + bouquet.id.value }}">

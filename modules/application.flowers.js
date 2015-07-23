@@ -130,7 +130,8 @@ var flowers = angular.module("application.flowers", [])
 
 
 
-flowers.controller("BouquetsController", ["$log", "$scope", "$flowers", "$pagination", function ($log, $scope, $flowers, $pagination) {
+flowers.controller("BouquetsController", ["$log", "$scope", "$flowers", "$pagination", "$titules", function ($log, $scope, $flowers, $pagination, $titules) {
     $scope.flowers = $flowers;
     $scope.pagination = $pagination;
+    $scope.titules = $titules;
 }]);
