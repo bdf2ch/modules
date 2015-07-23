@@ -802,7 +802,6 @@ var core = angular.module("core", [])
                     if (isNaN(pageNumber) === false) {
                         if (pageNumber > 0 && pageNumber <= pagination.totalPages) {
                             pagination.currentPage = pageNumber;
-                            console.log("currentPage = ", pagination.currentPage);
                         } else
                             $log.error("$pagination: Номер страницы не может быть меньше 0 и больше общего количества страниц");
                     } else
@@ -824,6 +823,7 @@ var core = angular.module("core", [])
                             pagination.totalPages = Math.ceil(parameters["itemsCount"] / parameters["itemsOnPage"]);
                         }
                     }
+                    pagination.currentPage = 1;
                 }
             };
 

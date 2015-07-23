@@ -42,6 +42,11 @@ body {
   margin-top: 5px;
   margin-left: 5px !important;
 }
+#header #ribbon {
+  width: 168px;
+  height: 120px;
+  background: url("../img/rib.png");
+}
 #header #menu {
   margin-left: -40px;
 }
@@ -677,6 +682,31 @@ body {
   line-height: 16px;
   font-style: italic;
   color: black;
+}
+.sidebar-icon {
+  display: block;
+  position: relative;
+  width: 100%;
+  float: left;
+  height: 28px;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+.sidebar-icon img {
+  display: inline-block;
+  float: left;
+  width: 28px;
+  height: 28px;
+  margin-right: 5px;
+}
+.sidebar-icon img.check {
+  width: 12px;
+  height: 12px;
+  margin-top: -2px;
+  margin-left: -13px;
+}
+.sidebar-icon a {
+  display: inline-block;
 }
 .title-image {
   width: 80px;

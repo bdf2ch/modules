@@ -55,6 +55,15 @@ html, body {
     }
   }
 
+
+  #ribbon {
+    width: 168px;
+    height: 120px;
+    background: url("../img/rib.png");
+  }
+
+
+
   #menu {
     margin-left: -40px;
 
@@ -981,6 +990,36 @@ html, body {
   //color: #616161;
   font-style: italic;
   color: black;
+}
+
+.sidebar-icon {
+  display: block;
+  position: relative;
+  width: 100%;
+  float: left;
+  height: 28px;
+  margin-right: 8px;
+  margin-bottom: 5px;
+  //border: 1px solid black;
+
+  img {
+    display: inline-block;
+    float: left;
+    width: 28px;
+    height: 28px;
+    margin-right: 5px;
+
+    &.check {
+      width: 12px;
+      height: 12px;
+      margin-top: -2px;
+      margin-left: -13px;
+    }
+  }
+
+  a {
+    display: inline-block;
+  }
 }
 
 .title-image {

@@ -5,8 +5,10 @@
 var application = angular.module("application", [
         "ngRoute",          // Подключаем модуль управления рутами
         "core",             // Подключаем модуль с сервисами ядра системы
+        "core.filters",     // Подключаем модуль с фильтрами
         "application.flowers",
-        "application.titules"
+        "application.misc"
+        //"application.titules"
     ])
     .config(function ($provide, $routeProvider) {
 

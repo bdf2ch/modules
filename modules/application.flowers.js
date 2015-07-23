@@ -13,7 +13,7 @@ var flowers = angular.module("application.flowers", [])
          * $flowers
          * Сервис ...
          */
-        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", function ($log, $http, $factory, $pagination) {
+        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$f", "$misc", function ($log, $http, $factory, $pagination, $f, $misc) {
             var flowers = {};
 
 
@@ -83,7 +83,8 @@ var flowers = angular.module("application.flowers", [])
              * Переменные сервиса
              */
             flowers.flowers = $factory.make({ classes: ["Collection"], base_class: "Collection" });
-            flowers.bouquets = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            //flowers.bouquets = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            flowers.bouquets = $f({ classes: ["Collection"], base_class: "Collection" });
             flowers.additions = $factory.make({ classes: ["Collection"], base_class: "Collection" });
 
 
@@ -95,22 +96,36 @@ var flowers = angular.module("application.flowers", [])
                             /* Инициализация массива букетов */
                             if (data["bouquets"] !== undefined) {
                                 angular.forEach(data["bouquets"], function (bouquet) {
-                                    //$log.log(bouquet);
-                                    temp_bouquet = new Factory();
-                                    //temp_bouquet = $factory.make({ classes: ["Bouquet", "Model"], base_class: "Bouquet"});
-                                    //temp_bouquet._model_.fromJSON(bouquet);
-                                    //flowers.bouquets.append(temp_bouquet);
-                                    //flowers.bouquets.append(flowers.bouquets.append(temp_bouquet));
-                                    //temp_bouquet = null;
-
-                                    flowers.bouquets.append($factory.make({ classes: ["Bouquet", "Model"], base_class: "Bouquet", destination: temp_bouquet }));
-                                    flowers.bouquets.items[flowers.bouquets.size() - 1]._model_.fromJSON(bouquet);
+                                    temp_bouquet = $f({ classes: ["Bouquet", "Model"], base_class: "Bouquet"});
+                                    temp_bouquet._model_.fromJSON(bouquet);
+                                    //temp_bouquet._backup_.setup();
+                                    flowers.bouquets.append(temp_bouquet);
                                 });
                                 $log.log(flowers.bouquets.items);
                                 $pagination.init({
                                     itemsOnPage: 12,
                                     itemsCount: flowers.bouquets.size()
                                 });
+                            }
+
+                            /* Инициализация массива поводов купить букет */
+                            if (data["reasons"] !== undefined) {
+                                angular.forEach(data["reasons"], function (reason) {
+                                    temp_reason = $f({ classes: ["Reason", "Model"], base_class: "Reason"});
+                                    temp_reason._model_.fromJSON(reason);
+                                    $misc.reasons.append(temp_reason);
+                                });
+                                $log.log($misc.reasons.items);
+                            }
+
+                            /* Инициализация массива получателей букета */
+                            if (data["addressees"] !== undefined) {
+                                angular.forEach(data["addressees"], function (addressee) {
+                                    temp_addressee = $f({ classes: ["Addressee", "Model"], base_class: "Addressee"});
+                                    temp_addressee._model_.fromJSON(addressee);
+                                    $misc.addressees.append(temp_addressee);
+                                });
+                                $log.log($misc.addressees.items);
                             }
 
                         }
@@ -130,8 +145,9 @@ var flowers = angular.module("application.flowers", [])
 
 
 
-flowers.controller("BouquetsController", ["$log", "$scope", "$flowers", "$pagination", "$titules", function ($log, $scope, $flowers, $pagination, $titules) {
+flowers.controller("BouquetsController", ["$log", "$scope", "$flowers", "$pagination", "$misc", function ($log, $scope, $flowers, $pagination, $misc) {
     $scope.flowers = $flowers;
     $scope.pagination = $pagination;
-    $scope.titules = $titules;
+    $scope.misc = $misc;
+    //$scope.titules = $titules;
 }]);
