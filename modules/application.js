@@ -7,7 +7,8 @@ var application = angular.module("application", [
         "core",             // Подключаем модуль с сервисами ядра системы
         "core.filters",     // Подключаем модуль с фильтрами
         "application.flowers",
-        "application.misc"
+        "application.misc",
+        "application.shop"
         //"application.titules"
     ])
     .config(function ($provide, $routeProvider) {
@@ -39,6 +40,7 @@ var application = angular.module("application", [
             })
             .otherwise({ redirectTo: '/' });
 
+
         /**
          * $application
          * Сервис приложения
@@ -54,10 +56,8 @@ var application = angular.module("application", [
     })
     .run(function ($log, $application, $menu, $rootScope, $modules) {
         $modules.load($application);
+        $menu.register();
         $rootScope.application = $application;
         $rootScope.menu = $menu;
-        $log.log("Welcome to " + $application.title);
-        $log.log($application.description);
-
     }
 );

@@ -1,22 +1,27 @@
 <?php
     include "../config.php";
+    include "../core.php";
 
     $postdata = json_decode(file_get_contents('php://input'));
     $action = $postdata -> action;
 
-    /* Подключение к БД */
+    /* РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р” */
     $link = mysql_connect($db_host, $db_user, $db_password);
     if (!$link) {
-        die('Ошибка соединения: ' . mysql_error());
+        //die('РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: ' . mysql_error());
+        $result = new DBError(mysql_errno(), mysql_error());
+        echo(json_encode($result));
     } else {
-        /* Выбираем БД */
+        /* Р’С‹Р±РёСЂР°РµРј Р‘Р” */
         $db_selected = mysql_select_db($db_name, $link);
         if (!$db_selected) {
-            die ('Не удалось выбрать базу данных: ' . mysql_error());
+            $result = new DBError(mysql_errno(), mysql_error());
+            echo(json_encode($result));
+            //die ('РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹Р±СЂР°С‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…: ' . mysql_error());
         } else {
             mysql_query("SET NAMES utf-8");
 
-            /* Выбираем действие */
+            /* Р’С‹Р±РёСЂР°РµРј РґРµР№СЃС‚РІРёРµ */
             switch ($action) {
                 case "logIn":
                     logIn($postdata);
@@ -29,7 +34,7 @@
     }
 
     /**
-    * Выполняет авторизацию пользователя в системе
+    * Р’С‹РїРѕР»РЅСЏРµС‚ Р°РІС‚РѕСЂРёР·Р°С†РёСЋ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ СЃРёСЃС‚РµРјРµ
     **/
     function logIn ($postdata) {
         $result = -1;
@@ -37,7 +42,8 @@
         $passwd = $postdata -> data -> password;
         $query = mysql_query("SELECT * FROM gears_users WHERE user_login = '$login' AND user_password = '$passwd'");
         if (!$query) {
-            die('Неверный запрос: ' . mysql_error());
+            $result = new DBError(mysql_errno(), mysql_error());
+            echo(json_encode($result));
         } else {
             if (mysql_num_rows($query) > 0) {
                 while ($row = mysql_fetch_assoc($query)) {
@@ -48,7 +54,7 @@
         }
         echo(json_encode($result));
 
-        /* Закрываем соединение с БД и освобождаем ресурсы */
+        /* Р—Р°РєСЂС‹РІР°РµРј СЃРѕРµРґРёРЅРµРЅРёРµ СЃ Р‘Р” Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј СЂРµСЃСѓСЂСЃС‹ */
         mysql_free_result($query);
         mysql_close($link);
     };

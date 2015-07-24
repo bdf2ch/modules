@@ -15,6 +15,8 @@ function Field (parameters) {
     this.default_value = "";    // Значение поля по умолчанию
     this.backupable = false;    // Флаг, требуется ли резервировать значение поля
     this.required = false;      // Флаг, является ли поле обязательным для заполнения
+    this.title = "";
+    this.isValid = false;
 
     if (parameters !== undefined) {
         for (var param in parameters) {
@@ -34,7 +36,7 @@ function Field (parameters) {
  * Содержит базовые сервисы системы
  ********************/
 var core = angular.module("core", [])
-    .config(function ($provide) {
+    .config(function ($provide, $routeProvider) {
 
 
 
@@ -48,7 +50,7 @@ var core = angular.module("core", [])
             /**
              * Переменные сервиса
              */
-            modules.items = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            modules.items = $factory({ classes: ["Collection"], base_class: "Collection" });
 
 
             /**
@@ -147,7 +149,7 @@ var core = angular.module("core", [])
             /**
              * Переменные сервиса
              */
-            menu.items = $factory.make({ classes: ["Collection"], base_class: "Collection" });
+            menu.items = $factory({ classes: ["Collection"], base_class: "Collection" });
             menu.activeMenuItem = undefined;
 
 
@@ -173,11 +175,24 @@ var core = angular.module("core", [])
             menu.set = function (parameters) {
                 var result = false;
                 if (parameters !== undefined) {
-                    var menuItem = $factory.make({ classes: ["MenuItem"], base_class: "MenuItem" });
-                    menuItem.init(parameters);
+                    var menu_tem = $factory({ classes: ["MenuItem"], base_class: "MenuItem" });
+                    menu_item.init(parameters);
+                    menu.items.append(menu_item);
                     result = menuItem;
                 }
                 return result;
+            };
+
+
+            menu.register = function () {
+                angular.forEach(menu.items.items, function (menu_item) {
+                    $routeProvider
+                        .when(menu_item.url, {
+                            templateUrl: menu_item.template,
+                            controller: menu_item.controller
+                        }
+                    );
+                });
             };
 
 
@@ -221,13 +236,35 @@ var core = angular.module("core", [])
          * $classes
          * Сервис, содержащий описание базовых и пользовательских классов
          ********************/
-        $provide.factory("$classes", [function () {
+        $provide.factory("$classes", ["$log", function ($log) {
             var classes = {};
 
             /**
              * Наборы свойст и методов, описывающих модели данных
              */
             classes.classes = {
+
+                /**
+                 * DBError
+                 * Набор свойств, описывающих ошибку БД
+                 */
+                DBError: {
+                    error_code: 0,
+                    error_message: "",
+
+                    init: function (error) {
+                        if (error !== undefined) {
+                            for (var prop in error) {
+                                if (this.hasOwnProperty(prop))
+                                    this[prop] = error[prop];
+                            }
+                        }
+                    },
+
+                    display: function () {
+                        $log.error("DB error #" + this.error_code + ": " + this.error_message);
+                    }
+                },
 
                 /**
                  * Model
@@ -237,6 +274,7 @@ var core = angular.module("core", [])
                     __dependencies__: [],
                     _model_: {
                         __instance__: "",
+                        errors: [],
                         db_table: "",
 
                         /**
@@ -292,6 +330,20 @@ var core = angular.module("core", [])
                                 }
                             }
                             return result;
+                        },
+
+
+                        validate: function () {
+                            var result = false;
+                            for (var prop in this.__instance__) {
+                                if (this.__instance__[prop].constructor === Field) {
+                                    if (this.__instance__[prop].required === true) {
+                                        if (this.__instance__[prop].value === undefined || this.__instance__[prop].value === "") {
+                                            this.errors.push(prop + " не заполнено");
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -432,16 +484,16 @@ var core = angular.module("core", [])
                  */
                 Collection: {
                     items: [],
-
+                    selectedItems: [],
+                    allowMultipleSelect: false,
+                    allowMultipleSearch: false,
 
                     /**
                      * Возвращает количество элементов в коллекции
                      * @returns {Number} - Возвращает размер коллекции
                      */
                     size: function () {
-                        var result = 0;
-                        result = this.items.length;
-                        return result;
+                        return this.items.length;
                     },
 
                     /**
@@ -457,6 +509,24 @@ var core = angular.module("core", [])
                     },
 
                     /**
+                     * Включает / выключает режим поиска нескольких элементов коллекции
+                     * @param flag {boolean} - Флаг, включения / выключения режима поиска нескольких элементов коллекции
+                     * @returns {boolean} - Возвращает флаг, включен ли режим поиска нескольких элементов коллекции
+                     */
+                    multipleSearch: function (flag) {
+                        var result = false;
+                        if (flag !== undefined) {
+                            if (flag.constructor === Boolean) {
+                                this.allowMultipleSearch = flag;
+                                result = this.allowMultipleSearch;
+                            } else
+                                $log.error("$classes 'Collection': Параметр должен быть типа Boolean");
+                        } else
+                            $log.error("$classes 'Collection': Не указан параметр при установке режима поиска нескольких элементов");
+                        return result;
+                    },
+
+                    /**
                      * Возвращает элемент коллекции, поле field которого равен value
                      * @param field {String} - Наименование поля
                      * @param value - Значение искомого поля
@@ -464,6 +534,7 @@ var core = angular.module("core", [])
                      */
                     find: function (field, value) {
                         var result = false;
+                        var temp_result = [];
                         var length = this.items.length;
 
                         /* Если требуется найти элемент коллекции по значению поля */
@@ -473,11 +544,23 @@ var core = angular.module("core", [])
                                 if (this.items[i][field] !== undefined) {
                                     if (this.items[i][field].constructor === Field) {
                                         if (this.items[i][field].value === value) {
-                                            result = this.items[i];
+                                            if (this.allowMultipleSearch === true) {
+                                                temp_result.push(this.items[i]);
+                                            } else {
+                                                temp_result.splice(0, temp_result.length);
+                                                temp_result.push(this.items[i]);
+                                                result = this.items[i];
+                                            }
                                         }
                                     } else {
                                         if (this.items[i][field] === value) {
-                                            result = this.items[i];
+                                            if (this.allowMultipleSearch === true) {
+                                                temp_result.push(this.items[i]);
+                                            } else {
+                                                temp_result.splice(0, temp_result.length);
+                                                temp_result.push(this.items[i]);
+                                                result = this.items[i];
+                                            }
                                         }
                                     }
                                 }
@@ -489,12 +572,23 @@ var core = angular.module("core", [])
                             console.log("finding item by value");
                             for (var i = 0; i < length; i++) {
                                 if (this.items[i] === field) {
-                                    result = this.items[i];
+                                    if (this.allowMultipleSearch === true) {
+                                        temp_result.push(this.items[i]);
+                                        result = this.items[i];
+                                    } else {
+                                        temp_result.splice(0, temp_result.length);
+                                        temp_result.push(this.items[i]);
+                                    }
                                 }
                             }
                         }
 
-                        return result;
+                        if (temp_result.length === 0)
+                            return false;
+                        else if (temp_result.length === 1)
+                            return temp_result[0];
+                        else if (temp_result.length > 1)
+                            return temp_result;
                     },
 
 
@@ -553,6 +647,48 @@ var core = angular.module("core", [])
                         }
 
                         return result;
+                    },
+
+                    /**
+                     * Включает / выключает режим выбора нескольких элементов коллекции
+                     * @param flag {boolean} - Флаг включения / выключения режима выбора нескольких элементов коллекции
+                     * @returns {boolean} - Возвращает флаг, включен ли режим выбора нескольких элементов коллекции
+                     */
+                    multipleSelect: function (flag) {
+                        if (flag !== undefined) {
+                            if (flag.constructor === Boolean) {
+                                this.allowMultipleSelect = flag;
+                                return this.allowMultipleSelect;
+                            } else
+                                $log.error("$classes 'Collection': Параметр должен быть типа Boolean");
+                        } else
+                            $log.error("$classes 'Collection': Не указан параметр при установке режима выбора нескольких элементов");
+                    },
+
+                    /**
+                     * Помечает элемент коллекции как выбранный
+                     * @param field {string} - Наименование поля элемента коллекции
+                     * @param value {any} - Значение поля элемента коллекции
+                     * @returns {number}
+                     */
+                    select: function (field, value) {
+                        if (item !== false) {
+                            if (this.allowMultipleSelect === true) {
+                                if (item._states_ !== undefined)
+                                    item._states_.selected(true);
+                                this.selectedItems.push(item);
+                            } else {
+                                this.selectedItems.splice(0, this.selectedItems.length);
+                                this.selectedItems.push(item);
+                                angular.forEach(this.items, function (coll_item) {
+                                    if (coll_item !== item) {
+                                        if (coll_item._states_ !== undefined)
+                                            coll_item._states_.select(false);
+                                    }
+                                });
+                            }
+                        }
+                        return this.selectedItems.length;
                     }
 
                 }
@@ -563,7 +699,11 @@ var core = angular.module("core", [])
 
 
 
-        $provide.factory("$f", ["$log", "$classes", function ($log, $classes) {
+        /********************
+        * $factory
+        * Сервис фабрики объектов
+        *******************/
+        $provide.factory("$factory", ["$log", "$classes", function ($log, $classes) {
 
             function FactoryObject (parameters) {
 
@@ -592,59 +732,15 @@ var core = angular.module("core", [])
                     }).it;
                 };
 
-
-                var addProperty = function (prop) {
-                    var result = undefined;
-                    if (prop !== undefined) {
-                        switch (prop.constructor) {
-                            case Array:
-                                result = new Array();
-                                break;
-                            case Field:
-                                result = new Field();
-                                break;
-                            case Object:
-                                result = new Object();
-                                break;
-                            case Function:
-                                result = prop;
-                                break;
-                        }
-                    }
-                    return result;
-                };
-
                 var addClass = function (className, destination) {
                     if (className !== undefined && destination !== undefined) {
                         if ($classes.classes.hasOwnProperty(className)) {
                             for (var prop in $classes.classes[className]) {
                                 if (prop !== "__dependencies__") {
                                     if ($classes.classes[className][prop].constructor !== Function) {
-
-                                        /*
-                                        destination[prop] = {};
-                                        var constr = $classes.classes[className][prop].constructor;
-                                        angular.copy($classes.classes[className][prop], destination[prop]);
-
-                                        if (destination[prop].__proto__ !== undefined) {
-                                            destination[prop].__proto__.constructor = constr;
-                                            destination[prop].constructor = constr;
-                                        }
-                                        if (destination[prop].prototype !== undefined) {
-                                            destination[prop].prototype = constr;
-                                        }
-
-                                        if (destination[prop]["__instance__"] !== undefined)
-                                            destination[prop]["__instance__"] = destination;
-                                            */
-                                        //if ($classes.classes[className][prop].constructor === Object)
-                                        //destination[prop] = {};
-
-
                                         destination[prop] = clone($classes.classes[className][prop]);
                                         if (destination[prop]["__instance__"] !== undefined)
                                             destination[prop]["__instance__"] = destination;
-
                                     } else
                                         destination[prop] = $classes.classes[className][prop];
                                 }
@@ -659,7 +755,6 @@ var core = angular.module("core", [])
                         if (parameters["classes"].constructor === Array) {
                             for (var parent in parameters["classes"]) {
                                 var class_name = parameters["classes"][parent];
-                                $log.log("parent class = ", parent);
                                 addClass(class_name, this);
                             }
                         }
@@ -681,16 +776,8 @@ var core = angular.module("core", [])
 
 
 
-        /********************
-         * $factory
-         * Сервис фабрики объектов
-         *******************/
-        $provide.factory("$factory", ["$log", "$classes", function ($log, $classes) {
 
-            function Factory () {
-
-            };
-
+        $provide.factory("$f", ["$log", "$classes", function ($log, $classes) {
 
             var factory = {};
 
@@ -762,10 +849,13 @@ var core = angular.module("core", [])
         }]);
 
 
-        /**
+
+
+
+        /********************
          * $pagination
          * Сервис пагинации
-         */
+         ********************/
         $provide.factory("$pagination", ["$log", function ($log) {
             var pagination = {};
 

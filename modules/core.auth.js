@@ -1,25 +1,12 @@
 "use strict";
 
 
-/**
- *
- * @constructor
- */
-function CurrentUser () {
-    this.id = new Field ({ source: "user_id", value: 0 });
-    this.name = new Field ({ source: "user_name", value: "" });
-    this.fname = new Field ({ source: "user_fname", value: "" });
-    this.surname = new Field ({ source: "user_surname", value: "" });
-    this.email = new Field ({ source: "user_email", value: "" });
-    this.phone = new Field ({ source: "user_phone", value: "" });
-};
-
 
 /**
  * system.auth
  * Модуль авторизации
  */
-var auth = angular.module("core.auth", ["ngCookies", "core"])
+var auth = angular.module("core.auth", ["ngCookies", "ngRoute", "core"])
     .config(function ($provide) {
         $provide.constant("controller", "test");
 
@@ -73,7 +60,7 @@ var auth = angular.module("core.auth", ["ngCookies", "core"])
              * Инициализирует сервис
              */
             session.init = function () {
-                session.user = $factory.make({ classes: ["CurrentUser", "Model"], base_class: "CurrentUser" });
+                session.user = $factory({ classes: ["CurrentUser", "Model"], base_class: "CurrentUser" });
                 session.fromCookie();
             };
 
@@ -85,7 +72,7 @@ var auth = angular.module("core.auth", ["ngCookies", "core"])
          * $authorization
          * Сервис авторизации
          */
-        $provide.factory("$authorization", ["$log", "$http", "$session", function ($log, $http, $session) {
+        $provide.factory("$authorization", ["$log", "$http", "$session", "$factory", function ($log, $http, $session, $factory) {
             var auth = {};
 
             auth.username = "";                     // Имя пользователя
@@ -150,13 +137,21 @@ var auth = angular.module("core.auth", ["ngCookies", "core"])
                         if (data !== undefined) {
                             $log.log(data);
 
-                            if (parseInt(data) !== -1) {
-                                $session.user._model_.fromJSON(data);
-                                $session.toCookie();
-                                auth.isAuthSuccessed = true;
+                            if (data["error_code"] === undefined) {
+                                if (parseInt(data) === -1) {
+                                    auth.errors.username.push("Пользователь не найден");
+                                    auth.isAuthFailed = true;
+                                } else {
+                                    $session.user._model_.fromJSON(data);
+                                    $session.toCookie();
+                                    auth.isAuthSuccessed = true;
+                                }
                             } else {
-                                auth.errors.username.push("Пользователь не найден");
+                                var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
+                                db_error.init(data);
+                                db_error.display();
                                 auth.isAuthFailed = true;
+                                $session.toCookie();
                             }
 
                         }
@@ -177,7 +172,7 @@ var auth = angular.module("core.auth", ["ngCookies", "core"])
 
     }
 )
-    .run(function ($modules, $rootScope, $authorization, $session, $factory) {
+    .run(function ($modules, $rootScope, $authorization, $session) {
         $modules.load($authorization);
         $modules.load($session);
         $session.init();

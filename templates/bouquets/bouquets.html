@@ -5,7 +5,7 @@
         <div class="units-row side-panel lightblue">
             <div class="units-row end">
                 <div class="unit-100">
-                    <span class="caption blue">Повод подарить букет</span>
+                    <span class="caption blue">Какой повод</span>
                 </div>
             </div>
             <div class="units-row end">
@@ -23,7 +23,7 @@
         <div class="units-row side-panel lightgreen">
             <div class="units-row end">
                 <div class="unit-100">
-                    <span class="caption green">Адресат</span>
+                    <span class="caption green">Для кого букет</span>
                 </div>
             </div>
             <div class="units-row end">
@@ -55,10 +55,10 @@
         </div>
 
         <!-- Цена -->
-        <div class="units-row">
+        <div class="units-row side-panel pink">
             <div class="units-row end">
                 <div class="unit-100">
-                    <span class="caption blue">Цена букета</span>
+                    <span class="caption red">Цена букета</span>
                 </div>
             </div>
             <div class="units-row end">
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="unit-40">
                                     <button class="btn btn-small btn-yellow right width-100"
-                                            ng-click="cart.add(bouquet.id.value)">
+                                            ng-click="cart.add(bouquet)">
                                         <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>
                                         В корзину
                                     </button>
