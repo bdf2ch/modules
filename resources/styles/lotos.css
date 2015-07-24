@@ -43,9 +43,9 @@ body {
   margin-left: 5px !important;
 }
 #header #ribbon {
-  width: 168px;
+  width: 300px;
   height: 120px;
-  background: url("../img/rib.png");
+  background: url("../img/ribbon_shadowless.png");
 }
 #header #menu {
   margin-left: -40px;
@@ -647,6 +647,10 @@ body {
   color: #B880BA;
   border-bottom: 1px dashed #B880BA;
 }
+.caption.red {
+  color: #D65C5C;
+  border-bottom: 1px dashed #D65C5C;
+}
 .side-panel {
   margin-left: 10px;
   padding: 10px;
@@ -661,6 +665,9 @@ body {
 }
 .side-panel.purple {
   background: url("../img/ornament2.png") bottom center #e7d5e8;
+}
+.side-panel.pink {
+  background: url("../img/ornament2.png") bottom center #f0c5c5;
 }
 .side-panel img {
   width: 64px;
