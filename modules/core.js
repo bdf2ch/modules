@@ -360,7 +360,7 @@ var core = angular.module("core", [])
                         isActive: false,        // Флаг, сигнализирующий, активен ли объект
                         isSelected: false,      // Флаг, сигнализирующий, выбран ли объект
                         isChanged: false,       // Флаг, сигнализирующий, был ли изменен объект
-                        isLoaded: false,        // Флаг, сигнализирующий был ли объект загружен
+                        isLoaded: true,        // Флаг, сигнализирующий был ли объект загружен
                         isInEditMode: false,    // Флаг, сигнализирующий, находится ли объект в режиме редактирования
                         isInDeleteMode: false,  // Флаг, сигнализирующий, находится ли объект в режиме удаления
 
@@ -414,8 +414,10 @@ var core = angular.module("core", [])
                          * @returns {boolean} - Возвращает флаг, был ли выбран объект
                          */
                         selected: function (flag) {
-                            if (flag !== undefined && flag.constructor === Boolean)
+                            if (flag !== undefined && flag.constructor === Boolean) {
                                 this.isSelected = flag;
+                                console.log("selected = ", this.isSelected);
+                            }
                             return this.isSelected;
                         },
 
@@ -672,26 +674,79 @@ var core = angular.module("core", [])
                      * @returns {number}
                      */
                     select: function (field, value) {
-                        if (item !== false) {
-                            if (this.allowMultipleSelect === true) {
-                                if (item._states_ !== undefined)
-                                    item._states_.selected(true);
-                                this.selectedItems.push(item);
-                            } else {
-                                this.selectedItems.splice(0, this.selectedItems.length);
-                                this.selectedItems.push(item);
-                                angular.forEach(this.items, function (coll_item) {
-                                    if (coll_item !== item) {
-                                        if (coll_item._states_ !== undefined)
-                                            coll_item._states_.select(false);
+                        var result = [];
+                        if (field !== undefined && value !== undefined) {
+                            var length = this.items.length;
+                            for (var i = 0; i < length; i++) {
+                                if (this.items[i].hasOwnProperty(field)) {
+                                    var item = undefined;
+                                    if (this.items[i][field].constructor === Field) {
+                                        if (this.items[i][field].value === value) {
+                                            console.log("element found", this.items[i]);
+                                            item = this.items[i];
+                                        }
+                                    } else {
+                                        if (this.items[i][field] === value)
+                                            item = this.items[i];
                                     }
-                                });
+                                    if (item !== undefined) {
+                                        if (this.allowMultipleSelect === true) {
+                                            result.push(item);
+                                            this.selectedItems.push(item);
+                                            if (item._states_ !== undefined)
+                                                item._states_.selected(true);
+                                        } else {
+                                            result.splice(0, result.length);
+                                            this.selectedItems.splice(0, this.selectedItems.length);
+                                            result.push(this.items[i]);
+                                            this.selectedItems.push(this.items[i]);
+                                            if (item._states_ !== undefined)
+                                                item._states_.selected(true);
+                                            for (var x = 0; x < length; x++) {
+                                                if (this.items[x] !== item) {
+                                                    if (this.items[x]._states_ !== undefined)
+                                                        this.items[x]._states_.selected(false);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-                        return this.selectedItems.length;
-                    }
 
+                        console.log("selectedItems = ", this.selectedItems);
+
+                        if (result.length === 0)
+                            return false;
+                        if (result.length === 1)
+                            return result[0];
+                        if (result.length > 1)
+                            return result;
+
+                    },
+
+                    deselect: function (item) {
+                        if (item !== undefined) {
+                            var length = this.items.length;
+                            for (var i = 0; i < length; i++) {
+                                if (this.items[i] === item) {
+                                    var selectedLength = this.selectedItems.length;
+                                    if (item._states_ !== undefined)
+                                        item._states_.selected(false);
+                                    for (var x = 0; x < selectedLength; x++) {
+                                        if (this.selectedItems[x] === item) {
+                                            this.selectedItems.splice(x, 1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        console.log(this.selectedItems);
+                        return this.selectedItems;
+                    }
                 }
+
+
             };
 
             return classes;

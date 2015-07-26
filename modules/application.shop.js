@@ -49,6 +49,8 @@ var shop = angular.module("application.shop", [])
              * @returns {number} - Возвращает количество элементов в корзине покупок
              */
             cart.add = function (item) {
+                $log.log(item);
+                $log.log("totalprice = ", totalPrice);
                 var temp_cart_item = $factory({ classes: ["CartItem"], base_class: "CartItem" });
                 temp_cart_item.init({ productId: item.id.value, price: item.price.value });
                 cart.items.append(temp_cart_item);
@@ -81,8 +83,8 @@ var shop = angular.module("application.shop", [])
              * Возвращает общее количество элементов в корзине покупок
              * @returns {number} - Возвращает количество элементов в корзине покупок
              */
-            cart.Amount = function () {
-                return cart.items.length;
+            cart.amount = function () {
+                return cart.items.size();
             };
 
 
@@ -112,6 +114,7 @@ var shop = angular.module("application.shop", [])
         }]);
 
     })
-    .run(function ($modules, $cart) {
+    .run(function ($rootScope, $modules, $cart) {
         $modules.load($cart);
+        $rootScope.cart = $cart;
     });

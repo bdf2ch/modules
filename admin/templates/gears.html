@@ -1,33 +1,36 @@
 <!-- BEGIN: main -->
 <!DOCTYPE html>
-<html>
+<html ng-app="gears.application">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="../resources/styles/kube.min.css"/>
 </head>
 <body>
-    <div class="units-row" style="width: 100%;">
+    <div class="units-row">
         <div class="unit-20">
             <nav class="nav nav-stacked">
                 <ul>
-                    <li><a href="#">Букеты</a></li>
-                    <li><span>Цветы</span></li>
+                    <li><a href="#/bouquets">Букеты</a></li>
                 </ul>
             </nav>
         </div>
-        <div class="unit-80">
-            <nav class="nav-tabs">
-                <ul>
-                    <li><a href="#tab1">...</a></li>
-                    <li><a href="#tab2">...</a></li>
-                    <li class="active"><a href="#tab3">...</a></li>
-                    <li><a href="#tab4">...</a></li>
-                    <li><a href="#tab5">...</a></li>
-                </ul>
-            </nav>
+        <div class="unit-80" ng-view>
+
         </div>
     </div>
+
+    <!-- Подключение библиотек и модулей -->
+    <script src="../libs/momentjs/moment-with-locales.min.js"></script>
+    <script src="../libs/angularjs/angular.min.js"></script>
+    <script src="../libs/angularjs/angular-route.min.js"></script>
+    <script src="../libs/angularjs/angular-cookies.min.js"></script>
+
+    <script src="modules/gears.application.js"></script>
+    <script src="../modules/core.js"></script>
+    <script src="../modules/application.flowers.js"></script>
+    <script src="../modules/application.misc.js"></script>
+    <script src="../modules/core.filters.js"></script>
 </body>
 </html>
 <!-- END: main -->

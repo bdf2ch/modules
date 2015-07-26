@@ -54,7 +54,7 @@ var application = angular.module("application", [
             return application;
         }]);
     })
-    .run(function ($log, $application, $menu, $rootScope, $modules) {
+    .run(function ($log, $application, $menu, $rootScope, $modules, $cart) {
         $modules.load($application);
         $menu.register();
         $rootScope.application = $application;

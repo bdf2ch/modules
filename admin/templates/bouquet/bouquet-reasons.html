@@ -1,0 +1,17 @@
+<table>
+    <thead>
+    <tr>
+        <th>Повод</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="reason in misc.reasons.items track by $id(reason)">
+        <td>
+            {{ reason.title.value }}
+        </td>
+        <td>
+            <input type="checkbox" name="" id="" ng-checked="currentBouquet.haveReason(reason.id.value)" ng-disabled="misc.reasons._states_.loaded() === false" ng-click="test(reason.id.value)"/>
+        </td>
+    </tr>
+    </tbody>
+</table>

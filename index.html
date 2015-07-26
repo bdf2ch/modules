@@ -82,17 +82,18 @@
                     <a href="#/cart">
                         <div id="cart-icon">
                             <span class="badge badge-red right"
-                                  ng-show="cart.totalAmount > 0">{{ cart.totalAmount }}
+                                  ng-show="cart.items.items.length > 0">{{ cart.amount() }}
                             </span>
                         </div>
                         <span id="empty-cart"
-                              ng-show="cart.items.length === 0">
+                              ng-show="cart.items.items.length === 0">
                             Ваша корзина пуста
                         </span>
                         <span id="cart-total-price"
-                              ng-show="cart.items.length > 0">
-                            {{ cart.totalPrice + " р."}}
+                              ng-show="cart.amount() > 0">
+                            {{ cart.price() + " р."}}
                         </span>
+                    </a>
                 </div>
                 </a>
 

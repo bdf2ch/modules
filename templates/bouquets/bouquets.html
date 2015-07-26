@@ -10,10 +10,10 @@
             </div>
             <div class="units-row end">
                 <div class="unit-100">
-                    <span class="sidebar-icon text-left" ng-repeat="reason in misc.reasons.items">
+                    <span class="sidebar-icon text-left" ng-repeat="reason in misc.reasons.items track by $id(reason)">
                         <img src="{{ reason.imageUrl.value }}" alt=""/>
-                        <img src="resources/img/icons/check.png" class="check" alt=""/>
-                        <a href="">{{ reason.title.value }}</a>
+                        <img src="resources/img/icons/check.png" class="check" ng-show="reason._states_.selected() === true"/>
+                        <a href ng-class="{'selected': reason._states_.selected() === true}" ng-click="selectReason(reason.id.value)">{{ reason.title.value }}</a>
                     </span>
                 </div>
             </div>
@@ -124,10 +124,10 @@
                             </div>
                             <!-- Информация о букете -->
                             <div class="units-row end bouquet-info">
-                                <div class="unit-60 clip">
+                                <div class="unit-65 clip">
                                     <span class="bouquet-title">{{ bouquet.title.value }}</span>
                                 </div>
-                                <div class="unit-40">
+                                <div class="unit-35">
                                     <button class="btn btn-small btn-yellow right width-100"
                                             ng-click="cart.add(bouquet)">
                                         <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>

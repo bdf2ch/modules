@@ -9,12 +9,12 @@ var nisc = angular.module("application.misc", [])
 
 
             /**
-             * Наборы свойст и методов, описывающих модели данных
+             * РќР°Р±РѕСЂС‹ СЃРІРѕР№СЃС‚ Рё РјРµС‚РѕРґРѕРІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… РјРѕРґРµР»Рё РґР°РЅРЅС‹С…
              */
             misc.classes = {
                 /**
                  * Reason
-                 * Набор свойств, описывающих повод для покупки букета
+                 * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚РІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… РїРѕРІРѕРґ РґР»СЏ РїРѕРєСѓРїРєРё Р±СѓРєРµС‚Р°
                  */
                 Reason: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
@@ -24,7 +24,7 @@ var nisc = angular.module("application.misc", [])
 
                 /**
                  * Addressee
-                 * Набор свойств, описывающих аполучателя букета
+                 * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚РІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… Р°РїРѕР»СѓС‡Р°С‚РµР»СЏ Р±СѓРєРµС‚Р°
                  */
                 Addressee: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
@@ -34,7 +34,7 @@ var nisc = angular.module("application.misc", [])
 
                 /**
                  * PaymentMethod
-                 * Набор свойств, описывающих способ оплаты
+                 * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚РІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… СЃРїРѕСЃРѕР± РѕРїР»Р°С‚С‹
                  */
                 PaymentMethod: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
@@ -43,7 +43,7 @@ var nisc = angular.module("application.misc", [])
 
                 /**
                  * DeliveryMethod
-                 * Набор свойст, описывающих способ доставки
+                 * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚, РѕРїРёСЃС‹РІР°СЋС‰РёС… СЃРїРѕСЃРѕР± РґРѕСЃС‚Р°РІРєРё
                  */
                 DeliveryMethod: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
@@ -53,7 +53,7 @@ var nisc = angular.module("application.misc", [])
 
                 /**
                  * City
-                 * Набор свойств, описывающих город
+                 * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚РІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… РіРѕСЂРѕРґ
                  */
                 City: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
@@ -63,9 +63,9 @@ var nisc = angular.module("application.misc", [])
 
 
             /**
-             * Переменные сервиса
+             * РџРµСЂРµРјРµРЅРЅС‹Рµ СЃРµСЂРІРёСЃР°
              */
-            misc.reasons = $factory({ classes: ["Collection"], base_class: "Collection" });
+            misc.reasons = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
             misc.addressees = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.paymentMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.deliveryMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
@@ -76,5 +76,7 @@ var nisc = angular.module("application.misc", [])
     })
     .run(function ($modules, $misc) {
         $modules.load($misc);
+
+        $misc.reasons.multipleSelect(true);
     }
 );

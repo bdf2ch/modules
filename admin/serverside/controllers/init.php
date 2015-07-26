@@ -78,6 +78,8 @@
                  $row["additions"] = $bouquet_additions;
             }
 
+
+
             /* Заполнение массива декоративных оформлений, входящих в состав букета */
             $query_bouquet_reasons = mysql_query("SELECT * FROM bouquet_reasons WHERE bouquet_id = $bouquet_id");
             if (!$query_bouquet_reasons) {
