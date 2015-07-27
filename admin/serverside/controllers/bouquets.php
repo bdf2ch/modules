@@ -23,11 +23,8 @@
 
             /* Выбираем действие */
             switch ($action) {
-                case "logIn":
-                    logIn($postdata);
-                    break;
-                case "remindPassword":
-                    remindPassword($postdata);
+                case "changeReason":
+                    change_reason($postdata);
                     break;
             }
         }
@@ -36,7 +33,7 @@
     /**
     * Выполняет авторизацию пользователя в системе
     **/
-    function changeReason ($postdata) {
+    function change_reason ($postdata) {
         $result = "";
         $bouquetId = $postdata -> data -> bouquetId;
         $reasonId = $postdata -> data -> reasonId;
@@ -44,21 +41,21 @@
 
 
         $get_reasons_query = mysql_query("SELECT * FROM bouquet_reasons WHERE bouquet_id = $bouquet_id AND reason_id = $reason_id");
-        if (!$query_reasons_query) {
+        if (!$get_reasons_query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
         } else {
-            if (mysql_num_rows($query_get_reasons) > 0) {
-                $query_set_reason = mysql_query("UPDATE bouquet_reasons SET value = $value WHERE bouquet_id = $bouquet_id AND reason_id = $reason_id");
-                if (!$query_set_reason) {
+            if (mysql_num_rows($get_reasons_query) > 0) {
+                $set_reason_query = mysql_query("UPDATE bouquet_reasons SET value = $value WHERE bouquet_id = $bouquet_id AND reason_id = $reason_id");
+                if (!$set_reason_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
                 } else {
                     $result = "success";
                 }
             } else {
-                $query_add_reason = mysql_query("INSERT INTO bouquet_reasons (bouquet_id, reason_id, value) VALUES ($bouquet_id, $reason_id, $value)");
-                if (!query_add_reason) {
+                $add_reason_query = mysql_query("INSERT INTO bouquet_reasons (bouquet_id, reason_id, value) VALUES ($bouquet_id, $reason_id, $value)");
+                if (!$add_reason_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
                 } else {
@@ -70,7 +67,7 @@
         echo(json_encode($result));
 
         /* Закрываем соединение с БД и освобождаем ресурсы */
-        mysql_free_result($query);
+        mysql_free_result($get_reasons_query);
         mysql_close($link);
     };
 

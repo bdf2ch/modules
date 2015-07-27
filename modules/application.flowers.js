@@ -364,10 +364,10 @@ flowers.controller("GearsBouquetController", ["$log", "$scope", "$flowers", "$pa
             if (reasonId !== undefined && value !== undefined && value.constructor === Boolean) {
                 var params = {
                     action: "changeReason",
-                    params: {
+                    data: {
                         bouquetId: $scope.currentBouquet.id.value,
                         reasonId: reasonId,
-                        value: value
+                        value: value === true ? 1 : 0
                     }
                 };
                 $scope.misc.reasons._states_.loaded(false);
