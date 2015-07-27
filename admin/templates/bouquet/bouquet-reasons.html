@@ -10,7 +10,11 @@
             {{ reason.title.value }}
         </td>
         <td>
-            <input type="checkbox" name="" id="" ng-checked="currentBouquet.haveReason(reason.id.value)" ng-disabled="misc.reasons._states_.loaded() === false" ng-click="test(reason.id.value)"/>
+            {{ currentBouquet.reasons.find('id', reason.id.value).enabled === true }}
+            <input type="checkbox" name="" id=""
+                   ng-checked="currentBouquet.reasons.find('id', reason.id.value).enabled === true"
+                   ng-disabled="misc.reasons._states_.loaded() === false"
+                   ng-click="changeReason(reason.id.value)"/>
         </td>
     </tr>
     </tbody>

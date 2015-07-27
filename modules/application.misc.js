@@ -19,7 +19,8 @@ var nisc = angular.module("application.misc", [])
                 Reason: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
-                    imageUrl: new Field({ source: "image_url", value: "", default_value: "", backupable: true, required: true })
+                    imageUrl: new Field({ source: "image_url", value: "", default_value: "", backupable: true, required: true }),
+                    enabled: false
                 },
 
                 /**

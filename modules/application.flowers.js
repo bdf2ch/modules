@@ -83,11 +83,19 @@ var flowers = angular.module("application.flowers", [])
                         }
                     },
 
-                    addReason: function (reasonId) {
-                        if (reasonId !== undefined) {
-                            var reason = $misc.reasons.find("id", reasonId);
-                            if (reason !== false)
-                                this.reasons.append(reason);
+                    addReason: function (reasonId, value) {
+                        console.log("reasonId = ", reasonId);
+                        console.log("value = ", value);
+                        if (reasonId !== undefined && value !== undefined && value.constructor === Boolean) {
+                            var temp_reason = this.reasons.find("id", reasonId);
+                            if (temp_reason !== false)
+                                temp_reason.enabled = value;
+                            else {
+                                var new_reason = $factory({ classes: ["Reason", "Model"], base_class: "Reason" });
+                                new_reason._model_.fromAnother($misc.reasons.find("id", reasonId));
+                                new_reason.enabled = value;
+                                this.reasons.append(new_reason);
+                            }
                         }
                     },
 
@@ -141,6 +149,17 @@ var flowers = angular.module("application.flowers", [])
                                 $log.log("flowers = ", flowers.flowers.items);
                             }
 
+                            /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
+                            if (data["reasons"] !== undefined) {
+                                angular.forEach(data["reasons"], function (reason) {
+                                    var temp_reason = $factory({ classes: ["Reason", "Model", "States"], base_class: "Reason"});
+                                    temp_reason._model_.fromJSON(reason);
+                                    $misc.reasons.append(temp_reason);
+                                });
+                                $log.log("reasons = ", $misc.reasons.items);
+                            }
+
+
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РґРµРєРѕСЂР°С‚РёРІРЅС‹С… РѕС„РѕСЂРјР»РµРЅРёР№ */
                             if (data["additions"] !== undefined) {
                                 angular.forEach(data["additions"], function (addition) {
@@ -175,7 +194,8 @@ var flowers = angular.module("application.flowers", [])
                                     if (bouquet["reasons"] !== undefined) {
                                         angular.forEach(bouquet["reasons"], function (reason) {
                                             var reason_id = parseInt(reason["reason_id"]);
-                                            temp_bouquet.addReason(reason_id);
+                                            var value = parseInt(reason["value"]) === 1 ? true : false;
+                                            temp_bouquet.addReason(reason_id, value);
                                         });
                                     }
 
@@ -186,16 +206,6 @@ var flowers = angular.module("application.flowers", [])
                                     itemsOnPage: 12,
                                     itemsCount: flowers.bouquets.size()
                                 });
-                            }
-
-                            /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
-                            if (data["reasons"] !== undefined) {
-                                angular.forEach(data["reasons"], function (reason) {
-                                    var temp_reason = $factory({ classes: ["Reason", "Model", "States"], base_class: "Reason"});
-                                    temp_reason._model_.fromJSON(reason);
-                                    $misc.reasons.append(temp_reason);
-                                });
-                                $log.log("reasons = ", $misc.reasons.items);
                             }
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕР»СѓС‡Р°С‚РµР»РµР№ Р±СѓРєРµС‚Р° */
@@ -351,20 +361,26 @@ flowers.controller("GearsBouquetController", ["$log", "$scope", "$flowers", "$pa
         };
 
         $scope.changeReason = function (reasonId, value) {
-            if (reasonId !== undefined && value !== undefined) {
+            if (reasonId !== undefined && value !== undefined && value.constructor === Boolean) {
                 var params = {
                     action: "changeReason",
                     params: {
+                        bouquetId: $scope.currentBouquet.id.value,
                         reasonId: reasonId,
-                        value: value === true ? 1 : 0
+                        value: value
                     }
                 };
                 $scope.misc.reasons._states_.loaded(false);
                 $http.post("serverside/controllers/bouquets.php", params)
                     .success(function (data) {
                         if (data !== undefined) {
-                            $scope.misc.reasons._states_.loaded(true);
+                            if (data === "success") {
+                                $scope.currentBouquet.reasons.find("id", reasonId).enabled = value;
+                            } else {
+                                $scope.currentBouquet.reasons.find("id", reasonId).enabled = !value;
+                            }
                         }
+                        $scope.misc.reasons._states_.loaded(true);
                     }
                 );
             }

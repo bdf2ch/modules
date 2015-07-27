@@ -37,9 +37,35 @@
     * ¬ыполн€ет авторизацию пользовател€ в системе
     **/
     function changeReason ($postdata) {
-        $result = -1;
-        $login = $postdata -> data -> username;
-        $passwd = $postdata -> data -> password;
+        $result = "";
+        $bouquetId = $postdata -> data -> bouquetId;
+        $reasonId = $postdata -> data -> reasonId;
+        $value = $postdata -> data -> value;
+
+
+        $get_reasons_query = mysql_query("SELECT * FROM bouquet_reasons WHERE bouquet_id = $bouquet_id AND reason_id = $reason_id");
+        if (!$query_reasons_query) {
+            $result = new DBError(mysql_errno(), mysql_error());
+            echo(json_encode($result));
+        } else {
+            if (mysql_num_rows($query_get_reasons) > 0) {
+                $query_set_reason = mysql_query("UPDATE bouquet_reasons SET value = $value WHERE bouquet_id = $bouquet_id AND reason_id = $reason_id");
+                if (!$query_set_reason) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                } else {
+                    $result = "success";
+                }
+            } else {
+                $query_add_reason = mysql_query("INSERT INTO bouquet_reasons (bouquet_id, reason_id, value) VALUES ($bouquet_id, $reason_id, $value)");
+                if (!query_add_reason) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                } else {
+                    $result = "success";
+                }
+            }
+        }
 
         echo(json_encode($result));
 
