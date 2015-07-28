@@ -1,0 +1,20 @@
+<table>
+    <thead>
+    <tr>
+        <th>Адресат</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="addressee in misc.addressees.items track by $id(addressee)">
+        <td>
+            {{ addressee.title.value }}
+        </td>
+        <td>
+            <input type="checkbox" name="" id=""
+                   ng-checked="currentBouquet.addressees.find('id', addressee.id.value).enabled === true"
+                   ng-disabled="misc.addressees._states_.loaded() === false"
+                   ng-click="changeAddressee(addressee.id.value, !currentBouquet.addressees.find('id', addressee.id.value)).enabled"/>
+        </td>
+    </tr>
+    </tbody>
+</table>

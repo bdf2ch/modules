@@ -55,7 +55,7 @@ var flowers = angular.module("application.flowers", [])
                     flowers: [],
                     additions: [],
                     reasons: $factory({ classes: ["Collection"], base_class: "Collection" }),
-                    addressees: [],
+                    addressees: $factory({ classes: ["Collection"], base_class: "Collection" }),
 
                     /**
                      * Р”РѕР±Р°РІР»СЏРµС‚ С†РІРµС‚РѕРє Рє РјР°СЃСЃРёРІСѓ С†РІРµС‚РѕРІ, РІС…РѕРґСЏС‰РёС… РІ Р±СѓРєРµС‚
@@ -110,8 +110,25 @@ var flowers = angular.module("application.flowers", [])
                             }
                         }
                         return result;
+                    },
+
+                    addAddressee: function (addresseeId, value) {
+                        console.log("addresseeId = ", addresseeId);
+                        console.log("value = ", value);
+                        if (addresseeId !== undefined && value !== undefined && value.constructor === Boolean) {
+                            var temp_addressee = this.addressees.find("id", addresseeId);
+                            if (temp_addressee !== false)
+                                temp_addressee.enabled = value;
+                            else {
+                                var new_addressee = $factory({ classes: ["Addressee", "Model"], base_class: "Addressee" });
+                                new_addressee._model_.fromAnother($misc.addressees.find("id", addresseeId));
+                                new_addressee.enabled = value;
+                                this.addressees.append(new_addressee);
+                            }
+                        }
                     }
                 },
+
 
                 /**
                  * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚РІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… РїРѕРґР°СЂРѕРє, РїСЂРёР»Р°РіР°РµРјС‹Р№ Рє Р±СѓРєРµС‚Сѓ
@@ -170,6 +187,17 @@ var flowers = angular.module("application.flowers", [])
                                 $log.log("additions = ", flowers.additions.items);
                             }
 
+
+                            /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕР»СѓС‡Р°С‚РµР»РµР№ Р±СѓРєРµС‚Р° */
+                            if (data["addressees"] !== undefined) {
+                                angular.forEach(data["addressees"], function (addressee) {
+                                    var temp_addressee = $factory({ classes: ["Addressee", "Model", "States"], base_class: "Addressee"});
+                                    temp_addressee._model_.fromJSON(addressee);
+                                    $misc.addressees.append(temp_addressee);
+                                });
+                                $log.log("addressees = ", $misc.addressees.items);
+                            }
+
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° Р±СѓРєРµС‚РѕРІ */
                             if (data["bouquets"] !== undefined) {
                                 angular.forEach(data["bouquets"], function (bouquet) {
@@ -199,6 +227,14 @@ var flowers = angular.module("application.flowers", [])
                                         });
                                     }
 
+                                    if (bouquet["addressees"] !== undefined) {
+                                        angular.forEach(bouquet["addressees"], function (addressee) {
+                                            var addressee_id = parseInt(addressee["addressee_id"]);
+                                            var value = parseInt(addressee["value"]) === 1 ? true : false;
+                                            temp_bouquet.addAddressee(addressee_id, value);
+                                        });
+                                    }
+
                                     flowers.bouquets.append(temp_bouquet);
                                 });
                                 $log.log("bouquets = ", flowers.bouquets.items);
@@ -206,16 +242,6 @@ var flowers = angular.module("application.flowers", [])
                                     itemsOnPage: 12,
                                     itemsCount: flowers.bouquets.size()
                                 });
-                            }
-
-                            /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕР»СѓС‡Р°С‚РµР»РµР№ Р±СѓРєРµС‚Р° */
-                            if (data["addressees"] !== undefined) {
-                                angular.forEach(data["addressees"], function (addressee) {
-                                    var temp_addressee = $factory({ classes: ["Addressee", "Model", "States"], base_class: "Addressee"});
-                                    temp_addressee._model_.fromJSON(addressee);
-                                    $misc.addressees.append(temp_addressee);
-                                });
-                                $log.log("addressees = ", $misc.addressees.items);
                             }
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° СЃРїРѕСЃРѕР±РѕРІ РѕРїР»Р°С‚С‹ */
@@ -374,10 +400,13 @@ flowers.controller("GearsBouquetController", ["$log", "$scope", "$flowers", "$pa
                 $http.post("serverside/controllers/bouquets.php", params)
                     .success(function (data) {
                         if (data !== undefined) {
-                            if (data === "success") {
-                                $scope.currentBouquet.reasons.find("id", reasonId).enabled = value;
-                            } else {
-                                $scope.currentBouquet.reasons.find("id", reasonId).enabled = !value;
+                            if (JSON.parse(data) === "success") {
+                                var reason = $scope.currentBouquet.reasons.find("id", reasonId);
+                                if (reason !== false)
+                                    reason.enabled = value;
+                                else {
+                                    $scope.currentBouquet.addReason(reasonId, value);
+                                }
                             }
                         }
                         $scope.misc.reasons._states_.loaded(true);
@@ -387,14 +416,35 @@ flowers.controller("GearsBouquetController", ["$log", "$scope", "$flowers", "$pa
         };
 
 
-        $scope.test = function (reasonId) {
-            if ($scope.currentBouquet.haveReason(reasonId) === false) {
-                $scope.currentBouquet.addReason(reasonId);
-            } else {
-                $scope.currentBouquet.reasons.delete("id", reasonId);
+        $scope.changeAddressee = function (addresseeId, value) {
+            if (addresseeId !== undefined && value !== undefined && value.constructor === Boolean) {
+                var params = {
+                    action: "changeAddressee",
+                    data: {
+                        bouquetId: $scope.currentBouquet.id.value,
+                        addresseeId: addresseeId,
+                        value: value === true ? 1 : 0
+                    }
+                };
+                $scope.misc.addressees._states_.loaded(false);
+                $http.post("serverside/controllers/bouquets.php", params)
+                    .success(function (data) {
+                        if (data !== undefined) {
+                            if (JSON.parse(data) === "success") {
+                                var addressee = $scope.currentBouquet.addressees.find("id", addresseeId);
+                                if (addressee !== false)
+                                    addressee.enabled = value;
+                                else {
+                                    $scope.currentBouquet.addAddressee(addresseeId, value);
+                                }
+                            }
+                        }
+                        $scope.misc.addressees._states_.loaded(true);
+                    }
+                );
             }
-            $log.log($scope.currentBouquet);
         };
+
 
     }]);
 

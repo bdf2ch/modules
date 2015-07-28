@@ -30,7 +30,8 @@ var nisc = angular.module("application.misc", [])
                 Addressee: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
-                    imageUrl: new Field({ source: "image_url", value: "", default_value: "", backupable: true, required: true })
+                    imageUrl: new Field({ source: "image_url", value: "", default_value: "", backupable: true, required: true }),
+                    enabled: false
                 },
 
                 /**
@@ -67,7 +68,7 @@ var nisc = angular.module("application.misc", [])
              * Переменные сервиса
              */
             misc.reasons = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
-            misc.addressees = $factory({ classes: ["Collection"], base_class: "Collection" });
+            misc.addressees = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
             misc.paymentMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.deliveryMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.cities = $factory({ classes: ["Collection"], base_class: "Collection" });
@@ -78,6 +79,6 @@ var nisc = angular.module("application.misc", [])
     .run(function ($modules, $misc) {
         $modules.load($misc);
 
-        $misc.reasons.multipleSelect(true);
+        $misc.reasons.multipleSelect(false);
     }
 );
