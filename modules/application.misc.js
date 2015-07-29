@@ -72,6 +72,7 @@ var nisc = angular.module("application.misc", [])
             misc.paymentMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.deliveryMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.cities = $factory({ classes: ["Collection"], base_class: "Collection" });
+            misc.currentReasonId = 0;
 
             return misc;
         }]) ;

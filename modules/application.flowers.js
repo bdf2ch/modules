@@ -322,12 +322,16 @@ flowers.controller("GearsBouquetsController", ["$log", "$scope", "$flowers", "$p
 
         $scope.selectReason = function (reasonId) {
             if (reasonId !== undefined) {
+                $log.log("selectReason called");
                 angular.forEach($misc.reasons.items, function (reason) {
                     if (reason.id.value === reasonId) {
                         if (reason._states_.selected() === false) {
-                                $misc.reasons.select("id", reasonId);
+                            $misc.reasons.select("id", reasonId);
+                            $misc.currentReasonId = reasonId;
+                            $log.log("currentReasonId = ", $misc.currentReasonId);
                         } else {
                             $misc.reasons.deselect(reason);
+                            $misc.currentReasonId = 0;
                         }
                     }
                 });

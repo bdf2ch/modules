@@ -5,7 +5,7 @@
 var application = angular.module("application", [
         "ngRoute",          // Подключаем модуль управления рутами
         "core",             // Подключаем модуль с сервисами ядра системы
-        "core.filters",     // Подключаем модуль с фильтрами
+        "app.filters",     // Подключаем модуль с фильтрами
         "application.flowers",
         "application.misc",
         "application.shop"

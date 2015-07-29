@@ -13,7 +13,11 @@
                     <span class="sidebar-icon text-left" ng-repeat="reason in misc.reasons.items track by $id(reason)">
                         <img src="{{ reason.imageUrl.value }}" alt=""/>
                         <img src="resources/img/icons/check.png" class="check" ng-show="reason._states_.selected() === true"/>
-                        <a href ng-class="{'selected': reason._states_.selected() === true}" ng-click="selectReason(reason.id.value)">{{ reason.title.value }}</a>
+                        <a href
+                           ng-class="{'selected': reason._states_.selected() === true}"
+                           ng-click="selectReason(reason.id.value)">
+                            {{ reason.title.value }}
+                        </a>
                     </span>
                 </div>
             </div>
@@ -109,7 +113,7 @@
             <div class="units-row end">
                 <div class="unit-100">
                     <ul class="blocks-3">
-                        <li ng-repeat="bouquet in flowers.bouquets.items | pagination: pagination.itemsOnPage:pagination.currentPage" class="bouquet">
+                        <li ng-repeat="bouquet in flowers.bouquets.items | byReason: $misc.currentReasonId | pagination: pagination.itemsOnPage:pagination.currentPage" class="bouquet">
                             <!-- Изображение букета -->
                             <div class="units-row end bouquet-img">
                                 <a href="{{ '#/bouquet/' + bouquet.id.value }}">
