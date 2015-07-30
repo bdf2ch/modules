@@ -35,8 +35,8 @@ function Field (parameters) {
  * Модуль core
  * Содержит базовые сервисы системы
  ********************/
-var core = angular.module("core", [])
-    .config(function ($provide, $routeProvider) {
+var gears = angular.module("gears", [])
+    .config(function ($provide, $routeProvider, $filterProvider) {
 
 
 
@@ -992,6 +992,26 @@ var core = angular.module("core", [])
                     pagination.currentPage = 1;
                 }
             };
+
+
+            /**
+             * pagination
+             * Фильтр массива объектов по страницам
+             */
+            $filterProvider.register("pagination", [ function () {
+                return function (input, itemsOnPage, pageNumber) {
+                    if (itemsOnPage !== undefined && pageNumber !== undefined) {
+                        var items = [];
+                        var start = (pageNumber * itemsOnPage) - itemsOnPage + 1;
+                        angular.forEach(input, function (item, key) {
+                            if (key >= start && key <= (start + itemsOnPage) - 1)
+                                items.push(item);
+                        });
+                        return items;
+                    } else
+                        return input;
+                };
+            }]);
 
 
             return pagination;

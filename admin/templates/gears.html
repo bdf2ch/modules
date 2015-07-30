@@ -1,10 +1,11 @@
 <!-- BEGIN: main -->
 <!DOCTYPE html>
-<html ng-app="gears.application">
+<html ng-app="gears.admin">
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>{{ admin.title }}</title>
     <link rel="stylesheet" href="../resources/styles/kube.min.css"/>
+    <script src="../libs/angularjs/angular.min.js"></script>
 </head>
 <body>
     <div class="units-row">
@@ -22,15 +23,15 @@
 
     <!-- Подключение библиотек и модулей -->
     <script src="../libs/momentjs/moment-with-locales.min.js"></script>
-    <script src="../libs/angularjs/angular.min.js"></script>
     <script src="../libs/angularjs/angular-route.min.js"></script>
     <script src="../libs/angularjs/angular-cookies.min.js"></script>
+    <script src="../libs/gearsjs/gears.js"></script>
 
-    <script src="modules/gears.application.js"></script>
-    <script src="../modules/core.js"></script>
-    <script src="../modules/application.flowers.js"></script>
-    <script src="../modules/application.misc.js"></script>
-    <script src="../modules/core.filters.js"></script>
+    <script src="modules/gears.admin.js"></script>
+    <script src="modules/gears.admin.controllers.js"></script>
+    <script src="../modules/gears.app.bouquets.js"></script>
+    <script src="../modules/gears.app.misc.js"></script>
+    <script src="../modules/gears.app.filters.js"></script>
 </body>
 </html>
 <!-- END: main -->

@@ -10,7 +10,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/cash.png" alt=""/>
+                    <img src="resources/img/cash.png" alt=""/>
                 </div>
                 <div class="unit-70 text-left">
                     <span class="sidebar-leading">Наличные деньги</span>
@@ -19,7 +19,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/visa.png" alt=""/>
+                    <img src="resources/img/visa.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">карты Visa</span>
@@ -30,7 +30,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/mastercard.png" alt=""/>
+                    <img src="resources/img/mastercard.png" alt=""/>
                 </div>
                 <div class="unit-70 text-left">
                     <span class="sidebar-leading">карты MasterCard</span>
@@ -50,7 +50,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/money.png" alt=""/>
+                    <img src="resources/img/money.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Стоимость</span>
@@ -59,7 +59,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/clock.png" alt=""/>
+                    <img src="resources/img/clock.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Сроки</span>
@@ -68,7 +68,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/box.png" alt=""/>
+                    <img src="resources/img/box.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Самовывоз</span>
@@ -87,7 +87,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/flower.png" alt=""/>
+                    <img src="resources/img/flower.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Только свежие цветы</span>
@@ -106,15 +106,15 @@
                 <span class="title-caption">Корзина</span>
             </div>
             <div class="unit-10">
-                <img class="title-image" src="client/resources/img/package.png" alt=""/>
+                <img class="title-image" src="resources/img/package.png" alt=""/>
             </div>
         </div>
 
         <!-- Заглушка на случай отсутствия товаров в корзине -->
-        <div id="cart-no-items" class="units-row" ng-show="cart.items.length === 0">
+        <div id="cart-no-items" class="units-row" ng-show="$cart.amount() === 0">
             <div class="unit-100 text-centered">
                 <div class="unit-30">
-                    <img class="right" src="client/resources/img/package.png" alt=""/>
+                    <img class="right" src="resources/img/package.png" alt=""/>
                 </div>
                 <div class="unit-50 text-left">
                     На данный момент в Вашей корзине ничего нет.<br>

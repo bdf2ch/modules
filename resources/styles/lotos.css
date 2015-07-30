@@ -679,6 +679,10 @@ body {
   height: 64px;
   margin-bottom: 20px;
 }
+.side-panel select {
+  width: 100%;
+  padding: 7px;
+}
 .sidebar-leading {
   display: block;
   margin-top: 5px;

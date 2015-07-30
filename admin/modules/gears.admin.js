@@ -1,7 +1,13 @@
 "use strict";
 
 
-var  gears = angular.module("gears.application", ["ngRoute", "ngCookies", "core", "application.flowers", "application.misc"])
+var  gears = angular.module("gears.admin", [
+    "ngRoute",
+    "ngCookies",
+    "gears",
+    "gears.admin.controllers",
+    "gears.app.bouquets",
+    "gears.app.misc"])
     .config(function ($provide, $routeProvider) {
 
         $routeProvider
@@ -17,7 +23,7 @@ var  gears = angular.module("gears.application", ["ngRoute", "ngCookies", "core"
          * $gears
          * Сервис административной панели
          */
-        $provide.factory("$gears", ["$log", "$http", "$factory", "$flowers", "$misc", function ($log, $http, $factory, $flowers, $misc) {
+        $provide.factory("$admin", ["$log", "$http", "$factory", "$flowers", "$misc", function ($log, $http, $factory, $flowers, $misc) {
             var application = {};
 
             application.title = "Gears test application";
@@ -137,8 +143,8 @@ var  gears = angular.module("gears.application", ["ngRoute", "ngCookies", "core"
             return application;
         }]);
     })
-    .run(function ($log, $rootScope, $gears, $flowers, $misc) {
-        $rootScope.gears = $gears;
+    .run(function ($log, $rootScope, $admin, $flowers, $misc) {
+        $rootScope.admin = $admin;
         $rootScope.flowers = $flowers;
         $rootScope.misc = $misc;
         $log.log("Welcome to gears");

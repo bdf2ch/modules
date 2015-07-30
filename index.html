@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="application">
+<html ng-app="gears.app">
 <head lang="en">
     <meta charset="UTF-8">
     <title>{{ application.title }}</title>
@@ -148,13 +148,15 @@
     <script src="libs/angularjs/angular.min.js"></script>
     <script src="libs/angularjs/angular-route.min.js"></script>
     <script src="libs/angularjs/angular-cookies.min.js"></script>
+    <script src="libs/gearsjs/gears.js"></script>
 
-    <script src="modules/application.js"></script>
-    <script src="modules/core.js"></script>
-    <script src="modules/application.flowers.js"></script>
-    <script src="modules/application.misc.js"></script>
-    <script src="modules/application.titules.js"></script>
-    <script src="modules/application.shop.js"></script>
+    <script src="libs/gearsjs/gears.shop.js"></script>
+    <script src="libs/gearsjs/gears.auth.js"></script>
+    <script src="modules/gears.app.js"></script>
+    <script src="modules/gears.app.bouquets.js"></script>
+    <script src="modules/gears.app.orders.js"></script>
+    <script src="modules/gears.app.misc.js"></script>
     <script src="modules/gears.app.filters.js"></script>
+    <script src="modules/gears.app.controllers.js"></script>
 </body>
 </html>

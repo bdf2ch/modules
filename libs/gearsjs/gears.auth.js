@@ -6,9 +6,8 @@
  * system.auth
  * Модуль авторизации
  */
-var auth = angular.module("core.auth", ["ngCookies", "ngRoute", "core"])
+var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
     .config(function ($provide) {
-        $provide.constant("controller", "test");
 
 
         /**
@@ -50,7 +49,7 @@ var auth = angular.module("core.auth", ["ngCookies", "ngRoute", "core"])
             session.fromCookie = function () {
                 var result = false;
                 if ($cookies._user_ !== undefined) {
-                    session.user.fromJSON(JSON.parse($cookies.user));
+                    //session.user.fromJSON(JSON.parse($cookies._user_));
                     result = true;
                 }
                 return result;
@@ -184,6 +183,6 @@ var auth = angular.module("core.auth", ["ngCookies", "ngRoute", "core"])
 /**
  * Контроллер формы авторизации пользователя
  */
-auth.controller("AuthorizationController", ["$log", "$scope", "$authorization", function ($log, $scope, $authorization) {
+grAuth.controller("AuthorizationController", ["$log", "$scope", "$authorization", function ($log, $scope, $authorization) {
     $scope.auth = $authorization;
 }]);

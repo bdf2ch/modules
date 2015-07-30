@@ -1,27 +1,17 @@
 "use strict";
 
 
-
-var AppFilters = angular.module("app.filters", [])
+/********************
+ * Модуль appFilters
+ * Содкржит описание фильтров, используемых в приложении
+ ********************/
+var AppFilters = angular.module("gears.app.filters", [])
     .config(function ($filterProvider) {
 
-        /* ������ ���� �� id ����� */
-        $filterProvider.register("pagination", [ function () {
-            return function (input, itemsOnPage, pageNumber) {
-                if (itemsOnPage !== undefined && pageNumber !== undefined) {
-                    var items = [];
-                    var start = (pageNumber * itemsOnPage) - itemsOnPage + 1;
-                    angular.forEach(input, function (item, key) {
-                        if (key >= start && key <= (start + itemsOnPage) - 1)
-                            items.push(item);
-                    });
-                    return items;
-                } else
-                    return input;
-            };
-        }]);
-
-
+        /**
+         * byReason
+         * Фильтр букетов по поводу подарить букет
+         */
         $filterProvider.register("byReason", ["$log", function ($log) {
             return function (input, reasonId) {
                 if (reasonId !== undefined && reasonId !== 0) {
@@ -42,6 +32,27 @@ var AppFilters = angular.module("app.filters", [])
                 } else
                     return input;
                 return result;
+            }
+        }]);
+
+
+        /**
+         * byPrice
+         * Фильтр букетов по диапозону цен
+         */
+        $filterProvider.register("byPrice", ["$log", "$misc", function ($log, $misc) {
+            return function (input, priceRangeId) {
+                var result = [];
+                if (priceRangeId !== undefined && priceRangeId !== 0) {
+                    var price_range = $misc.prices.find("id", priceRangeId);
+                    angular.forEach(input, function (bouquet) {
+                        if (bouquet.price.value >= price_range.start && bouquet.price.value <= price_range.end) {
+                            result.push(bouquet);
+                        }
+                    });
+                    return result;
+                } else
+                    return input;
             }
         }]);
 

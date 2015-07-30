@@ -1,7 +1,7 @@
 "use strict";
 
 
-var data = angular.module("system.data", [])
+var grData = angular.module("gears.data", [])
     .config(function ($provide) {
 
 

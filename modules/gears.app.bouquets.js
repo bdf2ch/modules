@@ -5,7 +5,7 @@
  * РњРѕРґСѓР»СЊ application.flowers
  * РЎРѕРґРµСЂР¶РёС‚ С„СѓРЅРєС†РёРѕРЅР°Р» С†РІРµС‚РѕС‡РЅРѕРіРѕ РјР°РіР°Р·РёРЅР°
  */
-var flowers = angular.module("application.flowers", [])
+var flowers = angular.module("gears.app.bouquets", [])
     .config(function ($provide) {
 
 
@@ -21,26 +21,6 @@ var flowers = angular.module("application.flowers", [])
              * РќР°Р±РѕСЂС‹ СЃРІРѕР№СЃС‚ Рё РјРµС‚РѕРґРѕРІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… РјРѕРґРµР»Рё РґР°РЅРЅС‹С…
              */
             flowers.classes = {
-                /**
-                 * РќР°Р±РѕСЂ СЃРІРѕР№СЃС‚РІ, РѕРїРёСЃС‹РІР°СЋС‰РёС… С†РІРµС‚РѕРє
-                 */
-                Flower: {
-                    id: new Field({ source: "id", value: 15, default_value: 0 }),
-                    title: new Field({ source: "title", value: "", default_value: 0, backupable: true, required: true}),
-                    description: new Field({ source: "description", value: "", backupable: true, required: true }),
-                    price: new Field({ source: "price", value: 750, default_value: 0, backupable: true, required: true })
-                },
-
-                /**
-                 * Addition
-                 * Набор свойств, описывающих декоративное оформление букета
-                 */
-                Addition: {
-                    id: new Field({ source: "id", value: 0, default_value: 0 }),
-                    title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
-                    description: new Field({ source: "description", value: "", default_value: "", backupable: true })
-                },
-
                 /**
                  * Bouquet
                  * Набор свойств и методов, описывающих букет
@@ -145,9 +125,7 @@ var flowers = angular.module("application.flowers", [])
             /**
              * РџРµСЂРµРјРµРЅРЅС‹Рµ СЃРµСЂРІРёСЃР°
              */
-            flowers.flowers = $factory({ classes: ["Collection"], base_class: "Collection" });
             flowers.bouquets = $factory({ classes: ["Collection"], base_class: "Collection" });
-            flowers.additions = $factory({ classes: ["Collection"], base_class: "Collection" });
             flowers.gifts = $factory({ classes: ["Collection"], base_class: "Collection" });
 
 
@@ -161,9 +139,9 @@ var flowers = angular.module("application.flowers", [])
                                 angular.forEach(data["flowers"], function (flower) {
                                     var temp_flower = $factory({ classes: ["Flower", "Model", "States"], base_class: "Flower"});
                                     temp_flower._model_.fromJSON(flower);
-                                    flowers.flowers.append(temp_flower);
+                                    $misc.flowers.append(temp_flower);
                                 });
-                                $log.log("flowers = ", flowers.flowers.items);
+                                $log.log("flowers = ", $misc.flowers.items);
                             }
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
@@ -182,9 +160,9 @@ var flowers = angular.module("application.flowers", [])
                                 angular.forEach(data["additions"], function (addition) {
                                     var temp_addition = $factory({ classes: ["Addition", "Model"], base_class: "Addition"});
                                     temp_addition._model_.fromJSON(addition);
-                                    flowers.additions.append(temp_addition);
+                                    $misc.additions.append(temp_addition);
                                 });
-                                $log.log("additions = ", flowers.additions.items);
+                                $log.log("additions = ", $misc.additions.items);
                             }
 
 
@@ -288,167 +266,3 @@ var flowers = angular.module("application.flowers", [])
         $flowers.init();
     }
 );
-
-
-
-flowers.controller("BouquetsController", ["$log", "$scope", "$flowers", "$pagination", "$misc", "$cart",
-    function ($log, $scope, $flowers, $pagination, $misc, $cart) {
-        $scope.flowers = $flowers;
-        $scope.pagination = $pagination;
-        $scope.misc = $misc;
-        $scope.cart = $cart;
-
-        $scope.selectReason = function (reasonId) {
-            if (reasonId !== undefined) {
-                angular.forEach($misc.reasons.items, function (reason) {
-                    if (reason.id.value === reasonId) {
-                        if (reason._states_.selected() === false) {
-                            $misc.reasons.select("id", reasonId);
-                        } else {
-                            $misc.reasons.deselect(reason);
-                        }
-                    }
-                });
-            }
-        };
-}]);
-
-
-flowers.controller("GearsBouquetsController", ["$log", "$scope", "$flowers", "$pagination", "$misc", "$location", "$routeParams",
-    function ($log, $scope, $flowers, $pagination, $misc, $location, $routeParams) {
-        $scope.flowers = $flowers;
-        $scope.pagination = $pagination;
-        $scope.misc = $misc;
-
-        $scope.selectReason = function (reasonId) {
-            if (reasonId !== undefined) {
-                $log.log("selectReason called");
-                angular.forEach($misc.reasons.items, function (reason) {
-                    if (reason.id.value === reasonId) {
-                        if (reason._states_.selected() === false) {
-                            $misc.reasons.select("id", reasonId);
-                            $misc.currentReasonId = reasonId;
-                            $log.log("currentReasonId = ", $misc.currentReasonId);
-                        } else {
-                            $misc.reasons.deselect(reason);
-                            $misc.currentReasonId = 0;
-                        }
-                    }
-                });
-            }
-        };
-
-        $scope.gotoBouquet = function (bouquetId) {
-            $location.url("/bouquets/" + bouquetId);
-        };
-    }]);
-
-
-flowers.controller("GearsBouquetController", ["$log", "$scope", "$flowers", "$pagination", "$misc", "$location", "$routeParams", "$http",
-    function ($log, $scope, $flowers, $pagination, $misc, $location, $routeParams, $http) {
-        $scope.flowers = $flowers;
-        $scope.pagination = $pagination;
-        $scope.misc = $misc;
-        $scope.currentBouquet = undefined;
-        $scope.activeTab = undefined;
-        $scope.tabs = [
-            {
-                id: 1,
-                title: "Информация о букете",
-                template: "templates/bouquet/bouquet-info.html",
-                active: true
-            },
-            {
-                id: 2,
-                title: "Поводы подарить букет",
-                template: "templates/bouquet/bouquet-reasons.html",
-                active: false
-            },
-            {
-                id: 3,
-                title: "Кому можно подарить букет",
-                template: "templates/bouquet/bouquet-addressees.html",
-                active: false
-            }
-        ];
-
-
-        if ($routeParams.bouquetId !== undefined) {
-            $scope.currentBouquet = $flowers.bouquets.find("id", parseInt($routeParams.bouquetId));
-            $log.log("currentBouquet = ", $scope.currentBouquet);
-        }
-
-        $scope.selectTab = function (tabId) {
-            if (tabId !== undefined) {
-                angular.forEach($scope.tabs, function (tab) {
-                    if (tab.id === tabId) {
-                        tab.active = true;
-                        $scope.activeTab = tab;
-                    } else
-                        tab.active = false;
-                });
-            }
-        };
-
-        $scope.changeReason = function (reasonId, value) {
-            if (reasonId !== undefined && value !== undefined && value.constructor === Boolean) {
-                var params = {
-                    action: "changeReason",
-                    data: {
-                        bouquetId: $scope.currentBouquet.id.value,
-                        reasonId: reasonId,
-                        value: value === true ? 1 : 0
-                    }
-                };
-                $scope.misc.reasons._states_.loaded(false);
-                $http.post("serverside/controllers/bouquets.php", params)
-                    .success(function (data) {
-                        if (data !== undefined) {
-                            if (JSON.parse(data) === "success") {
-                                var reason = $scope.currentBouquet.reasons.find("id", reasonId);
-                                if (reason !== false)
-                                    reason.enabled = value;
-                                else {
-                                    $scope.currentBouquet.addReason(reasonId, value);
-                                }
-                            }
-                        }
-                        $scope.misc.reasons._states_.loaded(true);
-                    }
-                );
-            }
-        };
-
-
-        $scope.changeAddressee = function (addresseeId, value) {
-            if (addresseeId !== undefined && value !== undefined && value.constructor === Boolean) {
-                var params = {
-                    action: "changeAddressee",
-                    data: {
-                        bouquetId: $scope.currentBouquet.id.value,
-                        addresseeId: addresseeId,
-                        value: value === true ? 1 : 0
-                    }
-                };
-                $scope.misc.addressees._states_.loaded(false);
-                $http.post("serverside/controllers/bouquets.php", params)
-                    .success(function (data) {
-                        if (data !== undefined) {
-                            if (JSON.parse(data) === "success") {
-                                var addressee = $scope.currentBouquet.addressees.find("id", addresseeId);
-                                if (addressee !== false)
-                                    addressee.enabled = value;
-                                else {
-                                    $scope.currentBouquet.addAddressee(addresseeId, value);
-                                }
-                            }
-                        }
-                        $scope.misc.addressees._states_.loaded(true);
-                    }
-                );
-            }
-        };
-
-
-    }]);
-

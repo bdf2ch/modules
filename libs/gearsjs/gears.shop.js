@@ -1,7 +1,7 @@
 "use strict";
 
 
-var shop = angular.module("application.shop", [])
+var grShop = angular.module("gears.shop", [])
     .config(function ($provide) {
 
         /********************

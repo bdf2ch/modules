@@ -67,12 +67,10 @@
             </div>
             <div class="units-row end">
                 <div class="unit-100">
-                    <select class="width-90 centered" name="" id="">
-                        <option value="1">от 1000 р. до 2000 р.</option>
-                        <option value="1">от 2000 р. до 3000 р.</option>
-                        <option value="1">от 3000 р. до 4000 р.</option>
-                        <option value="1">от 4000 р. до 5000 р.</option>
-                        <option value="1">от 5000 р.</option>
+                    <select name="" id=""
+                            ng-model="app.currentPriceRangeId"
+                            ng-options="price.id as price.title for price in misc.prices.items"
+                            ng-change="selectPriceRange(app.currentPriceRangeId)">
                     </select>
                 </div>
             </div>
