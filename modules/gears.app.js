@@ -54,6 +54,7 @@ var application = angular.module("gears.app", [
             application.description = "This is a test application provided by Shell Framework";
             application.currentPriceRangeId = 1;
             application.currentReasonId = 0;
+            application.currentAddresseeId = 0;
             application.currentOrder = $factory({ classes: ["Order"], base_class: "Order" });
 
             return application;

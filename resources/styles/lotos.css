@@ -232,6 +232,7 @@ body {
   margin-bottom: -50px;
   padding-top: 0px;
   padding: 10px;
+  padding-bottom: 50px;
 }
 #content .pagination-bottom {
   margin-top: -40px;
@@ -260,6 +261,12 @@ body {
 }
 #content .pagination li.active-page:hover {
   border: 1px solid transparent;
+}
+#content #filter-items-count {
+  display: block;
+  height: 42px;
+  padding-top: 7px;
+  vertical-align: bottom;
 }
 .bouquet {
   height: 280px;

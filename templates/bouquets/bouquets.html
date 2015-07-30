@@ -32,10 +32,14 @@
             </div>
             <div class="units-row end">
                 <div class="unit-100">
-                    <span class="sidebar-icon text-left" ng-repeat="addressee in misc.addressees.items">
+                    <span class="sidebar-icon text-left" ng-repeat="addressee in misc.addressees.items track by $id(addressee)">
                         <img src="{{ addressee.imageUrl.value }}" alt=""/>
-                        <img src="resources/img/icons/check.png" class="check" alt=""/>
-                        <a href="">{{ addressee.title.value }}</a>
+                        <img src="resources/img/icons/check.png" class="check" ng-show="addressee._states_.selected() === true"/>
+                        <a href
+                           ng-class="{'selected': addressee._states_.selected() === true}"
+                           ng-click="selectAddressee(addressee.id.value)">
+                            {{ addressee.title.value }}
+                        </a>
                     </span>
                 </div>
             </div>
@@ -84,10 +88,12 @@
             <!-- Пагинация -->
             <div class="units-row end">
                 <div class="unit-50">
-                    Количество элементов на странице: 10   15   20
+                    <span id="filter-items-count" class="width-100">
+                        {{ pagination.itemsCount }}
+                    </span>
                 </div>
                 <div class="unit-50">
-                    <ul class="pagination right">
+                    <ul class="pagination right" ng-show="pagination.totalPages > 1">
                         <li ng-show="pagination.currentPage > 1">
                             <a href title="Предыдущая страница" ng-click="pagination.previous()">&larr;</a>
                         </li>
@@ -111,11 +117,11 @@
             <div class="units-row end">
                 <div class="unit-100">
                     <ul class="blocks-3">
-                        <li ng-repeat="bouquet in flowers.bouquets.items | byReason: $misc.currentReasonId | pagination: pagination.itemsOnPage:pagination.currentPage" class="bouquet">
+                        <li ng-repeat="bouquet in flowers.bouquets.items | byReason: app.currentReasonId | byAddressee: app.currentAddresseeId | byPrice: app.currentPriceRangeId | pagination: pagination.itemsOnPage:pagination.currentPage" class="bouquet">
                             <!-- Изображение букета -->
                             <div class="units-row end bouquet-img">
                                 <a href="{{ '#/bouquet/' + bouquet.id.value }}">
-                                    <img src="resources/img/test1.jpg" alt="{{ bouquet.title.value }}"/>
+                                    <img src="{{ bouquet.imageUrl.value }}" alt="{{ bouquet.title.value }}"/>
                                 </a>
                                 <!--
                                 <div class="bouquet-labels">
@@ -131,7 +137,7 @@
                                 </div>
                                 <div class="unit-35">
                                     <button class="btn btn-small btn-yellow right width-100"
-                                            ng-click="cart.add(bouquet)">
+                                            ng-click="cart.add(bouquet.id.value, bouquet.price.value)">
                                         <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>
                                         В корзину
                                     </button>
@@ -144,7 +150,7 @@
             </div>
 
             <!-- Пагинация -->
-            <div class="units-row pagination-bottom">
+            <div class="units-row pagination-bottom" ng-show="pagination.totalPages > 1">
                 <div class="unit-100">
                     <ul class="pagination right">
                         <li ng-show="pagination.currentPage > 1">

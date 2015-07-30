@@ -30,6 +30,7 @@ var grShop = angular.module("gears.shop", [])
                                 if (this.hasOwnProperty(param) !== param !== "amount")
                                     this[param] = parameters[param];
                             }
+                            this.amount = 1;
                         }
                     }
                 }
@@ -41,6 +42,7 @@ var grShop = angular.module("gears.shop", [])
              */
             cart.items = $factory({ classes: ["Collection"], base_class: "Collection" });
             var totalPrice = 0;
+            var totalAmount = 0;
 
 
             /**
@@ -48,14 +50,23 @@ var grShop = angular.module("gears.shop", [])
              * @param item {Any} - Объект, описывающий покупку
              * @returns {number} - Возвращает количество элементов в корзине покупок
              */
-            cart.add = function (item) {
-                $log.log(item);
-                $log.log("totalprice = ", totalPrice);
-                var temp_cart_item = $factory({ classes: ["CartItem"], base_class: "CartItem" });
-                temp_cart_item.init({ productId: item.id.value, price: item.price.value });
-                cart.items.append(temp_cart_item);
-                totalPrice += temp_cart_item.price;
-                return cart.items.size();
+            cart.add = function (productId, productPrice) {
+                var result = false;
+                if (productId !== undefined && productPrice !== undefined) {
+                    var cart_item = cart.items.find("productId", productId);
+                    if (cart_item !== false) {
+                        cart_item.amount++;
+                    } else {
+                        cart_item = $factory({ classes: ["CartItem"], base_class: "CartItem" });
+                        cart_item.init({ productId: productId, price: productPrice });
+                        cart.items.append(cart_item);
+                    }
+                    totalAmount++;
+                    totalPrice += productPrice;
+                    result = totalAmount;
+                } else
+                    $log.error("$cart: Не указан идентификатор продукта или цена продукта");
+                return result;
             };
 
 
@@ -69,9 +80,13 @@ var grShop = angular.module("gears.shop", [])
                 if (productId !== undefined) {
                     var product = cart.items.find("productId", productId);
                     if (product !== false) {
-                        cart.items.delete("productId", productId);
+                        if (product.amount > 1)
+                            product.amount--;
+                        else
+                            cart.items.delete("productId", productId);
+                        totalAmount--;
                         totalPrice -= product.price;
-                        result = cart.size();
+                        result = cart.amount();
                     }
                 } else
                     $log.error("$cart: Не указан идентификатор элемента корзины покупок");
@@ -84,7 +99,7 @@ var grShop = angular.module("gears.shop", [])
              * @returns {number} - Возвращает количество элементов в корзине покупок
              */
             cart.amount = function () {
-                return cart.items.size();
+                return totalAmount;
             };
 
 

@@ -13,7 +13,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
 
 
         /**
-         * Выбирает текущие повод подарить букет
+         * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
          * @param reasonId
          */
         $scope.selectReason = function (reasonId) {
@@ -22,10 +22,11 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                     if (reason.id.value === reasonId) {
                         if (reason._states_.selected() === false) {
                             $misc.reasons.select("id", reasonId);
+                            $application.currentReasonId = reasonId;
                         } else {
                             $misc.reasons.deselect(reason);
+                            $application.currentReasonId = 0;
                         }
-                        $application.currentReasonId = reasonId;
                     }
                 });
             }
@@ -33,9 +34,27 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
         };
 
 
+        $scope.selectAddressee = function (addresseeId) {
+            if (addresseeId !== undefined) {
+                angular.forEach($misc.addressees.items, function (addressee) {
+                    if (addressee.id.value === addresseeId) {
+                        if (addressee._states_.selected() === false) {
+                            $misc.addressees.select("id", addresseeId);
+                            $application.currentAddresseeId = addresseeId;
+                        } else {
+                            $misc.addressees.deselect(addressee);
+                            $application.currentAddresseeId = 0;
+                        }
+                    }
+                });
+            }
+            $log.log("currentAddresseeId = ", $application.currentAddresseeId);
+        };
+
+
         /**
-         * Выбирает текущий диапозон цен
-         * @param priceRangeId {number} - Идентификатор диапозона цен
+         * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+         * @param priceRangeId {number} - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
          */
         $scope.selectPriceRange = function (priceRangeId) {
             if (priceRangeId !== undefined) {
@@ -50,8 +69,14 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
 );
 
 
-appControllers.controller("CartController", ["$log", "$scope", "$cart", function ($log, $scope, $cart) {
+appControllers.controller("BouquetController", ["$log", "$scope", "$cart", function ($log, $scope, $cart) {
+    $scope.cart = $cart;
+}]);
 
+
+appControllers.controller("CartController", ["$log", "$scope", "$cart", "$flowers", function ($log, $scope, $cart, $flowers) {
+    $scope.flowers = $flowers;
+    $log.log($cart.items);
 }]);
 
 

@@ -940,8 +940,9 @@ var gears = angular.module("gears", [])
              * Переменные сервиса
              */
             pagination.totalPages = 0;
-            pagination.currentPage = 0;
+            pagination.currentPage = 1;
             pagination.itemsOnPage = 0;
+            pagination.itemsCount = 0;
 
             /**
              * Переход на следующую страницу
@@ -967,6 +968,7 @@ var gears = angular.module("gears", [])
                 if (pageNumber !== undefined) {
                     if (isNaN(pageNumber) === false) {
                         if (pageNumber > 0 && pageNumber <= pagination.totalPages) {
+                            $log.log("currentpage = ", pageNumber);
                             pagination.currentPage = pageNumber;
                         } else
                             $log.error("$pagination: Номер страницы не может быть меньше 0 и больше общего количества страниц");
@@ -979,6 +981,7 @@ var gears = angular.module("gears", [])
 
             pagination.init = function (parameters) {
                 if (parameters !== undefined) {
+                    //pagination.set(1);
                     if (parameters.hasOwnProperty("itemsOnPage")) {
                         if (isNaN(parameters["itemsOnPage"]) === false) {
                             pagination.itemsOnPage = parameters["itemsOnPage"];
@@ -986,10 +989,11 @@ var gears = angular.module("gears", [])
                     }
                     if (parameters.hasOwnProperty("itemsCount")) {
                         if (isNaN(parameters["itemsCount"]) === false) {
+                            pagination.itemsCount = parameters["itemsCount"];
                             pagination.totalPages = Math.ceil(parameters["itemsCount"] / parameters["itemsOnPage"]);
                         }
                     }
-                    pagination.currentPage = 1;
+                    //pagination.currentPage = 1;
                 }
             };
 
@@ -998,11 +1002,13 @@ var gears = angular.module("gears", [])
              * pagination
              * Фильтр массива объектов по страницам
              */
-            $filterProvider.register("pagination", [ function () {
+            $filterProvider.register("pagination", ["$log", "$pagination", function ($log, $pagination) {
                 return function (input, itemsOnPage, pageNumber) {
                     if (itemsOnPage !== undefined && pageNumber !== undefined) {
                         var items = [];
-                        var start = (pageNumber * itemsOnPage) - itemsOnPage + 1;
+                        var start = (pageNumber * itemsOnPage) - itemsOnPage ;
+                        $pagination.init({ itemsOnPage: 12, itemsCount: input.length });
+                        $log.log("input size = ", input.length);
                         angular.forEach(input, function (item, key) {
                             if (key >= start && key <= (start + itemsOnPage) - 1)
                                 items.push(item);

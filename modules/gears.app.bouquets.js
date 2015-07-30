@@ -32,8 +32,8 @@ var flowers = angular.module("gears.app.bouquets", [])
                     descriptionFull: new Field({ source: "description_full", value: "", default_value: "", backupable: true }),
                     price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true }),
                     imageUrl: new Field({ source: "image_url", value: "" }),
-                    flowers: [],
-                    additions: [],
+                    flowers: $factory({ classes: ["Collection"], base_class: "Collection" }),
+                    additions: $factory({ classes: ["Collection"], base_class: "Collection" }),
                     reasons: $factory({ classes: ["Collection"], base_class: "Collection" }),
                     addressees: $factory({ classes: ["Collection"], base_class: "Collection" }),
 
@@ -43,9 +43,9 @@ var flowers = angular.module("gears.app.bouquets", [])
                      */
                     addFlower: function (flowerId) {
                         if (flowerId !== undefined) {
-                            var flower = flowers.flowers.find("id", flowerId);
+                            var flower = $misc.flowers.find("id", flowerId);
                             if (flower !== false) {
-                                this.flowers.push(flower);
+                                this.flowers.append(flower);
                             }
                         }
                     },
@@ -218,7 +218,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                 $log.log("bouquets = ", flowers.bouquets.items);
                                 $pagination.init({
                                     itemsOnPage: 12,
-                                    itemsCount: flowers.bouquets.size()
+                                //    itemsCount: flowers.bouquets.size()
                                 });
                             }
 
