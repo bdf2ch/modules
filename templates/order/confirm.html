@@ -9,7 +9,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/cash.png" alt=""/>
+                    <img src="resources/img/cash.png" alt=""/>
                 </div>
                 <div class="unit-70 text-left">
                     <span class="sidebar-leading">Наличные деньги</span>
@@ -18,7 +18,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/visa.png" alt=""/>
+                    <img src="resources/img/visa.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">карты Visa</span>
@@ -29,7 +29,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/mastercard.png" alt=""/>
+                    <img src="resources/img/mastercard.png" alt=""/>
                 </div>
                 <div class="unit-70 text-left">
                     <span class="sidebar-leading">карты MasterCard</span>
@@ -49,7 +49,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/money.png" alt=""/>
+                    <img src="resources/img/money.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Стоимость</span>
@@ -58,7 +58,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/clock.png" alt=""/>
+                    <img src="resources/img/clock.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Сроки</span>
@@ -67,7 +67,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/box.png" alt=""/>
+                    <img src="resources/img/box.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Самовывоз</span>
@@ -86,7 +86,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/flower.png" alt=""/>
+                    <img src="resources/img/flower.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Только свежие цветы</span>
@@ -103,7 +103,7 @@
                 <span class="title-caption">Подтверждение заказа</span>
             </div>
             <div class="unit-10">
-                <img class="title-image" src="client/resources/img/confirmation.png" alt=""/>
+                <img class="title-image" src="resources/img/confirmation.png" alt=""/>
             </div>
         </div>
 
@@ -137,12 +137,12 @@
 
             <div class="units-row confirmation-delivery" ng-show="orders.order.deliveryMethodId.value === 2">
                 <div class="unit-10">
-                    <img src="client/resources/img/delivery_icon.png" alt=""/>
+                    <img src="resources/img/delivery_icon.png" alt=""/>
                 </div>
                 <div class="unit-70 delivery">
                     Доставка<br>
-                    <span class="sidebar-text grey">
-                        {{ "в " + misc.getCityById(orders.order.cityId.value).title.value }}
+                    <span class="sidebar-text grey" ng-init="ct = misc.cities.find('id', order.addressCityId.value)">
+                        {{ "в " + ct.title.value }}
                     </span>
                 </div>
                 <div class="unit-20 text-right">
@@ -285,7 +285,7 @@
                             Дата и время доставки:
                         </div>
                         <div class="unit-70 confirmation-order-content">
-                            {{ orders.order.deliveryStart.value | dateview }}
+                            {{ orders.order.deliveryStart.value }}
                         </div>
                     </div>
                 </div>
@@ -311,7 +311,7 @@
 
         <div class="units-row units-split confirmation-success">
             <div class="unit-20">
-                <img src="client/resources/img/success.png" alt="Ваш заказ принят"/>
+                <img src="resources/img/success.png" alt="Ваш заказ принят"/>
             </div>
             <div class="unit-80">
                 <div class="units-row end">
@@ -330,7 +330,7 @@
 
         <div class="units-row units-split confirmation-account">
             <div class="unit-20">
-                <img src="client/resources/img/woman.png" alt="Для Вас создана учетная запись"/>
+                <img src="resources/img/woman.png" alt="Для Вас создана учетная запись"/>
             </div>
             <div class="unit-80">
                 <div class="units-row end">
@@ -362,7 +362,7 @@
 
         <div class="units-row" ng-show="orders.loading === true">
             <div class="unit-100 text-centered">
-                <img src="client/resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
+                <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
                 <span>Мы обрабатываем Ваш заказ...</span>
             </div>
         </div>

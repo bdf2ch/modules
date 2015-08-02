@@ -137,8 +137,9 @@ var flowers = angular.module("gears.app.bouquets", [])
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° С†РІРµС‚РѕРІ */
                             if (data["flowers"] !== undefined) {
                                 angular.forEach(data["flowers"], function (flower) {
-                                    var temp_flower = $factory({ classes: ["Flower", "Model", "States"], base_class: "Flower"});
+                                    var temp_flower = $factory({ classes: ["Flower", "Model", "States", "Backup"], base_class: "Flower"});
                                     temp_flower._model_.fromJSON(flower);
+                                    temp_flower._backup_.setup();
                                     $misc.flowers.append(temp_flower);
                                 });
                                 $log.log("flowers = ", $misc.flowers.items);
@@ -147,8 +148,9 @@ var flowers = angular.module("gears.app.bouquets", [])
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
                             if (data["reasons"] !== undefined) {
                                 angular.forEach(data["reasons"], function (reason) {
-                                    var temp_reason = $factory({ classes: ["Reason", "Model", "States"], base_class: "Reason"});
+                                    var temp_reason = $factory({ classes: ["Reason", "Model", "States", "Backup"], base_class: "Reason"});
                                     temp_reason._model_.fromJSON(reason);
+                                    temp_reason._backup_.setup();
                                     $misc.reasons.append(temp_reason);
                                 });
                                 $log.log("reasons = ", $misc.reasons.items);
@@ -158,8 +160,9 @@ var flowers = angular.module("gears.app.bouquets", [])
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РґРµРєРѕСЂР°С‚РёРІРЅС‹С… РѕС„РѕСЂРјР»РµРЅРёР№ */
                             if (data["additions"] !== undefined) {
                                 angular.forEach(data["additions"], function (addition) {
-                                    var temp_addition = $factory({ classes: ["Addition", "Model"], base_class: "Addition"});
+                                    var temp_addition = $factory({ classes: ["Addition", "Model", "States", "Backup"], base_class: "Addition"});
                                     temp_addition._model_.fromJSON(addition);
+                                    temp_addition._backup_.setup();
                                     $misc.additions.append(temp_addition);
                                 });
                                 $log.log("additions = ", $misc.additions.items);
@@ -169,8 +172,9 @@ var flowers = angular.module("gears.app.bouquets", [])
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕР»СѓС‡Р°С‚РµР»РµР№ Р±СѓРєРµС‚Р° */
                             if (data["addressees"] !== undefined) {
                                 angular.forEach(data["addressees"], function (addressee) {
-                                    var temp_addressee = $factory({ classes: ["Addressee", "Model", "States"], base_class: "Addressee"});
+                                    var temp_addressee = $factory({ classes: ["Addressee", "Model", "States", "Backup"], base_class: "Addressee"});
                                     temp_addressee._model_.fromJSON(addressee);
+                                    temp_addressee._backup_.setup();
                                     $misc.addressees.append(temp_addressee);
                                 });
                                 $log.log("addressees = ", $misc.addressees.items);
@@ -179,21 +183,30 @@ var flowers = angular.module("gears.app.bouquets", [])
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° Р±СѓРєРµС‚РѕРІ */
                             if (data["bouquets"] !== undefined) {
                                 angular.forEach(data["bouquets"], function (bouquet) {
-                                    var temp_bouquet = $factory({ classes: ["Bouquet", "Model", "Backup"], base_class: "Bouquet"});
+                                    var temp_bouquet = $factory({ classes: ["Bouquet", "Model", "States", "Backup"], base_class: "Bouquet"});
                                     temp_bouquet._model_.fromJSON(bouquet);
                                     temp_bouquet._backup_.setup();
 
                                     if (bouquet["flowers"] !== undefined) {
+                                        //angular.forEach(bouquet["flowers"], function (flower) {
+                                        //    var flower_id = parseInt(flower["id"]);
+                                        //    temp_bouquet.addFlower(flower_id);
+                                        //});
                                         angular.forEach(bouquet["flowers"], function (flower) {
-                                            var flower_id = parseInt(flower["id"]);
-                                            temp_bouquet.addFlower(flower_id);
+                                            //var flower_id = parseInt(flower["id"]);
+                                            var bouquet_flower = $factory({ classes: ["BouquetFlower", "Model", "Backup", "States"], base_class: "BouquetFlower" });
+                                            bouquet_flower._model_.fromJSON(flower);
+                                            bouquet_flower._backup_.setup();
+                                            temp_bouquet.flowers.append(bouquet_flower);
                                         });
                                     }
 
                                     if (bouquet["additions"] !== undefined) {
                                         angular.forEach(bouquet["additions"], function (addition) {
-                                            var addition_id = parseInt(addition["id"]);
-                                            temp_bouquet.addAddition(addition_id);
+                                            var bouquet_addition = $factory({ classes: ["BouquetAddition", "Model", "Backup", "States"], base_class: "BouquetAddition" });
+                                            bouquet_addition._model_.fromJSON(addition);
+                                            bouquet_addition._backup_.setup();
+                                            temp_bouquet.additions.append(bouquet_addition);
                                         });
                                     }
 

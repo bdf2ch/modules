@@ -74,7 +74,7 @@
                  die('Неверный запрос: ' . mysql_error());
             } else {
                  while ($addition_row = mysql_fetch_assoc($query_bouquet_additions)) {
-                     array_push($bouquet_addition, $addition_row);
+                     array_push($bouquet_additions, $addition_row);
                  }
                  $row["additions"] = $bouquet_additions;
             }

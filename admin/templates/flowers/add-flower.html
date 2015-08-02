@@ -1,0 +1,24 @@
+<div class="units-row">
+    <div class="unit-100">
+        <h3>Новый Цветок</h3>
+    </div>
+</div>
+
+<div class="units-row">
+    <form action="" class="forms">
+        <label for="new-flower-title">
+            Наименование цветка
+            <input type="text" name="" id="new-flower-title" placeholder="Наименование" ng-model="flower.title.value"/>
+        </label>
+        <label for="new-flower-description">
+            Описание цветка
+            <input type="text" class="width-50" name="" id="new-flower-description" placeholder="Описание" ng-model="flower.description.value"/>
+        </label>
+        <label for="new-flower-price">
+            Стоимость цветка
+            <input type="text" name="" id="new-flower-price" placeholder="Цена" ng-model="flower.price.value"/>
+        </label>
+        <button class="btn btn-green" ng-click="add()" ng-disabled="flower._states_.loaded() === false">Добавить</button>
+    </form>
+    <div ng-repeat="error in errors">{{ error }}</div>
+</div>

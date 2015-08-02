@@ -130,7 +130,7 @@
             <div class="unit-100">
 
 
-                <div class="units-row end cart-item" ng-repeat="item in cart.items.items track by $index" ng-init="product = flowers.bouquets.find('id', item.productId)">
+                <div class="units-row end cart-item" ng-repeat="item in cart.items.items track by $id(item)" ng-init="product = flowers.bouquets.find('id', item.productId)">
                     <div class="unit-40">
                         <a href="{{ '#/bouquet/' + product.id.value }}">
                             <img src="{{ product.imageUrl.value }}" alt=""/>
@@ -148,7 +148,7 @@
                                         <div class="unit-100 text-centered">
                                             <span class="btn-group">
                                                 <button class="btn btn-small btn-yellow" title="Уменьшить количество" ng-click="cart.delete(item.productId)">-</button>
-                                                <button class="btn btn-small btn-yellow" title="Увеличить количество" ng-click="cart.add(item.id.value)">+</button>
+                                                <button class="btn btn-small btn-yellow" title="Увеличить количество" ng-click="cart.add(item.productId, item.price)">+</button>
                                             </span>
                                         </div>
                                     </div>

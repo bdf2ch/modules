@@ -111,6 +111,13 @@ var grShop = angular.module("gears.shop", [])
                 return totalPrice;
             };
 
+
+            cart.clear = function () {
+                cart.items.clear();
+                totalPrice = 0;
+                totalAmount = 0;
+            };
+
             return cart;
         }]);
 

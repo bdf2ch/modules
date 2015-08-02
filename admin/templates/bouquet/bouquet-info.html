@@ -1,15 +1,36 @@
 <div class="units-row">
-    <div class="unit-100">
-        {{ currentBouquet.title.value }}
-    </div>
-</div>
-<div class="units-row">
-    <div class="unit-100">
-        {{ currentBouquet.descriptionShort.value }}
-    </div>
-</div>
-<div class="units-row">
-    <div class="unit-100">
-        {{ currentBouquet.price.value }}
-    </div>
+    <form action="" class="forms">
+        <label for="current-bouquet-title">
+            Наименование букета
+            <input type="text" name="" id="current-bouquet-title" placeholder="Наименование"
+                   ng-model="currentBouquet.title.value"
+                   ng-change="currentBouquet._states_.changed(true)"
+                   ng-disabled="currentBouquet._states_.editing() === false"/>
+        </label>
+        <label for="current-bouquet-short-description">
+            Краткое описание букета
+            <input type="text" class="width-50" name="" id="current-bouquet-short-description" placeholder="Краткое описание"
+                   ng-model="currentBouquet.descriptionShort.value"
+                   ng-change="currentBouquet._states_.changed(true)"
+                   ng-disabled="currentBouquet._states_.editing() === false"/>
+        </label>
+        <label for="current-bouquet-full-description">
+            Полное описание букета
+            <input type="text" class="width-50" name="" id="current-bouquet-full-description" placeholder="Полное описание"
+                   ng-model="currentBouquet.descriptionFull.value"
+                   ng-change="currentBouquet._states_.changed(true)"
+                   ng-disabled="currentBouquet._states_.editing() === false"/>
+        </label>
+        <label for="current-bouquet-price">
+            Стоимость букета
+            <input type="text" name="" id="current-bouquet-price" placeholder="Стоимость"
+                   ng-model="currentBouquet.price.value"
+                   ng-change="currentBouquet._states_.changed(true)"
+                   ng-disabled="currentBouquet._states_.editing() === false"/>
+        </label>
+        <button class="btn btn-blue" ng-click="currentBouquet._states_.editing(true)" ng-show="currentBouquet._states_.editing() === false">Изменить</button>
+        <button class="btn btn-green" ng-click="save()" ng-show="currentBouquet._states_.changed() === true">Сохранить</button>
+        <button class="btn btn-red" ng-click="currentBouquet._states_.editing(false); currentBouquet._backup_.restore(); currentBouquet._states_.changed(false)" ng-show="currentBouquet._states_.editing() === true">Отмена</button>
+    </form>
+    <div ng-repeat="error in errors">{{ error }}</div>
 </div>

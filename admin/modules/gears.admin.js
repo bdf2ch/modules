@@ -6,6 +6,7 @@ var  gears = angular.module("gears.admin", [
     "ngCookies",
     "gears",
     "gears.admin.controllers",
+    "gears.admin.filters",
     "gears.app.bouquets",
     "gears.app.misc"])
     .config(function ($provide, $routeProvider) {
@@ -17,6 +18,21 @@ var  gears = angular.module("gears.admin", [
             .when("/bouquets/:bouquetId", {
                 templateUrl: "templates/bouquet/bouquet.html",
                 controller: "GearsBouquetController"})
+            .when("/flowers", {
+                templateUrl: "templates/flowers/flowers.html",
+                controller: "GearsFlowersController"})
+            .when("/new-flower", {
+                templateUrl: "templates/flowers/add-flower.html",
+                controller: "GearsAddFlowerController"})
+            .when("/new-bouquet", {
+                templateUrl: "templates/bouquet/add-bouquet.html",
+                controller: "GearsAddBouquetController"})
+            .when("/additions", {
+                templateUrl: "templates/additions/additions.html",
+                controller: "GearsAdditionsController"})
+            .when("/new-addition", {
+                templateUrl: "templates/additions/add-addition.html",
+                controller: "GearsAddAdditionController"})
             .otherwise({ redirectTo: '/' });
 
         /**
@@ -27,7 +43,8 @@ var  gears = angular.module("gears.admin", [
             var application = {};
 
             application.title = "Gears test application";
-
+            application.currentFlowerId = 0;
+            application.currentAdditionId = 0;
 
 
             flowers.init = function () {

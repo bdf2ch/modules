@@ -1,0 +1,24 @@
+<div class="units-row">
+    <div class="unit-100">
+        <h3>Новый декоративный элемент</h3>
+    </div>
+</div>
+
+<div class="units-row">
+    <form action="" class="forms">
+        <label for="new-addition-title">
+            Наименование декоративного элемента
+            <input type="text" name="" id="new-addition-title" placeholder="Наименование" ng-model="addition.title.value"/>
+        </label>
+        <label for="new-addition-description">
+            Описание декоративного элемента
+            <input type="text" class="width-50" name="" id="new-addition-description" placeholder="Описание" ng-model="addition.description.value"/>
+        </label>
+        <label for="new-addition-price">
+            Стоимость декоративного элемента
+            <input type="text" name="" id="new-addition-price" placeholder="Цена" ng-model="addition.price.value"/>
+        </label>
+        <button class="btn btn-green" ng-click="add()" ng-disabled="addition._states_.loaded() === false">Добавить</button>
+    </form>
+    <div ng-repeat="error in errors">{{ error }}</div>
+</div>

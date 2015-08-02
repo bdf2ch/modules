@@ -177,7 +177,6 @@ body {
   font-weight: bold;
   font-size: 22px;
   color: #b2232f;
-  border: 1px solid black;
 }
 #wrapper {
   margin-left: auto;
@@ -455,6 +454,10 @@ body {
   font-size: 20px;
   color: #0869A6;
 }
+.bouquet-content {
+  border-collapse: separate;
+  border-spacing: 5px;
+}
 /*** CART ***/
 #template-cart {
   padding-top: 40px;
@@ -496,7 +499,7 @@ body {
 #template-cart #cart-items .item-price {
   display: inline-block;
   margin-top: 90px;
-  font-family: 'Lobster', cursive;
+  font-family: "Helvetica";
   font-size: 30px;
   color: #445588;
 }
@@ -527,8 +530,9 @@ body {
   font-size: 25px;
 }
 #template-cart #total-summ .total-summ-value {
-  font-family: 'Lobster', cursive;
-  font-size: 36px;
+  font-family: "Helvetica";
+  font-size: 32px;
+  font-weight: bold;
   color: #b2232f;
 }
 /*** ORDER ***/
@@ -663,6 +667,9 @@ body {
   color: #D65C5C;
   border-bottom: 1px dashed #D65C5C;
 }
+.side {
+  padding-top: 40px;
+}
 .side-panel {
   margin-left: 10px;
   padding: 10px;
@@ -685,6 +692,9 @@ body {
   width: 64px;
   height: 64px;
   margin-bottom: 20px;
+}
+.side-panel img.rounded {
+  border-radius: 64px;
 }
 .side-panel select {
   width: 100%;

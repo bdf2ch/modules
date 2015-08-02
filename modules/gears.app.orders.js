@@ -14,25 +14,25 @@ var appOrders = angular.module("gears.app.orders", [])
                 Order: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
                     userId: new Field({ source: "user_id", value: 0, default_value: 0 }),
-                    customerGenderId: new Field({ source: "customer_gender_id", value: "0", default_value: "0" }),
+                    customerGenderId: new Field({ source: "customer_gender_id", value: 1, default_value: 1 }),
                     customerName: new Field({ source: "customer_name", value: "", default_value: "" }),
                     customerFname: new Field({ source: "customer_fname", value: "", default_value: "" }),
                     customerSurname: new Field({ source: "customer_surname", value: "", default_value: "" }),
                     customerPhone: new Field({ source: "customer_phone", value: "", default_value: "" }),
                     customerEmail: new Field({ source: "customer_email", value: "", default_value: "" }),
-                    recieverGenderId: new Field({ source: "reciever_gender_id", value: 0, default_value: 0 }),
+                    recieverGenderId: new Field({ source: "reciever_gender_id", value: 1, default_value: 1 }),
                     recieverName: new Field({ source: "reciever_name", value: "", default_value: "" }),
                     recieverFname: new Field({ source: "reciever_fname", value: "", default_value: "" }),
                     recieverSurname: new Field({ source: "reciever_surname", value: "", default_value: "" }),
                     recieverPhone: new Field({ source: "reciever_phone", value: "", default_value: "" }),
-                    addressCityId: new Field({ source: "address_city_id", value: 0, default_value: 0 }),
+                    addressCityId: new Field({ source: "address_city_id", value: 1, default_value: 1 }),
                     addressStreet: new Field({ source: "address_street", value: "", default_value: "" }),
                     addressBuilding: new Field({ source: "address_building", value: "", default_value: "" }),
                     addressBuildingIndex: new Field({ source: "address_building_index", value: "", default_value: "" }),
                     addressFlat: new Field({ source: "address_flat", value: "", default_value: "" }),
-                    deliveryMethodId: new Field({ source: "delivery_method_id", value: 0, default_value: 0 }),
-                    paymentMethodId: new Field({ source: "payment_method_id", value: 0, default_value: 0 }),
-                    customerIsReciever: new Field({ source: "customer_is_reciever", value: 0, default_value: 0 }),
+                    deliveryMethodId: new Field({ source: "delivery_method_id", value: 1, default_value: 1 }),
+                    paymentMethodId: new Field({ source: "payment_method_id", value: 1, default_value: 1 }),
+                    customerIsReciever: new Field({ source: "customer_is_reciever", value: true, default_value: true }),
                     deliveryStartPeriod: new Field({ source: "delivery_start_period", value: 0, default_value: 0 }),
                     deliveryEndPeriod: new Field({ source: "delivery_end_period", value: 0, default_value: 0 }),
                     comment: new Field({ source: "comment", value: "", default_value: "" }),
@@ -41,6 +41,7 @@ var appOrders = angular.module("gears.app.orders", [])
             };
 
             orders.items = $factory({ classes: ["Collection"], base_class: "Collection" });
+
 
             orders.get = function () {
                 var params = {
@@ -78,8 +79,26 @@ var appOrders = angular.module("gears.app.orders", [])
             return orders;
         }]);
     })
-    .run(function ($modules, $orders) {
+    .run(function ($log, $modules, $orders, $factory) {
         $modules.load($orders);
-        //$orders.get();
+
+        $orders.order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
+        $log.log("order = ", $orders.order);
+
+        $orders.order.customerName.value = "Евлампий";
+        $orders.order.customerFname.value = "Алибардович";
+        $orders.order.customerSurname.value = "Косоглазовский";
+        $orders.order.customerPhone.value = "+7 (921) 555-66-789";
+        $orders.order.customerEmail.value = "fuckingemail@email.com";
+        $orders.order.comment.value = "Комментарий к заказу комментарий к заказу комментарий к заказу комментарий к заказу комментарий к заказу";
+        $orders.order.recieverSurname.value = "Константинопольский";
+        $orders.order.recieverName.value = "Константин";
+        $orders.order.recieverFname.value = "Константинович";
+        $orders.order.recieverPhone.value = "+7 (921) 666-55-423";
+        $orders.order.addressStreet.value = "Героев Рыбачьего";
+        $orders.order.addressBuilding.value = "202";
+        $orders.order.addressBuildingIndex.value = "";
+        $orders.order.addressFlat.value = "112";
+        $orders.get();
     }
 );

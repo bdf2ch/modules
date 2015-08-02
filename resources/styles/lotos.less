@@ -253,7 +253,7 @@ html, body {
       //color: #de2c3b;
       color: #b2232f;
 
-      border: 1px solid black;
+      //border: 1px solid black;
     }
   }
 }
@@ -700,6 +700,11 @@ html, body {
   }
 }
 
+.bouquet-content {
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
 
 
 /*** CART ***/
@@ -749,7 +754,8 @@ html, body {
     .item-price {
       display: inline-block;
       margin-top: 90px;
-      font-family: 'Lobster', cursive;
+      //font-family: 'Lobster', cursive;
+      font-family: "Helvetica";
       font-size: 30px;
       color: #445588;
     }
@@ -783,12 +789,15 @@ html, body {
 
     .total {
       font-family: 'Lobster', cursive;
+      //font-family: "Helvetica";
       font-size: 25px;
     }
 
     .total-summ-value {
-      font-family: 'Lobster', cursive;
-      font-size: 36px;
+      //font-family: 'Lobster', cursive;
+      font-family: "Helvetica";
+      font-size: 32px;
+      font-weight: bold;
       color: #b2232f;
     }
   }
@@ -964,6 +973,10 @@ html, body {
   }
 }
 
+.side {
+  padding-top: 40px;
+}
+
 .side-panel {
   margin-left: 10px;
   padding: 10px;
@@ -991,6 +1004,10 @@ html, body {
     height: 64px;
     margin-bottom: 20px;
     //margin-left: -20px;
+
+    &.rounded {
+      border-radius: 64px;
+    }
   }
 
   select {

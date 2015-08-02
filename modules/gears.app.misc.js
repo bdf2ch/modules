@@ -18,9 +18,20 @@ var nisc = angular.module("gears.app.misc", [])
                  */
                 Flower: {
                     id: new Field({ source: "id", value: 15, default_value: 0 }),
-                    title: new Field({ source: "title", value: "", default_value: 0, backupable: true, required: true}),
-                    description: new Field({ source: "description", value: "", backupable: true, required: true }),
-                    price: new Field({ source: "price", value: 750, default_value: 0, backupable: true, required: true })
+                    title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true}),
+                    description: new Field({ source: "description", value: "", default_value: "", backupable: true, required: true }),
+                    price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true }),
+                    imageUrl: new Field({ source: "image_url", value: "", default_value: "" })
+
+                },
+
+                /**
+                 * BouquetFlower
+                 * Набор свойст описывающих цветок в составе букета
+                 */
+                BouquetFlower: {
+                    flowerId: new Field({ source: "flower_id", value: 0, default_value:0  }),
+                    amount: new Field({ source: "amount", value: 0, default_value: 0, backupable: true, required: true })
                 },
 
                 /**
@@ -30,7 +41,17 @@ var nisc = angular.module("gears.app.misc", [])
                 Addition: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
-                    description: new Field({ source: "description", value: "", default_value: "", backupable: true })
+                    description: new Field({ source: "description", value: "", default_value: "", backupable: true }),
+                    price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true })
+                },
+
+                /**
+                 * BouquetAddition
+                 * Набор свойст, описывающих декоративное оформление в составе букета
+                 */
+                BouquetAddition: {
+                    additionId: new Field({ source: "addition_id", value: 0, default_value: 0 }),
+                    amount: new Field({ source: "amount", value: 0, default_value: 0, backupable: true, required: true })
                 },
 
                 /**
@@ -103,6 +124,20 @@ var nisc = angular.module("gears.app.misc", [])
                                 this.title = "от " + this.start + " р. до " + this.end + " р.";
                         }
                     }
+                },
+
+                Gender: {
+                    id: 0,
+                    title: "",
+
+                    init: function (parameters) {
+                        if (parameters !== undefined) {
+                            for (var param in parameters) {
+                                if (this.hasOwnProperty(param))
+                                    this[param] = parameters[param];
+                            }
+                        }
+                    }
                 }
             };
 
@@ -118,6 +153,7 @@ var nisc = angular.module("gears.app.misc", [])
             misc.deliveryMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.cities = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.prices = $factory({ classes: ["Collection"], base_class: "Collection" });
+            misc.genders = $factory({ classes: ["Collection"], base_class: "Collection" });
 
             return misc;
         }]) ;
@@ -136,6 +172,13 @@ var nisc = angular.module("gears.app.misc", [])
         $misc.prices.items[4].init({ id: 5, start: 4000, end: 5000 });
         $misc.prices.append($factory({ classes: ["PriceRange", "States"], base_class: "PriceRange" }));
         $misc.prices.items[5].init({ id: 6, start: 5000, end: 100000, title: "от 5000 р." });
+
+        $misc.genders.append($factory({ classes: ["Gender", "States"], base_class: "Gender" }));
+        $misc.genders.items[0].init({ id: 1, title: "Уважаемый" });
+        $misc.genders.append($factory({ classes: ["Gender", "States"], base_class: "Gender" }));
+        $misc.genders.items[1].init({ id: 2, title: "Уважаемая" });
+
+        $misc.flowers.multipleSelect(true);
 
         $log.log("prices = ", $misc.prices.items);
     }

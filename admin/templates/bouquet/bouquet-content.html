@@ -1,0 +1,112 @@
+<div class="units-row">
+    <div class="unit-100">
+        <table class="table-stripped table-hovered">
+            <caption>Цветы в составе букета</caption>
+            <thead>
+            <tr>
+                <th>Наименование цветка</th>
+                <th>Количество</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="flower in currentBouquet.flowers.items track by $id(flower)" ng-init="fl = misc.flowers.find('id', flower.flowerId.value)">
+                    <td class="width-33">
+                        {{ fl.title.value }}
+                    </td>
+                    <td class="width-33">
+                        <span ng-show="flower._states_.editing() === false">
+                            {{ flower.amount.value }}
+                        </span>
+                        <input type="text" name="" id=""
+                               ng-model="flower.amount.value"
+                               ng-show="flower._states_.editing() === true"
+                               ng-change="flower._states_.changed(true)"/>
+                    </td>
+                    <td class="width-33">
+                        <button class="btn btn-blue btn-small" ng-show="flower._states_.editing() === false && flower._states_.deleting() === false" ng-click="flower._states_.editing(true)">Изменить</button>
+                        <button class="btn btn-blue btn-small" ng-show="flower._states_.editing() === false && flower._states_.deleting() === false" ng-click="flower._states_.deleting(true)">Удалить</button>
+                        <button class="btn btn-green btn-small" ng-show="flower._states_.deleting() === true" ng-click="deleteFlower(currentBouquet.id.value, flower.flowerId.value)">Подтвердить</button>
+                        <button class="btn btn-red btn-small" ng-show="flower._states_.deleting() === true" ng-click="flower._states_.deleting(false)">Отмена</button>
+                        <button class="btn btn-green btn-small" ng-show="flower._states_.changed() === true" ng-click="editFlower(currentBouquet.id.value, flower.flowerId.value, flower.amount.value)" ng-disabled="flower._states_.loaded() === false">Сохранить</button>
+                        <button class="btn btn-red btn-small" ng-show="flower._states_.editing() === true" ng-click="flower._states_.editing(false); flower._states_.changed(false); flower._backup_.restore()">Отмена</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" ng-show="inAddFlowerMode === false">
+                        <button class="btn btn-blue left" ng-click="inAddFlowerMode = true">Добавить цветок</button>
+                    </td>
+                </tr>
+                <tr ng-show="inAddFlowerMode === true">
+                    <td>
+                        <select name="" id="" ng-model="newFlower.flowerId.value" ng-options="flw.id.value as flw.title.value for flw in misc.flowers.items | usedFlowers:currentBouquet.id.value"></select>
+                    </td>
+                    <td>
+                        <input type="text" name="" id="" ng-model="newFlower.amount.value"/>
+                    </td>
+                    <td>
+                        <button class="btn btn-green btn-small" ng-show="newFlower.amount.value > 0 && newFlower.flowerId.value !== 0" ng-click="addFlower(newFlower.flowerId.value, newFlower.amount.value)" ng-disabled="newFlower._states_.loaded() === false">Добавить</button>
+                        <button class="btn btn-red btn-small" ng-click="newFlower._model_.reset(); inAddFlowerMode = false;">Отмена</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="units-row">
+    <div class="unit-100">
+        <table class="table-stripped table-hovered">
+            <caption>Декоративные элементы в составе букета</caption>
+            <thead>
+            <tr>
+                <th>Наименование элемента</th>
+                <th>Количество</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="addition in currentBouquet.additions.items track by $id(addition)" ng-init="ad = misc.additions.find('id', addition.additionId.value)">
+                <td class="width-33">
+                    {{ ad.title.value }}
+                </td>
+                <td class="width-33">
+                        <span ng-show="addition._states_.editing() === false">
+                            {{ addition.amount.value }}
+                        </span>
+                    <input type="text" name="" id=""
+                           ng-model="addition.amount.value"
+                           ng-show="addition._states_.editing() === true"
+                           ng-change="addition._states_.changed(true)"/>
+                </td>
+                <td class="width-33">
+                    <button class="btn btn-blue btn-small" ng-show="addition._states_.editing() === false && addition._states_.deleting() === false" ng-click="addition._states_.editing(true)">Изменить</button>
+                    <button class="btn btn-blue btn-small" ng-show="addition._states_.editing() === false && addition._states_.deleting() === false" ng-click="addition._states_.deleting(true)">Удалить</button>
+                    <button class="btn btn-green btn-small" ng-show="addition._states_.deleting() === true" ng-click="deleteAddition(currentBouquet.id.value, addition.additionId.value)">Подтвердить</button>
+                    <button class="btn btn-red btn-small" ng-show="addition._states_.deleting() === true" ng-click="addition._states_.deleting(false)">Отмена</button>
+                    <button class="btn btn-green btn-small" ng-show="addition._states_.changed() === true" ng-click="editAddition(currentBouquet.id.value, addition.additionId.value, addition.amount.value)" ng-disabled="addition._states_.loaded() === false">Сохранить</button>
+                    <button class="btn btn-red btn-small" ng-show="addition._states_.editing() === true" ng-click="addition._states_.editing(false); addition._states_.changed(false); addition._backup_.restore()">Отмена</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" ng-show="inAddAdditionMode === false">
+                    <button class="btn btn-blue left" ng-click="inAddAdditionMode = true">Добавить цветок</button>
+                </td>
+            </tr>
+            <tr ng-show="inAddAdditionMode === true">
+                <td>
+                    <select name="" id="" ng-model="newAddition.additionId.value" ng-options="add.id.value as add.title.value for add in misc.additions.items | usedAdditions:currentBouquet.id.value"></select>
+                </td>
+                <td>
+                    <input type="text" name="" id="" ng-model="newAddition.amount.value"/>
+                </td>
+                <td>
+                    <button class="btn btn-green btn-small" ng-show="newAddition.amount.value > 0 && newAddition.additionId.value !== 0" ng-click="addAddition(newAddition.additionId.value, newAddition.amount.value)" ng-disabled="newAddition._states_.loaded() === false">Добавить</button>
+                    <button class="btn btn-red btn-small" ng-click="newAddition._model_.reset(); inAddAdditionMode = false;">Отмена</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

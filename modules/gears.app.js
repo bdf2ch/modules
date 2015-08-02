@@ -55,7 +55,7 @@ var application = angular.module("gears.app", [
             application.currentPriceRangeId = 1;
             application.currentReasonId = 0;
             application.currentAddresseeId = 0;
-            application.currentOrder = $factory({ classes: ["Order"], base_class: "Order" });
+            //application.currentOrder = $factory({ classes: ["Order"], base_class: "Order" });
 
             return application;
         }]);

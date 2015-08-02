@@ -86,6 +86,45 @@ var AppFilters = angular.module("gears.app.filters", [])
             }
         }]);
 
+
+
+        /**
+         * byFlowers
+         * Фильтр букетов по входящим в состав цветам
+         */
+        $filterProvider.register("byFlowers", ["$log", "$misc", function ($log, $misc) {
+            return function (input, flowers) {
+                var result = [];
+                if (flowers !== undefined && flowers.length > 0) {
+                    $log.log("flowers for select = ", flowers.length);
+                    angular.forEach(input, function (bouquet) {
+                        var size = flowers.length;
+                        var bingos = 0;
+
+                        angular.forEach(flowers, function (flower) {
+
+                            if (bouquet.flowers.find("flowerId", flower.id.value) !== false) {
+                                bingos++;
+                            }
+
+                        });
+
+                        if (bingos === size)
+                            result.push(bouquet);
+                        else {
+                            angular.forEach(result, function (res, key) {
+                                if (res.id.value === bouquet.id.value)
+                                    result.splice(key, 1);
+                            });
+                        }
+
+                    });
+                    return result;
+                } else
+                    return input;
+            }
+        }]);
+
     })
     .run(function () {
 

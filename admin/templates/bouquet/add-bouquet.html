@@ -1,0 +1,28 @@
+<div class="units-row">
+    <div class="unit-100">
+        <h3>Новый Букет</h3>
+    </div>
+</div>
+
+<div class="units-row">
+    <form action="" class="forms">
+        <label for="new-bouquet-title">
+            Наименование букета
+            <input type="text" name="" id="new-bouquet-title" placeholder="Наименование" ng-model="bouquet.title.value"/>
+        </label>
+        <label for="new-bouquet-short-description">
+            Краткое описание букета
+            <input type="text" class="width-50" name="" id="new-bouquet-short-description" placeholder="Краткое описание" ng-model="bouquet.descriptionShort.value"/>
+        </label>
+        <label for="new-bouquet-full-description">
+            Полное описание букета
+            <input type="text" class="width-50" name="" id="new-bouquet-full-description" placeholder="Полное описание" ng-model="bouquet.descriptionFull.value"/>
+        </label>
+        <label for="new-bouquet-price">
+            Стоимость букета
+            <input type="text" name="" id="new-bouquet-price" placeholder="Стоимость" ng-model="bouquet.price.value"/>
+        </label>
+        <button class="btn btn-green" ng-click="add()" ng-disabled="bouquet._states_.loaded() === false">Добавить</button>
+    </form>
+    <div ng-repeat="error in errors">{{ error }}</div>
+</div>

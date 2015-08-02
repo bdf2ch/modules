@@ -1,16 +1,26 @@
-<table class="table-stripped table-hovered">
-    <thead>
-    <tr>
-        <th>Наименование букета</th>
-        <th>Цена</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="bouquet in flowers.bouquets.items track by $id(bouquet)" ng-click="gotoBouquet(bouquet.id.value)">
-        <td>{{ bouquet.title.value }}</td>
-        <td>
-            {{ bouquet.price.value + " р."}}
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="units-row">
+    <div class="unit-100">
+        <h3 class="left">Букеты</h3>
+        <button class="btn btn-blue right" ng-click="gotoAddBouquet()">Добавить букет</button>
+    </div>
+</div>
+<div class="units-row">
+    <div class="unit-100">
+        <table class="table-stripped table-hovered">
+            <thead>
+            <tr>
+                <th>Наименование букета</th>
+                <th>Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="bouquet in flowers.bouquets.items track by $id(bouquet)" ng-click="gotoBouquet(bouquet.id.value)">
+                <td>{{ bouquet.title.value }}</td>
+                <td>
+                    {{ bouquet.price.value + " р."}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

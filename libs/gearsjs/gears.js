@@ -283,18 +283,19 @@ var gears = angular.module("gears", [])
                          * @returns {number} - Возвращает количество полей, проинициализированных из JSON-данных
                          */
                         fromJSON: function (JSONdata) {
-                            //console.log(JSONdata);
                             var result = 0;
                             for (var data in JSONdata) {
                                 for (var prop in this.__instance__) {
-                                    //console.log(this.__instance__[prop]);
                                     if (this.__instance__[prop].constructor === Field &&
                                         this.__instance__[prop].source === data) {
-                                        //console.log("prop " + prop + " found");
-                                        if (isNaN(JSONdata[data]) === false)
-                                            this.__instance__[prop].value = parseInt(JSONdata[data]);
-                                        else
-                                            this.__instance__[prop].value = JSONdata[data];
+                                        if (JSONdata[data] !== "") {
+                                            if (isNaN(JSONdata[data]) === false)
+                                                this.__instance__[prop].value = parseInt(JSONdata[data]);
+                                            else
+                                                this.__instance__[prop].value = JSONdata[data];
+                                        } else
+                                            this.__instance__[prop].value = "";
+
                                         result++;
                                     }
                                 }
@@ -354,15 +355,12 @@ var gears = angular.module("gears", [])
                         },
 
 
-                        validate: function () {
-                            var result = false;
+                        _init_: function () {
+                            $log.log("Model _init_ func called");
                             for (var prop in this.__instance__) {
-                                if (this.__instance__[prop].constructor === Field) {
-                                    if (this.__instance__[prop].required === true) {
-                                        if (this.__instance__[prop].value === undefined || this.__instance__[prop].value === "") {
-                                            this.errors.push(prop + " не заполнено");
-                                        }
-                                    }
+                                if (this.__instance__[prop].constructor === Field &&
+                                    this.__instance__[prop].default_value !== undefined) {
+                                    this.__instance__[prop].value = this.__instance__[prop].default_value;
                                 }
                             }
                         }
@@ -414,8 +412,8 @@ var gears = angular.module("gears", [])
                          */
                         deleting: function (flag) {
                             if (flag !== undefined && flag.constructor === Boolean)
-                                this.isInRemoveMode = flag;
-                            return this.isInRemoveMode;
+                                this.isInDeleteMode = flag;
+                            return this.isInDeleteMode;
                         },
 
                         /**
@@ -641,7 +639,7 @@ var gears = angular.module("gears", [])
                         /* Если требуется удалить элементы коллекции по полю и его значению */
                         if (field !== undefined && value !== undefined) {
                             console.log("deleting by field and value");
-                            for (var i = 0; i < length; i++) {
+                            for (var i = 0; i < this.items.length; i++) {
                                 if (this.items[i][field] !== undefined) {
                                     if (this.items[i][field].constructor === Field) {
                                         if (this.items[i][field].value === value) {
@@ -670,6 +668,14 @@ var gears = angular.module("gears", [])
                         }
 
                         return result;
+                    },
+
+                    /**
+                     *
+                     */
+                    clear: function () {
+                        this.items.splice(0, this.items.length);
+                        return true;
                     },
 
                     /**
@@ -808,15 +814,22 @@ var gears = angular.module("gears", [])
                     }).it;
                 };
 
+
                 var addClass = function (className, destination) {
                     if (className !== undefined && destination !== undefined) {
                         if ($classes.classes.hasOwnProperty(className)) {
+                            destination.init_functions = [];
                             for (var prop in $classes.classes[className]) {
                                 if (prop !== "__dependencies__") {
                                     if ($classes.classes[className][prop].constructor !== Function) {
                                         destination[prop] = clone($classes.classes[className][prop]);
                                         if (destination[prop]["__instance__"] !== undefined)
                                             destination[prop]["__instance__"] = destination;
+                                        if (destination[prop]["_init_"] !== undefined && destination[prop]["_init_"].constructor === Function)
+                                            destination.init_functions.push(destination[prop]["_init_"]);
+                                        if (destination["_init_"] !== undefined && destination["_init_"].constructor === Function)
+                                            destination.init_functions.push(destination["_init_"]);
+
                                     } else
                                         destination[prop] = $classes.classes[className][prop];
                                 }
@@ -845,7 +858,15 @@ var gears = angular.module("gears", [])
             };
 
             return function (parameters) {
-                return new FactoryObject(parameters);
+                var obj = new FactoryObject(parameters);
+                if (obj.init_functions.length > 0) {
+                    for (var i = 0; i < obj.init_functions.length; i++) {
+                        console.log("init func = ", obj.init_functions[i]);
+                        obj.init_functions[i].call(obj);
+                    }
+                }
+                //return new FactoryObject(parameters);
+                return obj;
             };
 
         }]);

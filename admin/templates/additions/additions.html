@@ -1,0 +1,55 @@
+<div class="units-row">
+    <div class="unit-100">
+        <h3 class="left">Декоративные элементы</h3>
+        <button class="btn btn-blue right" ng-click="gotoAddAddition()">Добавить элемент</button>
+    </div>
+</div>
+<div class="units-row">
+    <div class="unit-100">
+        <table class="table-stripped table-hovered">
+            <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Описание</th>
+                <th>Цена</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="addition in misc.additions.items track by $id(addition)">
+
+                <td class="width-20">
+                    <span ng-show="addition._states_.editing() === false">{{ addition.title.value }}</span>
+                    <input type="text" name="" id=""
+                           ng-model="addition.title.value"
+                           ng-show="addition._states_.editing() === true"
+                           ng-change="addition._states_.changed(true)"/>
+                </td>
+
+                <td class="width-40">
+                <span ng-show="addition._states_.editing() === false && addition.description.value !== ''">
+                    <i>{{ addition.description.value }}</i>
+                </span>
+                    <input type="text" name="" id="" class="width-100"
+                           ng-model="addition.description.value"
+                           ng-show="addition._states_.editing() === true"
+                           ng-change="addition._states_.changed(true)"/>
+                </td>
+
+                <td class="width-10">
+                    <span ng-show="addition._states_.editing() === false">{{ addition.price.value + " р." }}</span>
+                    <input type="text" name="" id=""
+                           ng-model="addition.price.value"
+                           ng-show="addition._states_.editing() === true"
+                           ng-change="addition._states_.changed(true)"/>
+                </td>
+                <td class="text-right width-30">
+                    <button class="btn btn-blue btn-small" ng-show="addition._states_.editing() === false" ng-click="addition._states_.editing(true); admin.currentAdditionId = addition.id.value">Изменить</button>
+                    <button class="btn btn-green btn-small" ng-show="addition._states_.changed() === true" ng-click="save()" ng-disabled="addition._states_.loaded() === false">Сохранить</button>
+                    <button class="btn btn-red btn-small" ng-show="addition._states_.editing() === true" ng-click="addition._states_.editing(false); addition._states_.changed(false); addition._backup_.restore(); admin.currentAdditionId = 0">Отмена</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

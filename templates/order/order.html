@@ -9,7 +9,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/cash.png" alt=""/>
+                    <img src="resources/img/cash.png" alt=""/>
                 </div>
                 <div class="unit-70 text-left">
                     <span class="sidebar-leading">Наличные деньги</span>
@@ -18,7 +18,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/visa.png" alt=""/>
+                    <img src="resources/img/visa.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">карты Visa</span>
@@ -29,7 +29,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/mastercard.png" alt=""/>
+                    <img src="resources/img/mastercard.png" alt=""/>
                 </div>
                 <div class="unit-70 text-left">
                     <span class="sidebar-leading">карты MasterCard</span>
@@ -49,7 +49,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/money.png" alt=""/>
+                    <img src="resources/img/money.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Стоимость</span>
@@ -58,7 +58,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/clock.png" alt=""/>
+                    <img src="resources/img/clock.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Сроки</span>
@@ -67,7 +67,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/box.png" alt=""/>
+                    <img src="resources/img/box.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Самовывоз</span>
@@ -86,7 +86,7 @@
             </div>
             <div class="units-row end">
                 <div class="unit-30">
-                    <img src="client/resources/img/flower.png" alt=""/>
+                    <img src="resources/img/flower.png" alt=""/>
                 </div>
                 <div class="unit-70">
                     <span class="sidebar-leading">Только свежие цветы</span>
@@ -103,7 +103,7 @@
                 <span class="title-caption">Оформление заказа</span>
             </div>
             <div class="unit-10">
-                <img class="title-image" src="client/resources/img/order.png" alt=""/>
+                <img class="title-image" src="resources/img/order.png" alt=""/>
             </div>
         </div>
 
@@ -126,7 +126,7 @@
                         <select name="customer-gender"
                                 id="customer-gender"
                                 class="width-100"
-                                ng-options="gender.id as gender.title for gender in misc.genders"
+                                ng-options="gender.id as gender.title for gender in misc.genders.items"
                                 ng-model="order.customerGenderId.value">
                         </select>
                     </label>
@@ -172,7 +172,7 @@
                         <select name="payment-method"
                                 id="payment-method"
                                 class="width-100"
-                                ng-options="payment.id.value as payment.title.value for payment in misc.paymentMethods"
+                                ng-options="payment.id.value as payment.title.value for payment in misc.paymentMethods.items"
                                 ng-model="order.paymentMethodId.value">
                         </select>
                     </label>
@@ -188,7 +188,7 @@
                         <select name="delivery-method"
                                 id="delivery-method"
                                 class="width-100"
-                                ng-options="delivery.id.value as delivery.title.value for delivery in misc.deliveryMethods"
+                                ng-options="delivery.id.value as delivery.title.value for delivery in misc.deliveryMethods.items"
                                 ng-model="order.deliveryMethodId.value">
                         </select>
                     </label>
@@ -219,7 +219,7 @@
                         <select name="reciever-gender"
                                 id="reciever-gender"
                                 class="width-100"
-                                ng-options="gender.id as gender.title for gender in misc.genders"
+                                ng-options="gender.id as gender.title for gender in misc.genders.items"
                                 ng-model="order.recieverGenderId.value">
                         </select>
                     </label>
@@ -272,27 +272,27 @@
                                 id="address-city"
                                 class="width-100"
                                 ng-show="order.deliveryMethodId.value === 2"
-                                ng-options="city.id.value as city.title.value for city in misc.cities"
-                                ng-model="order.cityId.value">
+                                ng-options="city.id.value as city.title.value for city in misc.cities.items"
+                                ng-model="order.addressCityId.value">
                         </select>
                         <div class="forms-desc" ng-show="order.deliveryMethodId.value === 2">Мы доставляем заказы в Мурманск и Североморск.</div>
                     </label>
                     <label ng-show="order.deliveryMethodId.value === 2">
                         Улица <span class="error right" ng-show="errors.address.street !== false">{{ errors.address.street }}</span>
-                        <input type="text" name="reciever-address-street" ng-class="{'input-error': errors.address.street !== false}" id="reciever-address-street" class="width-100" placeholder="Улица" ng-model="order.street.value" />
+                        <input type="text" name="reciever-address-street" ng-class="{'input-error': errors.address.street !== false}" id="reciever-address-street" class="width-100" placeholder="Улица" ng-model="order.addressStreet.value" />
                     </label>
                     <label ng-show="order.deliveryMethodId.value === 2">
                         Дом <span class="error right" ng-show="errors.address.building !== false">{{ errors.address.building }}</span>
-                        <input type="text" name="reciever-address-building" id="reciever-address-building" class="width-100" ng-class="{'input-error': errors.address.building !== false}" placeholder="Номер дома" ng-model="order.building.value" />
+                        <input type="text" name="reciever-address-building" id="reciever-address-building" class="width-100" ng-class="{'input-error': errors.address.building !== false}" placeholder="Номер дома" ng-model="order.addressBuilding.value" />
                     </label>
                     <label ng-show="order.deliveryMethodId.value === 2">
                         Корпус
-                        <input type="text" name="reciever-address-building-index" id="reciever-address-building-index" class="width-100" placeholder="Корпус" ng-model="buildingIndex" />
+                        <input type="text" name="reciever-address-building-index" id="reciever-address-building-index" class="width-100" placeholder="Корпус" ng-model="order.addressBuildingIndex.value" />
                         <div class="forms-desc">Если не требуется - оставьте это поле пустым.</div>
                     </label>
                     <label ng-show="order.deliveryMethodId.value === 2">
                         Квартира <span class="error right" ng-show="errors.address.flat !== false">{{ errors.address.flat }}</span>
-                        <input type="text" name="reciever-address-flat" id="reciever-address-flat" class="width-100" ng-class="{'input-error': errors.address.flat !== false}" placeholder="Квартира" ng-model="order.flat.value" />
+                        <input type="text" name="reciever-address-flat" id="reciever-address-flat" class="width-100" ng-class="{'input-error': errors.address.flat !== false}" placeholder="Квартира" ng-model="order.addressFlat.value" />
                     </label>
 
                     <div class="units-row end" ng-show="order.deliveryMethodId.value === 2">
