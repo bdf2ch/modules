@@ -98,7 +98,7 @@ var appOrders = angular.module("gears.app.orders", [])
                             addressFlat: order.addressFlat.value,
                             deliveryMethodId: order.deliveryMethodId.value,
                             paymentMethodId: order.paymentMethodId.value,
-                            customerIsReciever: order.customerIsReciever.value,
+                            customerIsReciever: order.customerIsReciever.value === true ? 1 : 0,
                             deliveryStartPeriod: order.deliveryStartPeriod.value,
                             deliveryEndPeriod: order.deliveryEndPeriod.value,
                             comment: order.comment.value

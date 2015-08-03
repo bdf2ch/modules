@@ -312,17 +312,18 @@ var gears = angular.module("gears", [])
                             for (var another_prop in obj) {
                                 if (this.__instance__.hasOwnProperty(another_prop)) {
                                     console.log("prop = ", another_prop);
+                                    console.log("prop constructor = ", obj[another_prop].constructor);
                                     if (this.__instance__[another_prop].constructor === Field) {
-                                        if (obj[another_prop].constructor === Field)
+                                        //if (obj[another_prop].constructor === Field)
+                                        //    this.__instance__[another_prop].value = obj[another_prop].value;
+                                       // else
                                             this.__instance__[another_prop].value = obj[another_prop].value;
-                                        else
-                                            this.__instance__[another_prop].value = obj[another_prop];
 
                                     } else {
-                                        if (obj[another_prop].constructor === Field)
+                                        //if (obj[another_prop].constructor === Field)
                                             this.__instance__[another_prop] = obj[another_prop].value;
-                                        else
-                                            this.__instance__[another_prop] = obj[another_prop];
+                                        //else
+                                            //this.__instance__[another_prop] = obj[another_prop];
                                     }
                                 }
                             }

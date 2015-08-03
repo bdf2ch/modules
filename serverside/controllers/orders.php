@@ -17,11 +17,9 @@
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
         } else {
-            $encoding_query = mysql_query("SET NAMES utf-8");
-            if (!encoding_query) {
-                $result = new DBError(mysql_errno(), mysql_error());
-                echo(json_encode($result));
-            }
+            mysql_query("SET NAMES utf8");
+            mysql_query("SET CHARACTER SET utf8");
+            mysql_query("SET SESSION collation_connection = utf8_general_ci");
         }
 
         /* Выбираем действие */
@@ -46,7 +44,7 @@
             $password .= $chars[rand(0, $size)];
 
         return $password;
-    }
+    };
 
 
     function query_orders ($postdata) {
@@ -69,7 +67,7 @@
         /* Закрываем соединение с БД и освобождаем ресурсы */
         mysql_free_result($query);
         mysql_close($link);
-    }
+    };
 
 
     function add_order ($postdata) {
@@ -81,7 +79,6 @@
         $customerPhone = $postdata -> data -> customerPhone;
         $customerEmail = $postdata -> data -> customerEmail;
         $recieverGenderId = $postdata -> data -> recieverGenderId;
-        $customerName = $postdata -> data -> customerName;
         $recieverName = $postdata -> data -> recieverName;
         $recieverFname = $postdata -> data -> recieverFname;
         $recieverSurname = $postdata -> data -> recieverSurname;
@@ -99,9 +96,9 @@
         $comment = $postdata -> data -> comment;
         $result;
         $orders = array();
+        $current_timestamp = time();
 
         if ($userId == 0) {
-            $current_timestamp = time();
             $generated_password = generate_password();
             $add_user_query = mysql_query("
                 INSERT INTO users (name, fname, surname, email, phone, registered, last_visited, password)
@@ -133,11 +130,10 @@
                                 address_city_id, address_street, address_building, address_building_index, address_flat,
                                 payment_method_id, delivery_method_id, customer_is_reciever, delivery_start_period,
                                 delivery_end_period, comment, created)
-            VALUES ($userId, $customerGenderId, $customerName, $customerFname, $customerSurname, $customerEmail, $customerPhone,
-                    $recieverGenderId, $recieverName, $recieverFname, $recieverSurname, $recieverPhone, $addressCityId,
-                    $addressStreet, $addressBuilding, $addressBuildingIndex, $addressFlat, $paymentMethodId, $deliveryMethodId,
-                    $customerIsReciever, $deliveryStartPeriod, $deliveryEndPeriod, $comment, $current_timestamp)
-        ");
+            VALUES ($userId, $customerGenderId, '$customerName', '$customerFname', '$customerSurname', '$customerEmail', '$customerPhone',
+                    $recieverGenderId, '$recieverName', '$recieverFname', '$recieverSurname', '$recieverPhone', $addressCityId,
+                    '$addressStreet', '$addressBuilding', '$addressBuildingIndex', '$addressFlat', $paymentMethodId, $deliveryMethodId,
+                    $customerIsReciever, $deliveryStartPeriod, $deliveryEndPeriod, '$comment', $current_timestamp)");
         if (!$add_order_query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
@@ -148,7 +144,7 @@
                 $result = new DBError(mysql_errno(), mysql_error());
                 echo(json_encode($result));
             } else {
-                $order_row = mysql_fetch_assoc($add_order_query);
+                $order_row = mysql_fetch_assoc($added_order_query);
                 $result["order"] = $order_row;
             }
             mysql_free_result($added_order_query);

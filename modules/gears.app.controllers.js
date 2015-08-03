@@ -274,10 +274,11 @@ appControllers.controller("OrderController", ["$log", "$scope", "$location", "$c
 
 
 
-appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders", "$cart", "$misc", "$location", "$session", "$factory", "$application", function ($log, $scope, $orders, $cart, $misc, $location, $session, $factory, $application) {
+appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders", "$cart", "$misc", "$location", "$session", "$factory", "$application", "$flowers", function ($log, $scope, $orders, $cart, $misc, $location, $session, $factory, $application, $flowers) {
     $scope.cart = $cart;
     $scope.orders = $orders;
     $scope.misc = $misc;
+    $scope.flowers = $flowers;
 
     $scope.orderIsConfirmed = false;
     $scope.accountIsCreated = false;

@@ -24,12 +24,12 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                  * Набор свойсв, описывающих текущего пользователя приложения
                  */
                 CurrentUser: {
-                    id: new Field({ source: "user_id", value: 0, default_value: 0 }),
-                    name: new Field({ source: "user_name", value: "", default_value: "" }),
-                    fname: new Field({ source: "user_fname", value: "", default_value: "" }),
-                    surname: new Field({ source: "user_surname", value: "", default_value: "" }),
-                    email: new Field({ source: "user_email", value: "", default_value: "" }),
-                    phone: new Field({ source: "user_phone", value: "", default_value: "" })
+                    id: new Field({ source: "id", value: 0, default_value: 0 }),
+                    name: new Field({ source: "name", value: "", default_value: "" }),
+                    fname: new Field({ source: "fname", value: "", default_value: "" }),
+                    surname: new Field({ source: "surname", value: "", default_value: "" }),
+                    email: new Field({ source: "email", value: "", default_value: "" }),
+                    phone: new Field({ source: "phone", value: "", default_value: "" })
                 }
             };
 

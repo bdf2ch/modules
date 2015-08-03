@@ -118,20 +118,20 @@
                 </div>
             </div>
 
-            <div class="units-row end confirmation-cart-items" ng-repeat="bouquet in cart.items.items" ng-init="bq = flowers.bouquets.find('id', bouquet.bouquetId)">
+            <div class="units-row end confirmation-cart-items" ng-repeat="product in cart.items.items" ng-init="bq = flowers.bouquets.find('id', product.productId)">
                 <div class="unit-10">
-                    <a href="{{ '#/' + bouquet.bouquetId }}">
-                        <img src="{{ bq.image_url.value }}" alt=""/>
+                    <a href="{{ '#/' + bouquet.productId }}">
+                        <img src="{{ bq.imageUrl.value }}" alt=""/>
                     </a>
                 </div>
                 <div class="unit-70 text-left">
                     {{ bq.title.value }}
                 </div>
                 <div class="unit-10 text-right">
-                    {{ bouquet.amount + " шт." }}
+                    {{ product.amount + " шт." }}
                 </div>
                 <div class="unit-10 text-right">
-                    {{ bq.price.value * bouquet.amount + " р." }}
+                    {{ bq.price.value * product.amount + " р." }}
                 </div>
             </div>
 
@@ -141,21 +141,21 @@
                 </div>
                 <div class="unit-70 delivery">
                     Доставка<br>
-                    <span class="sidebar-text grey" ng-init="ct = misc.cities.find('id', order.addressCityId.value)">
+                    <span class="sidebar-text grey" ng-init="ct = misc.cities.find('id', application.currentOrder.addressCityId.value)">
                         {{ "в " + ct.title.value }}
                     </span>
                 </div>
                 <div class="unit-20 text-right">
-                    {{ misc.getDeliveryById(orders.order.deliveryMethodId.value).price.value + " р."}}
+                    {{ misc.deliveryMethods.find('id', application.currentOrder.deliveryMethodId.value).price.value + " р."}}
                 </div>
             </div>
 
-            <div class="units-row confirmation-total-price">
+            <div class="units-row confirmation-total-price" ng-init="dm = misc.deliveryMethods.find('id', application.currentOrder.deliveryMethodId.value)">
                 <div class="unit-50">
                     Итого:
                 </div>
                 <div class="unit-50 text-right total">
-                    {{ cart.totalPrice + " р." }}
+                    {{ cart.price() + dm.price.value + " р." }}
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
                         Имя:
                     </div>
                     <div class="unit-70 confirmation-order-content">
-                        {{ orders.order.customerName.value + " " + orders.order.customerFname.value + " " + orders.order.customerSurname.value }}
+                        {{ application.currentOrder.customerName.value + " " + application.currentOrder.customerFname.value + " " + application.currentOrder.customerSurname.value }}
                     </div>
                 </div>
 
@@ -190,12 +190,12 @@
                     <div class="unit-70 confirmation-order-content">
                         <div class="units-row end">
                             <div class="unit-100">
-                                {{ orders.order.customerPhone.value }}
+                                {{ application.currentOrder.customerPhone.value }}
                             </div>
                         </div>
                         <div class="units-row end">
                             <div class="unit-100">
-                                {{ orders.order.customerEmail.value }}
+                                {{ application.currentOrder.customerEmail.value }}
                             </div>
                         </div>
                     </div>
@@ -213,8 +213,8 @@
                             Комментарий к заказу:
                         </div>
                         <div class="unit-70 confirmation-order-content">
-                            <span ng-show="orders.order.comment.value !== ''">{{ orders.order.comment.value }}</span>
-                            <span ng-show="orders.order.comment.value === ''">Отсутствует</span>
+                            <span ng-show="application.currentOrder.comment.value !== ''">{{ application.currentOrder.comment.value }}</span>
+                            <span ng-show="application.currentOrder.comment.value === ''">Отсутствует</span>
                         </div>
                     </div>
                     <div class="units-row">
@@ -222,7 +222,7 @@
                             Способ оплаты:
                         </div>
                         <div class="unit-70 confirmation-order-content">
-                            {{ misc.getPaymentMethodById(orders.order.paymentMethodId.value).title.value }}
+                            {{ misc.paymentMethods.find("id", application.currentOrder.paymentMethodId.value).title.value }}
                         </div>
                     </div>
                 </div>
@@ -232,7 +232,7 @@
             <!-- Информация о получателе, адрес доставки -->
             <div class="unit-50 confirmation-right">
 
-                <div class="units-row end" ng-show="orders.order.customerIsReciever.value === false">
+                <div class="units-row end" ng-show="application.currentOrder.customerIsReciever.value === false">
                     <div class="unit-100">
                         <span class="subtitle-caption">
                             Получатель
@@ -240,31 +240,31 @@
                     </div>
                 </div>
 
-                <div class="units-row end" ng-show="orders.order.customerIsReciever.value === false">
+                <div class="units-row end" ng-show="application.currentOrder.customerIsReciever.value === false">
                     <div class="unit-30 conformation-order-label">
                         Имя:
                     </div>
                     <div class="unit-70 confirmation-order-content">
-                        {{ orders.order.recieverName.value + " " + orders.order.recieverFname.value + " " +
-                        orders.order.recieverSurname.value }}
+                        {{ application.currentOrder.recieverName.value + " " + application.currentOrder.recieverFname.value + " " +
+                        application.currentOrder.recieverSurname.value }}
                     </div>
                 </div>
 
-                <div class="units-row" ng-show="orders.order.customerIsReciever.value === false">
+                <div class="units-row" ng-show="application.currentOrder.customerIsReciever.value === false">
                     <div class="unit-30 conformation-order-label">
                         Контакты:
                     </div>
                     <div class="unit-70 confirmation-order-content">
                         <div class="units-row end">
                             <div class="unit-100">
-                                {{ orders.order.recieverPhone.value }}
+                                {{ application.currentOrder.recieverPhone.value }}
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="units-row end units-split" ng-show="orders.order.deliveryMethodId.value !== 1">
+                <div class="units-row end units-split" ng-show="application.currentOrder.deliveryMethodId.value !== 1">
                     <div class="unit-100">
                         <span class="subtitle-caption">
                             Адрес и срок доставки

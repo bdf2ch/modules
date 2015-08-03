@@ -19,7 +19,9 @@
             echo(json_encode($result));
             //die ('Не удалось выбрать базу данных: ' . mysql_error());
         } else {
-            mysql_query("SET NAMES utf-8");
+            mysql_query("SET NAMES utf8");
+            mysql_query("SET CHARACTER SET utf8");
+            mysql_query("SET SESSION collation_connection = utf8_general_ci");
 
             /* Выбираем действие */
             switch ($action) {
@@ -40,16 +42,16 @@
         $result = -1;
         $login = $postdata -> data -> username;
         $passwd = $postdata -> data -> password;
-        $query = mysql_query("SELECT * FROM users WHERE email = '$login' AND password = '$passwd'");
+        $query = mysql_query("SELECT * FROM users WHERE email = '$login' AND password = '$passwd' LIMIT 1");
         if (!$query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
         } else {
             if (mysql_num_rows($query) > 0) {
-                while ($row = mysql_fetch_assoc($query)) {
-                    setcookie("appUUser", "test");
-                    $result = $row;
-                }
+                //while ($row = mysql_fetch_assoc($query)) {
+                    //setcookie("appUUser", "test");
+                    $result = mysql_fetch_assoc($query);
+                //}
             }
         }
         echo(json_encode($result));
