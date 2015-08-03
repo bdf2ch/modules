@@ -8,6 +8,7 @@ var  gears = angular.module("gears.admin", [
     "gears.admin.controllers",
     "gears.admin.filters",
     "gears.app.bouquets",
+    "gears.app.orders",
     "gears.app.misc"])
     .config(function ($provide, $routeProvider) {
 
@@ -33,6 +34,9 @@ var  gears = angular.module("gears.admin", [
             .when("/new-addition", {
                 templateUrl: "templates/additions/add-addition.html",
                 controller: "GearsAddAdditionController"})
+            .when("/orders", {
+                templateUrl: "templates/orders/orders.html",
+                controller: "GearsOrdersController"})
             .otherwise({ redirectTo: '/' });
 
         /**

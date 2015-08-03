@@ -55,15 +55,35 @@ var application = angular.module("gears.app", [
             application.currentPriceRangeId = 1;
             application.currentReasonId = 0;
             application.currentAddresseeId = 0;
-            //application.currentOrder = $factory({ classes: ["Order"], base_class: "Order" });
+            application.inAuthorizationMode = false;
 
             return application;
         }]);
     })
-    .run(function ($log, $application, $menu, $rootScope, $modules, $cart) {
+    .run(function ($log, $application, $menu, $rootScope, $modules, $factory) {
         $modules.load($application);
         $menu.register();
         $rootScope.application = $application;
         $rootScope.menu = $menu;
+
+        /**
+         * Инициализация динамически создаваемых объектов
+         */
+        $application.currentOrder = $factory({ classes: ["Order", "Model", "States"], base_class: "Order" });
+
+        $application.currentOrder.customerName.value = "Евлампий";
+        $application.currentOrder.customerFname.value = "Алибардович";
+        $application.currentOrder.customerSurname.value = "Косоглазовский";
+        $application.currentOrder.customerPhone.value = "+7 (921) 555-66-789";
+        $application.currentOrder.customerEmail.value = "fuckingemail@email.com";
+        $application.currentOrder.comment.value = "Комментарий к заказу комментарий к заказу комментарий к заказу комментарий к заказу комментарий к заказу";
+        $application.currentOrder.recieverSurname.value = "Константинопольский";
+        $application.currentOrder.recieverName.value = "Константин";
+        $application.currentOrder.recieverFname.value = "Константинович";
+        $application.currentOrder.recieverPhone.value = "+7 (921) 666-55-423";
+        $application.currentOrder.addressStreet.value = "Героев Рыбачьего";
+        $application.currentOrder.addressBuilding.value = "202";
+        $application.currentOrder.addressBuildingIndex.value = "";
+        $application.currentOrder.addressFlat.value = "112";
     }
 );

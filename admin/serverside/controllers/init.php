@@ -22,6 +22,7 @@
     $payment_methods = array();
     $delivery_methods = array();
     $cities = array();
+    $orders = array();
 
     /* Заполнение массива поводов */
     $query_reasons = mysql_query("SELECT * FROM reasons");
@@ -175,6 +176,18 @@
     $result["cities"] = $cities;
 
 
+    /* Заполнение массива заказов */
+    $query_orders = mysql_query("SELECT * FROM orders");
+    if (!$query_orders) {
+        die('Неверный запрос: ' . mysql_error());
+    } else {
+        while ($row = mysql_fetch_assoc($query_orders)) {
+            array_push($orders, $row);
+        }
+    }
+    $result["orders"] = $orders;
+
+
     echo(json_encode($result));
 
     mysql_free_result($query_reasons);
@@ -182,9 +195,10 @@
     mysql_free_result($query_flowers);
     mysql_free_result($query_additions);
     mysql_free_result($query_bouquets);
-    //mysql_free_result($query_cities);
-    //mysql_free_result($query_payment_methods);
-    //mysql_free_result($query_delivery_methods);
+    mysql_free_result($query_cities);
+    mysql_free_result($query_payment_methods);
+    mysql_free_result($query_delivery_methods);
     mysql_free_result($query_images);
+    mysql_free_result($query_orders);
     mysql_close($connection);
 ?>

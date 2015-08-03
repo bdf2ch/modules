@@ -21,46 +21,85 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
 
                 /**
                  * CurrentUser
-                 * Набор свойсв, описывающих текущего пользователя
+                 * Набор свойсв, описывающих текущего пользователя приложения
                  */
                 CurrentUser: {
-                    id: new Field({ source: "user_id", value: 0 }),
-                    name: new Field({ source: "user_name", value: "" }),
-                    fname: new Field({ source: "user_fname", value: "" }),
-                    surname: new Field({ source: "user_surname", value: "" }),
-                    email: new Field({ source: "user_email", value: "" }),
-                    phone: new Field({ source: "user_phone", value: "" })
+                    id: new Field({ source: "user_id", value: 0, default_value: 0 }),
+                    name: new Field({ source: "user_name", value: "", default_value: "" }),
+                    fname: new Field({ source: "user_fname", value: "", default_value: "" }),
+                    surname: new Field({ source: "user_surname", value: "", default_value: "" }),
+                    email: new Field({ source: "user_email", value: "", default_value: "" }),
+                    phone: new Field({ source: "user_phone", value: "", default_value: "" })
                 }
             };
 
-            session.user = undefined;               // Пользователь
-            session.id = undefined;                 // Идентификатор сессии
-            session.startedAt = 0;                  // Время начала сессии в формате Unix
+            /**
+             * Приватные переменные сервиса
+             */
+            var user = undefined;               // Пользователь
+            var id = undefined;                 // Идентификатор сессии
+            var startedAt = 0;                  // Время начала сессии в формате Unix
+            var isLoggedIn = false;
 
 
-            /* Сохранение данных пользователя в cookie */
-            session.toCookie = function () {
-                $cookies._user_ = session.user._model_.toString();
-                return true;
+            /**
+             * Возвращает текущего пользователя приложения
+             * @returns {CurrentUser / undefined} - Возвращает текущего пользователя приложения если он установлен,
+             *                                      в противном случае - undefined
+             */
+            session.getUser = function () {
+                return user;
             };
 
 
-            /* Извлечение данных пользователя из cookie */
-            session.fromCookie = function () {
+            /**
+             * Устанавливает пользователя текущей сессии
+             * @param newUser {CurrentUser} - Объект, описывающий текущего пользователя приложения
+             * @returns {CurrentUser / boolean} - Возвращает текущего пользователя в случае успеха, иначе - false
+             */
+            session.setUser = function (newUser) {
                 var result = false;
-                if ($cookies._user_ !== undefined) {
-                    //session.user.fromJSON(JSON.parse($cookies._user_));
-                    result = true;
+                if (newUser !== undefined) {
+                    if (newUser.__class__ !== undefined) {
+                        if (newUser.__class__ === "CurrentUser") {
+                            user = newUser;
+                            $cookies.appUser = user._model_.toString();
+                            isLoggedIn = true;
+                            result = user;
+                        }
+                    }
                 }
                 return result;
             };
+
+
+            /**
+             * Возвращает флаг, авторизован ли пользователь в приложении
+             * @returns {boolean} - Возвращает флаг, авторизован ли пользователь в приложении
+             */
+            session.loggedIn = function () {
+                return isLoggedIn;
+            };
+
 
             /**
              * Инициализирует сервис
              */
             session.init = function () {
-                session.user = $factory({ classes: ["CurrentUser", "Model"], base_class: "CurrentUser" });
-                session.fromCookie();
+                //$cookies.appUser = JSON.stringify("test");
+
+                user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
+                startedAt = new moment().unix();
+                if ($cookies.appUser !== undefined) {
+                    $log.log("appUser cookie json = ", JSON.parse($cookies.appUser));
+                    user._model_.fromAnother(JSON.parse($cookies.appUser));
+                    isLoggedIn = true;
+                } else {
+                    $log.log("there are no appUser cookie");
+                }
+                $log.log("session started at = ", startedAt);
+                $log.log("user is logged in = ", session.loggedIn());
+                $log.log("currentUser = ", user);
             };
 
             return session;
@@ -117,6 +156,13 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                     auth.send();
             };
 
+            auth.reset = function () {
+                auth.username = "";
+                auth.password = "";
+                auth.errors.username.splice(0, auth.errors.username.length);
+                auth.errors.password.splice(0, auth.errors.password.length);
+            };
+
 
             /**
              * Отправляет имя пользователя и пароль на сервер
@@ -131,7 +177,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                     }
                 };
                 auth.sendingInProgress = true;
-                $http.post("../serverside/controllers/authorization.php", params)
+                $http.post("serverside/controllers/authorization.php", params)
                     .success(function (data) {
                         if (data !== undefined) {
                             $log.log(data);
@@ -141,8 +187,10 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                                     auth.errors.username.push("Пользователь не найден");
                                     auth.isAuthFailed = true;
                                 } else {
-                                    $session.user._model_.fromJSON(data);
-                                    $session.toCookie();
+                                    var temp_user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
+                                    temp_user._model_.fromJSON(data);
+                                    temp_user._backup_.setup();
+                                    $session.setUser(temp_user);
                                     auth.isAuthSuccessed = true;
                                 }
                             } else {
@@ -150,7 +198,6 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                                 db_error.init(data);
                                 db_error.display();
                                 auth.isAuthFailed = true;
-                                $session.toCookie();
                             }
 
                         }
@@ -176,6 +223,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
         $modules.load($session);
         $session.init();
         $rootScope.authorization = $authorization;
+        $rootScope.session = $session;
     });
 
 

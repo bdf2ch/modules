@@ -1,6 +1,7 @@
 <div id="template-bouquet" class="units-row">
     <div class="unit-25 side">
         <!-- Способы оплаты -->
+        <!--
         <div class="units-row side-panel lightgreen">
             <div class="units-row end">
                 <div class="unit-100">
@@ -39,6 +40,7 @@
                 </div>
             </div>
         </div>
+        -->
 
 
         <div class="units-row side-panel lightgreen">
@@ -47,31 +49,33 @@
                     <span class="caption green">За ту же цену</span>
                 </div>
             </div>
-            <div class="units-row end" ng-repeat="bouquet in flowers.bouquets.items | byPrice: bouquetPriceRangeId | limitTo: 3 track by $id(bouquet)">
+            <div class="units-row end">
                 <div class="unit-100 related-bouquet">
-                    <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                    <a href="">
+                        <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                        <div class="related-bouquet-title">
+                            Название букета за ту же сумму
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="units-row side-panel purple">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption purple">Похожие букеты</span>
                 </div>
             </div>
             <div class="units-row end">
-                <div class="unit-30">
-                    <img src="client/resources/img/visa.png" alt=""/>
-                </div>
-                <div class="unit-70">
-                    <span class="sidebar-leading">карты Visa</span>
-                    <span class="sidebar-text">
-                        Оплата при получении заказа, через терминал
-                    </span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="client/resources/img/mastercard.png" alt=""/>
-                </div>
-                <div class="unit-70 text-left">
-                    <span class="sidebar-leading">карты MasterCard</span>
-                    <span class="sidebar-text">
-                        Оплата при получении заказа, через терминал
-                    </span>
+                <div class="unit-100 related-bouquet">
+                    <a href="">
+                        <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                        <div class="related-bouquet-title">
+                            Название букета за ту же сумму
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -79,6 +83,7 @@
 
 
         <!-- Доставка -->
+        <!--
         <div class="units-row side-panel purple">
             <div class="units-row end">
                 <div class="unit-100">
@@ -113,9 +118,10 @@
                 </div>
             </div>
         </div>
-
+        -->
 
         <!-- Гарантия качества -->
+        <!--
         <div class="units-row side-panel lightblue">
             <div class="units-row end units-split">
                 <div class="unit-100">
@@ -132,167 +138,137 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 
 
 
 <div class="unit-75">
-    <div class="unit-50 bouquet-item-images">
-        <div class="units-row">
-            <img class="width-100" src="{{ bouquet.imageUrl.value }}" alt=""/>
+    <div class="units-row end">
+        <div class="unit-50 bouquet-item-images">
+            <div class="units-row">
+                <img class="width-100" src="{{ bouquet.imageUrl.value }}" alt=""/>
+            </div>
+            <!--
+            <div class="units-row">
+                <ul class="blocks-5">
+                    <li>
+                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                    </li>
+                    <li>
+                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                    </li>
+                    <li>
+                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                    </li>
+                    <li>
+                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                    </li>
+                    <li>
+                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
+                    </li>
+                </ul>
+            </div>
+            -->
         </div>
-        <div class="units-row">
-            <ul class="blocks-5">
-                <li>
-                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                </li>
-                <li>
-                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                </li>
-                <li>
-                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                </li>
-                <li>
-                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                </li>
-                <li>
-                    <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="unit-50 bouquet-item-description">
-        <div class="units-row">
-            <div class="unit-100">
+        <div class="unit-50 bouquet-item-description">
+            <div class="units-row">
+                <div class="unit-100">
                 <span class="bouquet-title">
                     {{ bouquet.title.value }}
                 </span>
+                </div>
             </div>
-        </div>
-        <div class="units-row">
-            <div class="unit-100">
-                <i>
-                    {{ bouquet.descriptionFull.value }}
-                </i>
+            <div class="units-row">
+                <div class="unit-100">
+                    <i>
+                        {{ bouquet.descriptionFull.value }}
+                    </i>
+                </div>
             </div>
-        </div>
 
-        <div class="units-row">
-            <div class="unit-100">
-
-
-                <div class="units-row">
-                    <table class="table-flat bouquet-content">
-                        <caption>В букете:</caption>
-                        <tbody>
-                        <tr style="margin-bottom: 5px;" ng-repeat="flower in bouquet.flowers.items track by $id(flower)" ng-init="fl = misc.flowers.find('id', flower.flowerId.value)">
-                            <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ fl.imageUrl.value }}" alt=""/></td>
-                            <td class="width-60">{{ fl.title.value }}</td>
-                            <td class="width-20"><i>{{ flower.amount.value + " шт."}}</i></td>
-                        </tr>
-                        <tr style="margin-bottom: 5px;" ng-repeat="addition in bouquet.additions.items track by $id(addition)" ng-init="ad = misc.additions.find('id', addition.additionId.value)">
-                            <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ ad.imageUrl.value }}" alt=""/></td>
-                            <td class="width-60">{{ ad.title.value }}</td>
-                            <td class="width-20"><i>{{ addition.amount.value + " шт."}}</i></td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <div class="units-row">
+                <div class="unit-100">
 
 
+                    <div class="units-row">
+                        <table class="table-flat bouquet-content">
+                            <caption>В букете:</caption>
+                            <tbody>
+                            <tr style="margin-bottom: 5px;" ng-repeat="flower in bouquet.flowers.items track by $id(flower)" ng-init="fl = misc.flowers.find('id', flower.flowerId.value)">
+                                <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ fl.imageUrl.value }}" alt=""/></td>
+                                <td class="width-60">{{ fl.title.value }}</td>
+                                <td class="width-20"><i>{{ flower.amount.value + " шт."}}</i></td>
+                            </tr>
+                            <tr style="margin-bottom: 5px;" ng-repeat="addition in bouquet.additions.items track by $id(addition)" ng-init="ad = misc.additions.find('id', addition.additionId.value)">
+                                <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ ad.imageUrl.value }}" alt=""/></td>
+                                <td class="width-60">{{ ad.title.value }}</td>
+                                <td class="width-20"><i>{{ addition.amount.value + " шт."}}</i></td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-                    <!-- Цена букета -->
-                    <div class="unit-1000">
-                        <div class="units-row end">
-                            <div class="unit-100 text-right">
-                                <span class="bouquet-price">{{ bouquet.price.value + ' р.' }}</span>
+
+
+                        <!-- Цена букета -->
+                        <div class="unit-1000">
+                            <div class="units-row end">
+                                <div class="unit-100 text-centered">
+                                    <span class="bouquet-price">{{ bouquet.price.value + ' р.' }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="units-row">
-                            <div class="unit-100 text-centered">
-                                <span class="btn-single right">
+                            <div class="units-row">
+                                <div class="unit-100 text-centered">
+                                <span class="btn-single centered">
                                     <button class="btn btn-yellow" ng-click="cart.add(bouquet.id.value, bouquet.price.value)">В корзину</button>
                                 </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="units-row units-split service-info">
-                    <div class="unit-10">
-                        <img src="resources/img/delivery_icon.png" alt=""/>
-                    </div>
-                    <div class="unit-90 service-content text-left">
-                        <span class="service-caption">Мы доставим Ваш заказ в течении 3-х часов.</span><br>
-                        Стоимость доставки по Мурманску - <span class="black">350 р</span>. Доставка в Североморск - <span class="black">бесплатно</span>.
-                    </div>
-                </div>
-
-                <div class="units-row units-split service-info">
-                    <div class="unit-10">
-                        <img src="resources/img/wallet_icon.png" alt=""/>
-                    </div>
-                    <div class="unit-90 service-content text-left">
-                        <span class="service-caption">Оплатите заказ удобным для Вас способом</span><br>
-                        Вы можете оплатить Ваш заказ наличными, а так же картами <span class="black">Visa</span> и <span class="black">MasterCard</span>
-                    </div>
-                </div>
-
-                <div class="units-row units-split service-info">
-                    <div class="unit-10">
-                        <img src="resources/img/phone_icon.png" alt=""/>
-                    </div>
-                    <div class="unit-90 service-content text-left">
-                        <span class="service-caption">Вы можете сделать заказ по телефону <span class="black">(8152) 208-205</span></span> <br> Наши менеджеры ответят на все Ваши вопросы и помогут определиться с выбором
-                    </div>
-                </div>
-
-                <div class="units-row">
-
-                    <!-- Похожие букеты -->
-                    <div class="unit-50 related-bouquets">
-                        <div class="units-row end">
-                            <div class="unit-100">
-                                <span class="title">Похожие букеты</span>
-                            </div>
-                        </div>
-                        <div class="units-row end">
-                            <div class="unit-100">
-                                <ul class="blocks-2">
-                                    <li ng-repeat="bouquet in relatedBouquets | limitTo: 4">
-                                        <a href="{{ '#/bouquet/' + bouquet.id.value }}">
-                                            <img class="width-100" src="" alt=""/>
-                                        </a>
-                                    </li>
-                                </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Букеты по схожей цене -->
-                    <div class="unit-50 related-bouquets same-price">
-                        <div class="units-row end">
-                            <div class="unit-100">
-                                <span class="title">За ту же сумму</span>
-                            </div>
-                        </div>
-                        <div class="units-row end">
-                            <div class="unit-100">
-                                <ul class="blocks-2">
-                                    <li ng-repeat="bouquet in samePrice | limitTo: 4">
-                                        <a href="{{ '#/bouquet/' + bouquet.id.value }}">
-                                            <img class="width-100" src="" alt=""/>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
-
             </div>
         </div>
     </div>
+
+
+    <div class="units-row">
+        <div class="units-row units-split service-info">
+            <div class="unit-10">
+                <img src="resources/img/delivery_icon.png" alt=""/>
+            </div>
+            <div class="unit-90 service-content text-left">
+                <span class="service-caption">Мы доставим Ваш заказ в течении 3-х часов.</span><br>
+                Стоимость доставки по Мурманску и Североморску - <span class="black">350 р.</span>.
+            </div>
+        </div>
+
+        <div class="units-row units-split service-info">
+            <div class="unit-10">
+                <img src="resources/img/wallet_icon.png" alt=""/>
+            </div>
+            <div class="unit-90 service-content text-left">
+                <span class="service-caption">Оплатите заказ удобным для Вас способом</span><br>
+                Вы можете оплатить Ваш заказ наличными, а так же картами <span class="black">Visa</span> и <span class="black">MasterCard</span>
+            </div>
+        </div>
+
+        <div class="units-row units-split service-info">
+            <div class="unit-10">
+                <img src="resources/img/phone_icon.png" alt=""/>
+            </div>
+            <div class="unit-90 service-content text-left">
+                <span class="service-caption">Вы можете сделать заказ по телефону <span class="black">(8152) 208-205</span></span> <br> Наши менеджеры ответят на все Ваши вопросы и помогут определиться с выбором
+            </div>
+        </div>
+    </div>
+
+
+
+
 </div>
 
 

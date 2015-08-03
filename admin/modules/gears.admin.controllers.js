@@ -54,7 +54,7 @@ admControllers.controller("GearsBouquetController", ["$log", "$scope", "$flowers
         $scope.tabs = [
             {
                 id: 1,
-                title: "Информация о букете",
+                title: "�?нформация о букете",
                 template: "templates/bouquet/bouquet-info.html",
                 active: true
             },
@@ -640,4 +640,8 @@ admControllers.controller("GearsAddAdditionController", ["$log", "$scope", "$htt
             );
         }
     };
+}]);
+
+admControllers.controller("GearsOrdersController", ["$log", "$scope", "$flowers", "$misc", "$orders", "$factory", function ($log, $scope, $flowers, $misc, $orders, $factory) {
+
 }]);

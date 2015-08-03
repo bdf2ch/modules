@@ -118,24 +118,24 @@
                 </div>
             </div>
 
-            <div class="units-row end confirmation-cart-items" ng-repeat="bouquet in cart.items">
+            <div class="units-row end confirmation-cart-items" ng-repeat="bouquet in cart.items.items" ng-init="bq = flowers.bouquets.find('id', bouquet.bouquetId)">
                 <div class="unit-10">
-                    <a href="{{ '#/' + bouquet.id.value }}">
-                        <img src="{{ bouquet.image_url.value }}" alt=""/>
+                    <a href="{{ '#/' + bouquet.bouquetId }}">
+                        <img src="{{ bq.image_url.value }}" alt=""/>
                     </a>
                 </div>
                 <div class="unit-70 text-left">
-                    {{ bouquet.title.value }}
+                    {{ bq.title.value }}
                 </div>
                 <div class="unit-10 text-right">
                     {{ bouquet.amount + " шт." }}
                 </div>
                 <div class="unit-10 text-right">
-                    {{ bouquet.price.value * bouquet.amount + " р." }}
+                    {{ bq.price.value * bouquet.amount + " р." }}
                 </div>
             </div>
 
-            <div class="units-row confirmation-delivery" ng-show="orders.order.deliveryMethodId.value === 2">
+            <div class="units-row confirmation-delivery" ng-show="application.currentOrder.deliveryMethodId.value === 2">
                 <div class="unit-10">
                     <img src="resources/img/delivery_icon.png" alt=""/>
                 </div>
@@ -354,13 +354,13 @@
                 <button class="btn btn-yellow btn-big right width-100" ng-click="gotoOrder()">Изменить детали заказа</button>
             </div>
             <div class="unit-50 text-centered">
-                <button class="btn btn-green btn-big right width-100" ng-click="orders.add(orders.order)">
+                <button class="btn btn-green btn-big right width-100" ng-click="application.currentOrder._states_.loaded(false); orders.add(application.currentOrder, session.getUser().id.value, onSuccessAddOrder)">
                     Подтвердить заказ
                 </button>
             </div>
         </div>
 
-        <div class="units-row" ng-show="orders.loading === true">
+        <div class="units-row" ng-show="application.currentOrder._states_.loaded() === false">
             <div class="unit-100 text-centered">
                 <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
                 <span>Мы обрабатываем Ваш заказ...</span>

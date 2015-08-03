@@ -40,14 +40,14 @@
         $result = -1;
         $login = $postdata -> data -> username;
         $passwd = $postdata -> data -> password;
-        $query = mysql_query("SELECT * FROM gears_users WHERE user_login = '$login' AND user_password = '$passwd'");
+        $query = mysql_query("SELECT * FROM users WHERE email = '$login' AND password = '$passwd'");
         if (!$query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
         } else {
             if (mysql_num_rows($query) > 0) {
                 while ($row = mysql_fetch_assoc($query)) {
-                    setcookie("_user_", "test");
+                    setcookie("appUUser", "test");
                     $result = $row;
                 }
             }

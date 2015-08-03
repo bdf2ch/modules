@@ -304,6 +304,10 @@ var gears = angular.module("gears", [])
                         },
 
 
+                        /**
+                         * Производит инициализацию модели данных на основе другого объекта, копируя значения совпадающих свойств
+                         * @param obj {object} - Объект, на основе которого требуется произвести инициализацию
+                         */
                         fromAnother: function (obj) {
                             for (var another_prop in obj) {
                                 if (this.__instance__.hasOwnProperty(another_prop)) {
@@ -326,7 +330,8 @@ var gears = angular.module("gears", [])
 
 
                         /**
-                         *
+                         * Возвращает значения полей модели данных в виде строки
+                         * @returns {string} - Возвращает значения полей модели в виде строки
                          */
                         toString: function () {
                             var result = {};
@@ -340,7 +345,9 @@ var gears = angular.module("gears", [])
 
 
                         /**
-                         *
+                         * Производит сброс значений полей модели данных к значениям по умолчанию
+                         * @returns {number} - Возвращает количество полей, чьи значения были установлены в значение по
+                         *                      умолчанию
                          */
                         reset: function () {
                             var result = 0;

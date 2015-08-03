@@ -3,7 +3,7 @@
 
 var appOrders = angular.module("gears.app.orders", [])
     .config(function ($provide) {
-        $provide.factory("$orders", ["$log", "$http", "$application", "$cart", "$factory", function ($log, $http, $application, $cart, $factory) {
+        $provide.factory("$orders", ["$log", "$http", "$factory", function ($log, $http, $factory) {
             var orders = {};
 
             orders.classes = {
@@ -55,6 +55,15 @@ var appOrders = angular.module("gears.app.orders", [])
                         if (data === undefined) {
                             if (data["error_code"] !== undefined) {
                                  $log.log(data);
+                                if (data["order"] !== undefined) {
+                                    var temp_order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
+                                    temp_order._model_.fromJSON(data["order"]);
+                                    temp_order._backup_.setup();
+                                    orders.items.append(temp_order);
+                                }
+                                if (data["user"] !== undefined) {
+                                    var temp_user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
+                                }
                             } else {
                                 var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
                                 db_error.init(data);
@@ -65,40 +74,59 @@ var appOrders = angular.module("gears.app.orders", [])
                 );
             };
 
-            orders.add = function () {
-                var params = {
-
-                };
-                $http.post("serverside/controllers/orders.php", params)
-                    .success(function (data) {
-
-                    }
-                );
+            orders.add = function (order, userId, callback) {
+                if (order !== undefined && userId !== undefined) {
+                    var params = {
+                        action: "add",
+                        data: {
+                            userId: userId,
+                            customerGenderId: order.customerGenderId.value,
+                            customerName: order.customerName.value,
+                            customerFname: order.customerFname.value,
+                            customerSurname: order.customerSurname.value,
+                            customerEmail: order.customerEmail.value,
+                            customerPhone: order.customerPhone.value,
+                            recieverGenderId: order.recieverGenderId.value,
+                            recieverName: order.recieverName.value,
+                            recieverFname: order.recieverFname.value,
+                            recieverSurname: order.recieverSurname.value,
+                            recieverPhone: order.recieverPhone.value,
+                            addressCityId: order.addressCityId.value,
+                            addressStreet: order.addressStreet.value,
+                            addressBuilding: order.addressBuilding.value,
+                            addressBuildingIndex: order.addressBuildingIndex.value,
+                            addressFlat: order.addressFlat.value,
+                            deliveryMethodId: order.deliveryMethodId.value,
+                            paymentMethodId: order.paymentMethodId.value,
+                            customerIsReciever: order.customerIsReciever.value,
+                            deliveryStartPeriod: order.deliveryStartPeriod.value,
+                            deliveryEndPeriod: order.deliveryEndPeriod.value,
+                            comment: order.comment.value
+                        }
+                    };
+                    //$application.currentOrder._states_.loaded(false);
+                    $http.post("serverside/controllers/orders.php", params)
+                        .success(function (data) {
+                            if (data !== undefined) {
+                                if (data["error_code"] !== undefined) {
+                                    var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
+                                    db_error.init(data);
+                                    db_error.display();
+                                } else {
+                                    if (callback !== undefined)
+                                        callback(data);
+                                }
+                            }
+                            //$application.currentOrder._states_.loaded(true);
+                        }
+                    );
+                }
             };
 
             return orders;
         }]);
     })
-    .run(function ($log, $modules, $orders, $factory) {
+    .run(function ($log, $modules, $orders) {
         $modules.load($orders);
-
-        $orders.order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
-        $log.log("order = ", $orders.order);
-
-        $orders.order.customerName.value = "Евлампий";
-        $orders.order.customerFname.value = "Алибардович";
-        $orders.order.customerSurname.value = "Косоглазовский";
-        $orders.order.customerPhone.value = "+7 (921) 555-66-789";
-        $orders.order.customerEmail.value = "fuckingemail@email.com";
-        $orders.order.comment.value = "Комментарий к заказу комментарий к заказу комментарий к заказу комментарий к заказу комментарий к заказу";
-        $orders.order.recieverSurname.value = "Константинопольский";
-        $orders.order.recieverName.value = "Константин";
-        $orders.order.recieverFname.value = "Константинович";
-        $orders.order.recieverPhone.value = "+7 (921) 666-55-423";
-        $orders.order.addressStreet.value = "Героев Рыбачьего";
-        $orders.order.addressBuilding.value = "202";
-        $orders.order.addressBuildingIndex.value = "";
-        $orders.order.addressFlat.value = "112";
-        $orders.get();
     }
 );

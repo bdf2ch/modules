@@ -700,6 +700,30 @@ body {
   width: 100%;
   padding: 7px;
 }
+.side-panel .related-bouquet {
+  border-radius: 2px;
+}
+.side-panel .related-bouquet a {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+}
+.side-panel .related-bouquet img {
+  width: 100%;
+  height: 200px;
+  border-radius: 2px;
+}
+.side-panel .related-bouquet .related-bouquet-title {
+  height: 50px;
+  margin-top: -70px;
+  padding: 5px;
+  font-family: 'Lobster', cursive;
+  font-size: 15px;
+  background: orange;
+  opacity: 0.8;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
 .sidebar-leading {
   display: block;
   margin-top: 5px;

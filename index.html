@@ -43,36 +43,36 @@
                 <div id="user" class="unit-50 clearfix">
                     <div class="units-row units-split end">
                         <div id="user-icon" class="unit-30"></div>
-                        <div id="user-info" class="unit-70 text-centered" ng-show="false">
+                        <div id="user-info" class="unit-70 text-centered" ng-show="session.loggedIn() === true">
                             Здравствуйте, <a href="">Василисуалий</a><br>
 
                         </div>
 
-                        <div id="user-info" class="unit-70 text-centered" ng-show="true">
+                        <div id="user-info" class="unit-70 text-centered" ng-show="session.loggedIn() === false">
                             Мы рады Вас видеть! &nbsp;
-                            <a href="" ng-show="session.inLoginMode === false" ng-click="session.loginMode()">Войти</a>
-                            <a href="" ng-show="session.inLoginMode === true" ng-click="session.loginMode()">Отмена</a>
+                            <a href="" ng-show="application.inAuthorizationMode === false" ng-click="application.inAuthorizationMode = true">Войти</a>
+                            <a href="" ng-show="application.inAuthorizationMode === true" ng-click="application.inAuthorizationMode = false; authorization.reset()">Отмена</a>
                         </div>
                     </div>
-                    <div id="user-login-form" class="units-row end" ng-show="session.inLoginMode === true">
+                    <div id="user-login-form" class="units-row end" ng-show="application.inAuthorizationMode === true" ng-controller="AuthorizationController">
                         <div class="unit-100">
                             <form action="">
                                 <input type="text"
                                        class="width-100"
                                        name="user-login"
                                        id="user-login"
-                                       placeholder="Телефон (9215566777)"
-                                       ng-model="session.username"
-                                       ng-class="{'input-error': session.username_error !== ''}" />
+                                       placeholder="E-mail"
+                                       ng-model="auth.username"
+                                       ng-class="{'input-error': auth.errors.username.length > 0}" />
                                 <input type="text"
                                        class="width-100"
                                        name="user-password"
                                        id="user-password"
                                        placeholder="Пароль"
-                                       ng-model="session.password"
-                                       ng-class="{'input-error': session.password_error !== ''}" />
+                                       ng-model="auth.password"
+                                       ng-class="{'input-error': auth.errors.password.length > 0}" />
                             </form>
-                            <submit class="btn btn-green btn-small width-100" ng-click="session.login()">Войти</submit>
+                            <submit class="btn btn-green btn-small width-100" ng-click="auth.validate()">Войти</submit>
                         </div>
                     </div>
                 </div>
