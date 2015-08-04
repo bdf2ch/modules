@@ -2,6 +2,7 @@
     include "../config.php";
     include "../core.php";
 
+
     $postdata = json_decode(file_get_contents('php://input'));
     $action = $postdata -> action;
 
@@ -42,16 +43,30 @@
         $result = -1;
         $login = $postdata -> data -> username;
         $passwd = $postdata -> data -> password;
-        $query = mysql_query("SELECT * FROM users WHERE email = '$login' AND password = '$passwd' LIMIT 1");
+        $query = mysql_query("SELECT id, name, fname, surname, email, phone FROM users WHERE email = '$login' AND password = '$passwd' LIMIT 1");
         if (!$query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
         } else {
             if (mysql_num_rows($query) > 0) {
-                //while ($row = mysql_fetch_assoc($query)) {
-                    //setcookie("appUUser", "test");
-                    $result = mysql_fetch_assoc($query);
-                //}
+                $result = new stdClass;
+                $result -> user = mysql_fetch_assoc($query);
+                $result -> data = new stdClass;
+                $result -> data -> orders = array();
+                $userId = $result -> user -> id;
+                //$orders = array();
+
+                $user_orders_query = mysql_num_rows("SELECT * FROM orders WHERE user_id = $userId ORDER BY created ASC");
+                if (!$user_orders_query) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                } else {
+                    while ($order = mysql_fetch_assoc($user_orders_query)) {
+                        array_push($result -> data -> orders, $order);
+                    }
+                    //$result["orders"] = $orders;
+                    mysql_free_result($user_orders_query);
+                }
             }
         }
         echo(json_encode($result));

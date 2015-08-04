@@ -5,13 +5,13 @@
     $postdata = json_decode(file_get_contents('php://input'));
     $action = $postdata -> action;
 
-    /* Ïîäêëþ÷åíèå ê ÁÄ */
+    /* ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ðº Ð‘Ð” */
     $link = mysql_connect($db_host, $db_user, $db_password);
     if (!$link) {
         $result = new DBError(mysql_errno(), mysql_error());
         echo(json_encode($result));
     } else {
-        /* Âûáèðàåì ÁÄ */
+        /* Ð’Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð‘Ð” */
         $db_selected = mysql_select_db($db_name, $link);
         if (!$db_selected) {
             $result = new DBError(mysql_errno(), mysql_error());
@@ -22,7 +22,7 @@
             mysql_query("SET SESSION collation_connection = utf8_general_ci");
         }
 
-        /* Âûáèðàåì äåéñòâèå */
+        /* Ð’Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ */
         switch ($action) {
             case "query":
                 query_orders($postdata);
@@ -64,7 +64,7 @@
         }
         echo(json_encode($result));
 
-        /* Çàêðûâàåì ñîåäèíåíèå ñ ÁÄ è îñâîáîæäàåì ðåñóðñû */
+        /* Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ Ñ Ð‘Ð” Ð¸ Ð¾ÑÐ²Ð¾Ð±Ð¾Ð¶Ð´Ð°ÐµÐ¼ Ñ€ÐµÑÑƒÑ€ÑÑ‹ */
         mysql_free_result($query);
         mysql_close($link);
     };
@@ -94,6 +94,8 @@
         $deliveryStartPeriod = $postdata -> data -> deliveryStartPeriod;
         $deliveryEndPeriod = $postdata -> data -> deliveryEndPeriod;
         $comment = $postdata -> data -> comment;
+        $totalPrice = $postdata -> data -> totalPrice;
+        $bouquets = $postdata -> data -> bouquets;
         $result;
         $orders = array();
         $current_timestamp = time();
@@ -115,7 +117,7 @@
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
                 } else {
-                    $user_row = mysql_fetch_assoc($add_user_query);
+                    $user_row = mysql_fetch_assoc($added_user_query);
                     $result["user"] = $user_row;
                 }
                 mysql_free_result($added_user_query);
@@ -129,15 +131,28 @@
                                 customer_phone, reciever_gender_id, reciever_name, reciever_fname, reciever_surname, reciever_phone,
                                 address_city_id, address_street, address_building, address_building_index, address_flat,
                                 payment_method_id, delivery_method_id, customer_is_reciever, delivery_start_period,
-                                delivery_end_period, comment, created)
+                                delivery_end_period, comment, created, totalPrice)
             VALUES ($userId, $customerGenderId, '$customerName', '$customerFname', '$customerSurname', '$customerEmail', '$customerPhone',
                     $recieverGenderId, '$recieverName', '$recieverFname', '$recieverSurname', '$recieverPhone', $addressCityId,
                     '$addressStreet', '$addressBuilding', '$addressBuildingIndex', '$addressFlat', $paymentMethodId, $deliveryMethodId,
-                    $customerIsReciever, $deliveryStartPeriod, $deliveryEndPeriod, '$comment', $current_timestamp)");
+                    $customerIsReciever, $deliveryStartPeriod, $deliveryEndPeriod, '$comment', $current_timestamp, $totalPrice)");
         if (!$add_order_query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
         } else {
+            $orderId = mysql_insert_id();
+            for ($i = 0; $i < sizeof($bouquets); $i++) {
+                $bouquetId = $bouquets[$i]["productId"];
+                $amount = $bouquets[$i]["amount"];
+                $add_order_bouquet_query = mysql_query("INSERT INTO order_bouquets (order_id, bouquet_id, amount) VALUES ($order_id, $bouquet_id, $amount)");
+                if (!$add_order_bouquet_query) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                }
+            }
+
+
+
             $added_order_id = mysql_insert_id();
             $added_order_query = mysql_query("SELECT * FROM orders WHERE id = $added_order_id");
             if (!$added_order_query) {
@@ -146,15 +161,29 @@
             } else {
                 $order_row = mysql_fetch_assoc($added_order_query);
                 $result["order"] = $order_row;
+                $orderId = $order_row["id"];
+                $order_bouquets = array();
+
+                $order_bouquets = mysql_query("SELECT * FROM order_bouquets WHERE order_id = $orderId");
+                if (!$order_bouquets) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                } else {
+                    while ($bouquet = mysql_fetch_assoc($order_bouquets)) {
+                        array_push($order_bouquets, $bouquet);
+                    }
+                    $result["order"]["bouquets"] = $order_bouquets;
+                }
+                mysql_free_result($order_bouquets);
             }
             mysql_free_result($added_order_query);
         }
 
         echo(json_encode($result));
 
-        /* Çàêðûâàåì ñîåäèíåíèå ñ ÁÄ è îñâîáîæäàåì ðåñóðñû */
+        /* Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ Ñ Ð‘Ð” Ð¸ Ð¾ÑÐ²Ð¾Ð±Ð¾Ð¶Ð´Ð°ÐµÐ¼ Ñ€ÐµÑÑƒÑ€ÑÑ‹ */
         mysql_free_result($add_order_query);
         mysql_close($link);
-    }
+    };
 
 ?>

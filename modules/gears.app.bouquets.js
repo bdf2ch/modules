@@ -13,7 +13,7 @@ var flowers = angular.module("gears.app.bouquets", [])
          * $flowers
          * РЎРµСЂРІРёСЃ ...
          */
-        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$misc", function ($log, $http, $factory, $pagination, $misc) {
+        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$misc", "$application", function ($log, $http, $factory, $pagination, $misc, $application) {
             var flowers = {};
 
 
@@ -130,6 +130,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
 
             flowers.init = function () {
+                $application.isLoading = true;
                 $http.post("serverside/controllers/init.php", {})
                     .success(function (data) {
                         if (data !== undefined) {
@@ -266,6 +267,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                             }
 
                         }
+                        $application.isLoading = false;
                     }
                 );
             };

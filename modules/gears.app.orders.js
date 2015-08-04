@@ -36,7 +36,12 @@ var appOrders = angular.module("gears.app.orders", [])
                     deliveryStartPeriod: new Field({ source: "delivery_start_period", value: 0, default_value: 0 }),
                     deliveryEndPeriod: new Field({ source: "delivery_end_period", value: 0, default_value: 0 }),
                     comment: new Field({ source: "comment", value: "", default_value: "" }),
-                    created: new Field({ source: "created", value: 0, default_value: 0 })
+                    created: new Field({ source: "created", value: 0, default_value: 0 }),
+                    totalPrice: new Field({ source: "total_price", value: 0, default_value: 0 })
+                },
+
+                _onInit_: function () {
+
                 }
             };
 
@@ -74,8 +79,8 @@ var appOrders = angular.module("gears.app.orders", [])
                 );
             };
 
-            orders.add = function (order, userId, callback) {
-                if (order !== undefined && userId !== undefined) {
+            orders.add = function (order, userId, products, totalPrice, callback) {
+                if (order !== undefined && userId !== undefined && products !== undefined) {
                     var params = {
                         action: "add",
                         data: {
@@ -101,7 +106,9 @@ var appOrders = angular.module("gears.app.orders", [])
                             customerIsReciever: order.customerIsReciever.value === true ? 1 : 0,
                             deliveryStartPeriod: order.deliveryStartPeriod.value,
                             deliveryEndPeriod: order.deliveryEndPeriod.value,
-                            comment: order.comment.value
+                            comment: order.comment.value,
+                            totalPrice: totalPrice,
+                            bouquets: products
                         }
                     };
                     //$application.currentOrder._states_.loaded(false);

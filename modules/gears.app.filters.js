@@ -70,14 +70,18 @@ var AppFilters = angular.module("gears.app.filters", [])
          * Фильтр букетов по диапозону цен
          */
         $filterProvider.register("byPrice", ["$log", "$misc", "$pagination", function ($log, $misc, $pagination) {
-            return function (input, priceRangeId) {
+            return function (input, priceRangeId, exceptionBouquetId) {
                 var result = [];
                 if (priceRangeId !== undefined && priceRangeId !== 0) {
                     $log.log("filter price range = ", priceRangeId);
                     var price_range = $misc.prices.find("id", priceRangeId);
                     angular.forEach(input, function (bouquet) {
                         if (bouquet.price.value >= price_range.start && bouquet.price.value <= price_range.end) {
-                            result.push(bouquet);
+                            if (exceptionBouquetId !== undefined) {
+                                if (bouquet.id.value !== exceptionBouquetId)
+                                    result.push(bouquet);
+                            } else
+                                result.push(bouquet);
                         }
                     });
                     return result;

@@ -314,7 +314,7 @@ appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders"
 
 
 
-appControllers.controller("AccountController", ["$log", "$scope", function ($log, $scope) {
+appControllers.controller("AccountController", ["$log", "$scope", "$orders", function ($log, $scope, $orders) {
     $scope.tabs = [
         {
             id: 1,

@@ -49,7 +49,7 @@
                     <span class="caption green">За ту же цену</span>
                 </div>
             </div>
-            <div class="units-row end">
+            <div class="units-row end" ng-repeat="rb in flowers.bouquets.items | byPrice:bouquetPriceRangeId:bouquet.id.value">
                 <div class="unit-100 related-bouquet">
                     <a href="">
                         <img src="{{ bouquet.imageUrl.value }}" alt=""/>

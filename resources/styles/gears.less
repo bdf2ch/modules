@@ -1,0 +1,48 @@
+/**
+*
+**/
+@gears-input-height: 35px;
+@gears-input-padding: 6px;
+@gears-input-font-size: 16px;
+
+.gears-input {
+  display: inline-block;
+  height: @gears-input-height;
+  font-size: @gears-input-font-size;
+  border: 1px solid lightgrey;
+}
+
+.gears-ui-typeahead {
+  //overflow: visible;
+
+  .gears-input;
+
+  input {
+    display: block;
+    float: left;
+    height: @gears-input-height - 2px;
+    padding: @gears-input-padding;
+    border: none;
+  }
+
+  .typeahead-clear-container {
+    float: left;
+    width: 25px;
+    height: 30px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      font-family: "Helvetica";
+      font-size: 28px;
+      color: lightgrey;
+
+      &:hover {
+        color: gray;
+      }
+    }
+
+  }
+}

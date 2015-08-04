@@ -266,6 +266,8 @@ body {
   height: 42px;
   padding-top: 7px;
   vertical-align: bottom;
+  font-family: "Helvetica";
+  font-size: 13px;
 }
 .bouquet {
   height: 280px;
@@ -305,6 +307,15 @@ body {
   clear: both;
   margin-left: -50px;
   border: 1px solid black;
+}
+#bouquets-no-items {
+  padding-top: 40px;
+  font-family: 'Lobster', cursive;
+  font-size: 20px;
+  color: lightgrey;
+}
+#bouquets-no-items img {
+  margin-top: -5px;
 }
 .bouquet-info {
   height: 60px;
@@ -701,6 +712,7 @@ body {
   padding: 7px;
 }
 .side-panel .related-bouquet {
+  border: 1px solid orange;
   border-radius: 2px;
 }
 .side-panel .related-bouquet a {

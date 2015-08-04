@@ -47,7 +47,7 @@ var application = angular.module("gears.app", [
          * $application
          * Сервис приложения
          */
-        $provide.factory("$application", ["$log", "$factory", function ($log, $factory) {
+        $provide.factory("$application", ["$log", "$factory", "$orders", function ($log, $factory, $orders) {
             var application = {};
 
             application.title = "Флористический салон Белый Лотос";
@@ -56,6 +56,20 @@ var application = angular.module("gears.app", [
             application.currentReasonId = 0;
             application.currentAddresseeId = 0;
             application.inAuthorizationMode = false;
+            application.isLoading = false;
+
+            application.onSuccessLogin = function (data) {
+                if (data !== undefined) {
+                    if (data["orders"] !== undefined) {
+                        angular.forEach(data["orders"], function (order) {
+                            var temp_order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
+                            temp_order._model_.fromJSON(order);
+                            temp_order._backup_.setup();
+                            $orders.items.append(temp_order);
+                        });
+                    }
+                }
+            };
 
             return application;
         }]);

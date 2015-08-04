@@ -1,7 +1,7 @@
 <table class="table-hovered">
-    <tr>
-        <td class="text-left"><a href>Заказ №515</a></td>
-        <td class="text-centered">15 июня 2015 г.</td>
+    <tr ng-repeat="order in orders.items track by $id(order)">
+        <td class="text-left"><a href>{{ "Заказ #" + order.id.value }}</a></td>
+        <td class="text-centered">{{ "от " + order.created.value }}</td>
         <td class="text-right">8450 р.</td>
     </tr>
     <tr>

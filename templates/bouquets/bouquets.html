@@ -89,12 +89,36 @@
 
     <div class="unit-75">
 
-        <div class="units-row end">
+
+        <div class="units-row" ng-show="application.isLoading === true">
+            <br/><br/><br/><br/><br/>
+            <div class="unit-100 text-centered">
+                <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
+                <span>Загрузка...</span>
+            </div>
+        </div>
+
+        <!-- Заглушка на случай отсутствия отфильтрованных букетов-->
+        <div id="bouquets-no-items" class="units-row" ng-show="pagination.itemsCount === 0 && application.isLoading === false">
+            <br/><br/><br/><br/>
+            <div class="unit-100 text-centered">
+                <div class="unit-30">
+                    <img class="right" src="resources/img/flower.png" alt=""/>
+                </div>
+                <div class="unit-50 text-left">
+                    Не найдено букетов в соответствии с заданными Вами критериями, попробуйте изменить параметры отбора или
+                    позвоните нам по номеру <span class="black">(8152) 208-205</span> и наши консультанты помогут Вам сделать подходящий выбор.
+                </div>
+                <div class="unit-20">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="units-row end" ng-show="application.isLoading === false && pagination.itemsCount !== 0">
             <!-- Пагинация -->
             <div class="units-row end">
                 <div class="unit-50">
                     <span id="filter-items-count" class="width-100">
-                        {{ pagination.itemsCount }}
+                        Всего букетов: {{ pagination.itemsCount }}
                     </span>
                 </div>
                 <div class="unit-50">

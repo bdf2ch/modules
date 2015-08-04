@@ -252,7 +252,7 @@
 
                 <div class="units-row" ng-show="application.currentOrder.customerIsReciever.value === false">
                     <div class="unit-30 conformation-order-label">
-                        Контакты:
+                        Контактный телефон:
                     </div>
                     <div class="unit-70 confirmation-order-content">
                         <div class="units-row end">
@@ -275,9 +275,9 @@
                             Адрес доставки:
                         </div>
                         <div class="unit-70 confirmation-order-content">
-                            {{ "г. " + misc.getCityById(orders.order.cityId.value).title.value + ", ул. " + orders.order.street.value + ", дом " + orders.order.building.value }}
-                            <span ng-show="orders.order.buildingIndex.value !== ''">{{ " / " + orders.order.buildingIndex.value }}</span>
-                            {{ ", кв." + orders.order.flat.value }}
+                            {{ "г. " + misc.cities.find("id", application.currentOrder.addressCityId.value).title.value + ", ул. " + application.currentOrder.addressStreet.value + ", дом " + application.currentOrder.addressBuilding.value }}
+                            <span ng-show="application.currentOrder.addressBuildingIndex.value !== ''">{{ " / " + application.currentOrder.addressBuildingIndex.value }}</span>
+                            {{ ", кв." + application.currentOrder.addressFlat.value }}
                         </div>
                     </div>
                     <div class="units-row end">
@@ -285,13 +285,13 @@
                             Дата и время доставки:
                         </div>
                         <div class="unit-70 confirmation-order-content">
-                            {{ orders.order.deliveryStart.value }}
+                            {{ application.currentOrder.deliveryStartPeriod.value }}
                         </div>
                     </div>
                 </div>
 
 
-                <div class="units-row end units-split" ng-show="orders.order.deliveryMethodId.value === 1">
+                <div class="units-row end units-split" ng-show="application.currentOrder.deliveryMethodId.value === 1">
                     <div class="unit-100">
                         <span class="subtitle-caption">
                             Адрес для самовывоза
@@ -309,7 +309,7 @@
         </div>
 
 
-        <div class="units-row units-split confirmation-success">
+        <div class="units-row units-split confirmation-success" ng-show="orderIsConfirmed === true">
             <div class="unit-20">
                 <img src="resources/img/success.png" alt="Ваш заказ принят"/>
             </div>
@@ -328,7 +328,7 @@
             </div>
         </div>
 
-        <div class="units-row units-split confirmation-account">
+        <div class="units-row units-split confirmation-account" ng-show="accountIsCreated === true">
             <div class="unit-20">
                 <img src="resources/img/woman.png" alt="Для Вас создана учетная запись"/>
             </div>
@@ -354,7 +354,7 @@
                 <button class="btn btn-yellow btn-big right width-100" ng-click="gotoOrder()">Изменить детали заказа</button>
             </div>
             <div class="unit-50 text-centered">
-                <button class="btn btn-green btn-big right width-100" ng-click="application.currentOrder._states_.loaded(false); orders.add(application.currentOrder, session.getUser().id.value, onSuccessAddOrder)">
+                <button class="btn btn-green btn-big right width-100" ng-click="application.currentOrder._states_.loaded(false); orders.add(application.currentOrder, session.getUser().id.value, cart.items.items, cart.price(), onSuccessAddOrder)">
                     Подтвердить заказ
                 </button>
             </div>

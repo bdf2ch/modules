@@ -1,0 +1,39 @@
+/**
+*
+**/
+.gears-input {
+  display: inline-block;
+  height: 35px;
+  font-size: 16px;
+  border: 1px solid lightgrey;
+}
+.gears-ui-typeahead {
+  display: inline-block;
+  height: 35px;
+  font-size: 16px;
+  border: 1px solid lightgrey;
+}
+.gears-ui-typeahead input {
+  display: block;
+  float: left;
+  height: 33px;
+  padding: 6px;
+  border: none;
+}
+.gears-ui-typeahead .typeahead-clear-container {
+  float: left;
+  width: 25px;
+  height: 30px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align: center;
+}
+.gears-ui-typeahead .typeahead-clear-container a {
+  text-decoration: none;
+  font-family: "Helvetica";
+  font-size: 28px;
+  color: lightgrey;
+}
+.gears-ui-typeahead .typeahead-clear-container a:hover {
+  color: gray;
+}

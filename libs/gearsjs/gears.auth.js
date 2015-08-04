@@ -128,7 +128,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
             /**
              * Валидация имени пользователя и пароля
              */
-            auth.validate = function () {
+            auth.logIn = function (callback) {
                 /* Сброс флагов состояний */
                 auth.isAuthSuccessed = false;
                 auth.isAuthFailed = false;
@@ -153,7 +153,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
 
                 /* Если ошибок нет, то отправляем данные на сервер */
                 if (auth.errors.username.length === 0 && auth.errors.password.length === 0 )
-                    auth.send();
+                    auth.send(callback);
             };
 
             auth.reset = function () {
@@ -167,7 +167,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
             /**
              * Отправляет имя пользователя и пароль на сервер
              */
-            auth.send = function () {
+            auth.send = function (callback) {
                 var act = auth.inRemindPasswordMode === true ? "remindPassword" : "logIn";
                 var params = {
                     action: act,
@@ -187,11 +187,16 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                                     auth.errors.username.push("Пользователь не найден");
                                     auth.isAuthFailed = true;
                                 } else {
-                                    var temp_user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
-                                    temp_user._model_.fromJSON(data);
-                                    temp_user._backup_.setup();
-                                    $session.setUser(temp_user);
-                                    auth.isAuthSuccessed = true;
+                                    if (data["user"] !== undefined) {
+                                        var temp_user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
+                                        temp_user._model_.fromJSON(data["user"]);
+                                        temp_user._backup_.setup();
+                                        $session.setUser(temp_user);
+                                        auth.isAuthSuccessed = true;
+                                    }
+                                    if (data["data"] !== undefined) {
+                                        callback(data);
+                                    }
                                 }
                             } else {
                                 var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });

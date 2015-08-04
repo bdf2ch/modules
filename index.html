@@ -72,7 +72,7 @@
                                        ng-model="auth.password"
                                        ng-class="{'input-error': auth.errors.password.length > 0}" />
                             </form>
-                            <submit class="btn btn-green btn-small width-100" ng-click="auth.validate()">Войти</submit>
+                            <submit class="btn btn-green btn-small width-100" ng-click="auth.logIn(application.onSuccessLogin)">Войти</submit>
                         </div>
                     </div>
                 </div>
