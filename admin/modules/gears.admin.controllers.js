@@ -54,7 +54,7 @@ admControllers.controller("GearsBouquetController", ["$log", "$scope", "$flowers
         $scope.tabs = [
             {
                 id: 1,
-                title: "�?нформация о букете",
+                title: "�?нформация о букете",
                 template: "templates/bouquet/bouquet-info.html",
                 active: true
             },
@@ -513,8 +513,8 @@ admControllers.controller("GearsAddBouquetController", ["$log", "$scope", "$http
         $scope.errors.splice(0, $scope.errors.length);
         if ($scope.bouquet.title.value === "")
             $scope.errors.push("Вы не указали наименование букета");
-        if ($scope.bouquet.descriptionShort.value === "")
-            $scope.errors.push("Вы не краткое описание букета");
+        //if ($scope.bouquet.descriptionShort.value === "")
+        //    $scope.errors.push("Вы не краткое описание букета");
         if ($scope.bouquet.price.value === "" || $scope.bouquet.price.value === 0)
             $scope.errors.push("Вы не указали стоимость букета");
 

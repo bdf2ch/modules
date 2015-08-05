@@ -12,9 +12,11 @@
   border: 1px solid lightgrey;
 }
 
-.gears-ui-typeahead {
-  //overflow: visible;
 
+/**
+* TYPEAHEAD
+**/
+.gears-ui-typeahead {
   .gears-input;
 
   input {
@@ -44,5 +46,34 @@
       }
     }
 
+  }
+}
+
+
+
+/**
+* DATEPICKER
+**/
+.gears-ui-datepicker {
+  display: inline-block;
+
+  .week {
+    //border: 1px solid red;
+  }
+
+  .day {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    font-size: 18px;
+    color: lightgrey;
+    background: #FAFAFA;
+    cursor: pointer;
+    //border: 1px solid black;
+    
+    &:hover {
+      background: #F2EDEF;
+    }
   }
 }

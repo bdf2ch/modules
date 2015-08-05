@@ -86,3 +86,44 @@ grUi.directive("typeahead", ["$log", function ($log) {
         templateUrl: "templates/gears-ui/typeahead.html"
     }
 }]);
+
+
+
+grUi.directive("datepicker", ["$log", function ($log) {
+    return {
+        restrict: "E",
+        scope: {},
+        controller: function ($scope) {
+            var now = new moment();
+            var startOfMonth = moment().startOf("month");
+            var endOfMonth = moment().endOf("month");
+            var daysInMonth = Math.round((moment().endOf("month").unix() - moment().startOf("month").unix()) / 86400);
+            var weeks = $scope.weeks = [];
+            var days = $scope.days = [];
+
+            weeks[0] = [];
+            var weekIndex = 0;
+            for (var i = 1; i <= daysInMonth; i++ ) {
+                //var temp_day = new moment().unix();
+                var day = {
+                    number: i
+                    //title:
+                };
+                weeks[weekIndex].push(day);
+                if (i % 7 === 0) {
+                    weekIndex++;
+                    weeks[weekIndex] = [];
+                    $log.log("weekIndex = ", weekIndex);
+                }
+
+
+                days.push(day);
+            }
+            $log.log("now = ", now.format("DD.MM.YYYY HH:mm"));
+            $log.log("start of month = ", moment(startOfMonth).format("DD.MM.YYYY HH:mm"));
+            $log.log("end of month of month = ", moment(endOfMonth).format("DD.MM.YYYY HH:mm"));
+            $log.log("days in month = ", daysInMonth);
+        },
+        templateUrl: "templates/gears-ui/datepicker.html"
+    }
+}]);

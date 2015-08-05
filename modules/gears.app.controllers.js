@@ -168,35 +168,35 @@ appControllers.controller("OrderController", ["$log", "$scope", "$location", "$c
         $scope.errorCounter = 0;
         /* Р�РјСЏ Р·Р°РєР°Р·С‡РёРєР° */
         if ($scope.order.customerName.value === "") {
-            $scope.errors.customer.name = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё Р’Р°С€Рµ РёРјСЏ";
+            $scope.errors.customer.name = "Вы не указали Ваше имя";
             $scope.errorCounter++;
         } else
             $scope.errors.customer.name = false;
 
         /* РћС‚С‡РµСЃС‚РІРѕ Р·Р°РєР°Р·С‡РёРєР° */
-        if ($scope.order.customerFname.value === "") {
-            $scope.errors.customer.fname = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё Р’Р°С€Рµ РѕС‚С‡РµСЃС‚РІРѕ";
-            $scope.errorCounter++;
-        } else
-            $scope.errors.customer.fname = false;
+        //if ($scope.order.customerFname.value === "") {
+        //    $scope.errors.customer.fname = "Вы не указали Ваше отчество";
+        //    $scope.errorCounter++;
+        //} else
+        //    $scope.errors.customer.fname = false;
 
         /* Р¤Р°РјРёР»РёСЏ Р·Р°РєР°Р·С‡РёРєР° */
         if ($scope.order.customerSurname.value === "") {
-            $scope.errors.customer.surname = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё Р’Р°С€Сѓ С„Р°РјРёР»РёСЋ";
+            $scope.errors.customer.surname = "Вы не указали Вашу фамилию";
             $scope.errorCounter++;
         } else
             $scope.errors.customer.surname = false;
 
         /* РљРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ Р·Р°РєР°Р·С‡РёРєР° */
         if ($scope.order.customerPhone.value === "") {
-            $scope.errors.customer.phone = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё Р’Р°С€ РєРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ";
+            $scope.errors.customer.phone = "Вы не указали Ваш контактный телефон";
             $scope.errorCounter++;
         } else
             $scope.errors.customer.phone = false;
 
         /* Р­Р»РµРєС‚СЂРѕРЅРЅР°СЏ РїРѕС‡С‚Р° Р·Р°РєР°Р·С‡РёРєР° */
         if ($scope.order.customerEmail.value === "") {
-            $scope.errors.customer.email = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё Р’Р°С€ e-mail";
+            $scope.errors.customer.email = "Вы не указали Ваш e-mail";
             $scope.errorCounter++;
         } else
             $scope.errors.customer.email = false;
@@ -206,28 +206,28 @@ appControllers.controller("OrderController", ["$log", "$scope", "$location", "$c
 
             /* Р�РјСЏ РїРѕР»СѓС‡Р°С‚РµР»СЏ */
             if ($scope.order.recieverName.value === "") {
-                $scope.errors.reciever.name = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё РёРјСЏ РїРѕР»СѓС‡Р°С‚РµР»СЏ";
+                $scope.errors.reciever.name = "Вы не указали имя получателя";
                 $scope.errorCounter++;
             } else
                 $scope.errors.reciever.name = false;
 
             /* РћС‚С‡РµС‚С‡РІРѕ Р·Р°РєР°Р·С‡РёРєР° */
-            if ($scope.order.recieverFname.value === "") {
-                $scope.errors.reciever.fname = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё РѕС‚С‡РµСЃС‚РІРѕ РїРѕР»СѓС‡Р°С‚РµР»СЏ";
-                $scope.errorCounter++;
-            } else
-                $scope.errors.reciever.fname = false;
+            //if ($scope.order.recieverFname.value === "") {
+            //    $scope.errors.reciever.fname = "Вы не указали отчество получателя";
+            //    $scope.errorCounter++;
+            //} else
+            //    $scope.errors.reciever.fname = false;
 
             /* Р¤Р°РјРёР»РёСЏ Р·Р°РєР°Р·С‡РёРєР° */
             if ($scope.order.recieverSurname.value === "") {
-                $scope.errors.reciever.surname = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё С„Р°РјРёР»РёСЋ РїРѕР»СѓС‡Р°С‚РµР»СЏ";
+                $scope.errors.reciever.surname = "Вы не указали фамилию получателя";
                 $scope.errorCounter++;
             } else
                 $scope.errors.reciever.surname = false;
 
             /* РљРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ Р·Р°РєР°Р·С‡РёРєР° */
             if ($scope.order.recieverPhone.value === "") {
-                $scope.errors.reciever.phone = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё РєРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ РїРѕР»СѓС‡Р°С‚РµР»СЏ";
+                $scope.errors.reciever.phone = "Вы не указали контактный телефон получателя";
                 $scope.errorCounter++;
             } else
                 $scope.errors.reciever.phone = false;
@@ -237,21 +237,21 @@ appControllers.controller("OrderController", ["$log", "$scope", "$location", "$c
         if ($scope.order.deliveryMethodId.value === 2) {
             /* РђРґСЂРµСЃ РґРѕСЃС‚Р°РІРєРё - СѓР»РёС†Р° */
             if ($scope.order.addressStreet.value === "") {
-                $scope.errors.address.street = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё СѓР»РёС†Сѓ";
+                $scope.errors.address.street = "Вы не указали улицу";
                 $scope.errorCounter++;
             } else
                 $scope.errors.address.street = false;
 
             /* РђРґСЂРµСЃ РґРѕСЃС‚Р°РІРєРё - РґРѕРј */
             if ($scope.order.addressBuilding.value === "") {
-                $scope.errors.address.building = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё РЅРѕРјРµСЂ РґРѕРјР°";
+                $scope.errors.address.building = "Вы не указали дом°";
                 $scope.errorCounter++;
             } else
                 $scope.errors.address.building = false;
 
             /* РђРґСЂРµСЃ РґРѕСЃС‚Р°РІРєРё - РєРІР°СЂС‚РёСЂР° */
             if ($scope.order.addressFlat.value === "") {
-                $scope.errors.address.flat = "Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё РЅРѕРјРµСЂ РєРІР°СЂС‚РёСЂС‹";
+                $scope.errors.address.flat = "Вы не указали квартиру";
                 $scope.errorCounter++;
             } else
                 $scope.errors.address.flat = false;

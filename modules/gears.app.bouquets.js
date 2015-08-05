@@ -13,7 +13,7 @@ var flowers = angular.module("gears.app.bouquets", [])
          * $flowers
          * РЎРµСЂРІРёСЃ ...
          */
-        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$misc", "$application", function ($log, $http, $factory, $pagination, $misc, $application) {
+        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$misc", function ($log, $http, $factory, $pagination, $misc) {
             var flowers = {};
 
 
@@ -125,12 +125,13 @@ var flowers = angular.module("gears.app.bouquets", [])
             /**
              * РџРµСЂРµРјРµРЅРЅС‹Рµ СЃРµСЂРІРёСЃР°
              */
-            flowers.bouquets = $factory({ classes: ["Collection"], base_class: "Collection" });
+            flowers.bouquets = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
             flowers.gifts = $factory({ classes: ["Collection"], base_class: "Collection" });
 
 
             flowers.init = function () {
-                $application.isLoading = true;
+                //$application.isLoading = true;
+                flowers.bouquets._states_.loaded(false);
                 $http.post("serverside/controllers/init.php", {})
                     .success(function (data) {
                         if (data !== undefined) {
@@ -267,7 +268,8 @@ var flowers = angular.module("gears.app.bouquets", [])
                             }
 
                         }
-                        $application.isLoading = false;
+                        //$application.isLoading = false;
+                        flowers.bouquets._states_.loaded(true);
                     }
                 );
             };
