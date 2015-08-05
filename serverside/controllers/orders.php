@@ -104,7 +104,7 @@
             $generated_password = generate_password();
             $add_user_query = mysql_query("
                 INSERT INTO users (name, fname, surname, email, phone, registered, last_visited, password)
-                VALUES ($customerName, $customerFname, $customerSurname, $customerEmail, $customerPhone, $current_timestamp, $current_timestamp, $generated_password)
+                VALUES ('$customerName', '$customerFname', '$customerSurname', '$customerEmail', '$customerPhone', $current_timestamp, $current_timestamp, '$generated_password')
             ");
             if (!$add_user_query) {
                 $result = new DBError(mysql_errno(), mysql_error());
@@ -112,7 +112,7 @@
             } else {
                 $added_user_id = mysql_insert_id();
                 $userId = $added_user_id;
-                $added_user_query = mysql_query("SELECT name, fname, surname, email, phone, registered, last_visited FROM USERS WHERE user_id = $added_user_id");
+                $added_user_query = mysql_query("SELECT name, fname, surname, email, phone, registered, last_visited FROM USERS WHERE id = $added_user_id");
                 if (!$added_user_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
@@ -131,7 +131,7 @@
                                 customer_phone, reciever_gender_id, reciever_name, reciever_fname, reciever_surname, reciever_phone,
                                 address_city_id, address_street, address_building, address_building_index, address_flat,
                                 payment_method_id, delivery_method_id, customer_is_reciever, delivery_start_period,
-                                delivery_end_period, comment, created, totalPrice)
+                                delivery_end_period, comment, created, total_price)
             VALUES ($userId, $customerGenderId, '$customerName', '$customerFname', '$customerSurname', '$customerEmail', '$customerPhone',
                     $recieverGenderId, '$recieverName', '$recieverFname', '$recieverSurname', '$recieverPhone', $addressCityId,
                     '$addressStreet', '$addressBuilding', '$addressBuildingIndex', '$addressFlat', $paymentMethodId, $deliveryMethodId,
