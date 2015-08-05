@@ -112,12 +112,27 @@ appControllers.controller("BouquetController", ["$log", "$scope", "$routeParams"
 
     $log.log($routeParams);
 
+    $scope.$watch("flowers.bouquets._states_.loaded()", function (flag) {
+        $log.log("bouquets is loaded = ", flag);
+        if (flag === true) {
+            $scope.bouquet = $flowers.bouquets.find("id", parseInt($routeParams.bouquetId));
+            angular.forEach($misc.prices.items, function (price) {
+                if ($scope.bouquet.price.value >= price.start && $scope.bouquet.price.value <= price.end)
+                    $scope.bouquetPriceRangeId = price.id;
+            });
+        }
+    });
+
     if ($routeParams.bouquetId !== undefined) {
-        $scope.bouquet = $flowers.bouquets.find("id", parseInt($routeParams.bouquetId));
-        angular.forEach($misc.prices.items, function (price) {
-            if ($scope.bouquet.price.value >= price.start && $scope.bouquet.price.value <= price.end)
-                $scope.bouquetPriceRangeId = price.id;
-        });
+        if ($flowers.bouquets.size() === 0) {
+            $flowers.init();
+        } else {
+            $scope.bouquet = $flowers.bouquets.find("id", parseInt($routeParams.bouquetId));
+            angular.forEach($misc.prices.items, function (price) {
+                if ($scope.bouquet.price.value >= price.start && $scope.bouquet.price.value <= price.end)
+                    $scope.bouquetPriceRangeId = price.id;
+            });
+        }
     }
 
     $log.log("currentBouquet = ", $scope.bouquet);
