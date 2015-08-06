@@ -96,7 +96,7 @@
         $comment = $postdata -> data -> comment;
         $totalPrice = $postdata -> data -> totalPrice;
         $bouquets = $postdata -> data -> bouquets;
-        $result = new stdClass;;
+        $result = new stdClass;
         $orders = array();
         $current_timestamp = time();
         $orderId = 0;
@@ -119,7 +119,7 @@
                     echo(json_encode($result));
                 } else {
                     $user_row = mysql_fetch_assoc($added_user_query);
-                    $result["user"] = $user_row;
+                    $result -> user = $user_row;
                 }
                 mysql_free_result($added_user_query);
             }
@@ -162,17 +162,17 @@
                 $result -> order = $order_row;
                 $order_bouquets = array();
 
-                $order_bouquets = mysql_query("SELECT * FROM order_bouquets WHERE order_id = $orderId");
-                if (!$order_bouquets_query) {
-                    $result = new DBError(mysql_errno(), mysql_error());
-                    echo(json_encode($result));
-                } else {
-                    while ($bouquet = mysql_fetch_assoc($order_bouquets_query)) {
-                        array_push($order_bouquets, $bouquet);
-                    }
-                    $result -> bouquets = $order_bouquets;
-                }
-                mysql_free_result($order_bouquets_query);
+                //$order_bouquets = mysql_query("SELECT * FROM order_bouquets WHERE order_id = $orderId");
+                //if (!$order_bouquets_query) {
+                //    $result = new DBError(mysql_errno(), mysql_error());
+                //    echo(json_encode($result));
+                //} else {
+                //    while ($bouquet = mysql_fetch_assoc($order_bouquets_query)) {
+                //        array_push($order_bouquets, $bouquet);
+                //    }
+                //    $result -> bouquets = $order_bouquets;
+                //}
+                //mysql_free_result($order_bouquets_query);
             }
             mysql_free_result($added_order_query);
         }
