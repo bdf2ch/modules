@@ -38,10 +38,6 @@ var appOrders = angular.module("gears.app.orders", [])
                     comment: new Field({ source: "comment", value: "", default_value: "" }),
                     created: new Field({ source: "created", value: 0, default_value: 0 }),
                     totalPrice: new Field({ source: "total_price", value: 0, default_value: 0 })
-                },
-
-                _onInit_: function () {
-
                 }
             };
 
@@ -111,6 +107,7 @@ var appOrders = angular.module("gears.app.orders", [])
                             bouquets: products
                         }
                     };
+                    $log.log("order = ", order);
                     //$application.currentOrder._states_.loaded(false);
                     $http.post("serverside/controllers/orders.php", params)
                         .success(function (data) {

@@ -41,18 +41,19 @@ body {
   float: left;
   height: 50px;
   margin-top: 1px;
+  margin-left: 5px !important;
 }
 #top-header #logo .logo-wrapper {
   float: left;
   height: 50px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 #top-header #logo .small-caption {
   display: block;
   margin-left: 3px;
   font-family: "Helvetica";
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-weight: bold;
   font-size: 10px;
   color: #BF0F44 !important;
@@ -74,14 +75,18 @@ body {
   margin-left: 10px;
   padding-left: 0px;
   padding-right: 0px;
-  padding-top: 8px;
+  padding-top: 15px;
+  padding-bottom: 2px;
+  font-family: "Georgia";
   font-size: 18px;
   text-decoration: none;
-  color: white;
-  border-bottom: 1px dashed white;
+  line-height: 17px;
+  color: #8C2352;
+  border-bottom: 1px dotted #8C2352;
 }
 #top-header #header-menu a:hover {
-  color: #2C3D6B;
+  color: white;
+  border-bottom-color: white;
 }
 #top-header #header-menu li {
   margin-right: 20px;
@@ -385,6 +390,12 @@ body {
 #footer .copyrights {
   padding-top: 12px;
   padding-left: 20px;
+  font-size: 12px;
+  line-height: 15px;
+}
+#footer .contacts {
+  padding-top: 12px;
+  padding-right: 20px;
   font-size: 12px;
   line-height: 15px;
 }

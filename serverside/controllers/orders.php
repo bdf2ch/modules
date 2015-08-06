@@ -99,6 +99,7 @@
         $result;
         $orders = array();
         $current_timestamp = time();
+        $orderId = 0;
 
         if ($userId == 0) {
             $generated_password = generate_password();
@@ -112,7 +113,7 @@
             } else {
                 $added_user_id = mysql_insert_id();
                 $userId = $added_user_id;
-                $added_user_query = mysql_query("SELECT name, fname, surname, email, phone, registered, last_visited FROM USERS WHERE id = $added_user_id");
+                $added_user_query = mysql_query("SELECT id, name, fname, surname, email, phone, registered, last_visited FROM USERS WHERE id = $added_user_id");
                 if (!$added_user_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
@@ -142,9 +143,9 @@
         } else {
             $orderId = mysql_insert_id();
             for ($i = 0; $i < sizeof($bouquets); $i++) {
-                $bouquetId = $bouquets[$i]["productId"];
-                $amount = $bouquets[$i]["amount"];
-                $add_order_bouquet_query = mysql_query("INSERT INTO order_bouquets (order_id, bouquet_id, amount) VALUES ($order_id, $bouquet_id, $amount)");
+                $bouquetId = $bouquets[$i] -> productId;
+                $amount = $bouquets[$i] -> amount;
+                $add_order_bouquet_query = mysql_query("INSERT INTO order_bouquets (order_id, bouquet_id, amount) VALUES ($orderId, $bouquetId, $amount)");
                 if (!$add_order_bouquet_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
@@ -152,16 +153,13 @@
             }
 
 
-
-            $added_order_id = mysql_insert_id();
-            $added_order_query = mysql_query("SELECT * FROM orders WHERE id = $added_order_id");
+            $added_order_query = mysql_query("SELECT * FROM orders WHERE id = $orderId");
             if (!$added_order_query) {
                 $result = new DBError(mysql_errno(), mysql_error());
                 echo(json_encode($result));
             } else {
                 $order_row = mysql_fetch_assoc($added_order_query);
                 $result["order"] = $order_row;
-                $orderId = $order_row["id"];
                 $order_bouquets = array();
 
                 $order_bouquets = mysql_query("SELECT * FROM order_bouquets WHERE order_id = $orderId");
