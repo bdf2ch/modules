@@ -1,12 +1,10 @@
 <table class="table-hovered">
     <tr ng-repeat="order in orders.items track by $id(order)">
-        <td class="text-left"><a href>{{ "Заказ #" + order.id.value }}</a></td>
+        <td class="text-left">{{ "Заказ #" + order.id.value }}</td>
         <td class="text-centered">{{ "от " + order.created.value }}</td>
         <td class="text-right">8450 р.</td>
     </tr>
-    <tr>
-        <td class="text-left"><a href>Заказ №516</a></td>
-        <td class="text-centered">29 vfz 2015 г.</td>
-        <td class="text-right">6200 р.</td>
+    <tr ng-show="orders.items.size() === 0">
+        <td colspan="3" class="text-centered">У Вас еще нет заказов.</td>
     </tr>
 </table>

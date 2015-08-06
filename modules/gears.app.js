@@ -40,6 +40,10 @@ var application = angular.module("gears.app", [
                 templateUrl: "templates/account/account.html",
                 controller: "AccountController"
             })
+            .when("/contacts", {
+                templateUrl: "templates/contacts/contacts.html",
+                controller: "ContactsController"
+            })
             .otherwise({ redirectTo: '/' });
 
 

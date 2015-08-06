@@ -93,6 +93,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                 if ($cookies.appUser !== undefined) {
                     $log.log("appUser cookie json = ", JSON.parse($cookies.appUser));
                     user._model_.fromAnother(JSON.parse($cookies.appUser));
+                    user._backup_.setup();
                     isLoggedIn = true;
                 } else {
                     $log.log("there are no appUser cookie");

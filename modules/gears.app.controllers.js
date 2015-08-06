@@ -140,7 +140,7 @@ appControllers.controller("BouquetController", ["$log", "$scope", "$routeParams"
 
 
 
-appControllers.controller("OrderController", ["$log", "$scope", "$location", "$cart", "$factory", "$misc", "$orders", "$application", function ($log, $scope, $location, $cart, $factory, $misc, $orders, $application) {
+appControllers.controller("OrderController", ["$log", "$scope", "$location", "$cart", "$factory", "$misc", "$orders", "$application", "$session", "$window", function ($log, $scope, $location, $cart, $factory, $misc, $orders, $application, $session, $window) {
     $scope.cart = $cart;
     $scope.misc = $misc;
     $scope.orders = $orders;
@@ -171,6 +171,17 @@ appControllers.controller("OrderController", ["$log", "$scope", "$location", "$c
     };
     $scope.errorCounter = 0;
 
+    $window.scrollTo(0, 1);
+    //window.scrollTo(0, 0);
+
+    if ($session.loggedIn() === true) {
+        var user = $session.getUser();
+        $scope.order.customerName.value = user.name.value;
+        $scope.order.customerFname.value = user.fname.value;
+        $scope.order.customerSurname.value = user.surname.value;
+        $scope.order.customerEmail.value = user.email.value;
+        $scope.order.customerPhone.value = user.phone.value;
+    }
 
 
     /* РџРµСЂРµС…РѕРґ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ */
@@ -329,7 +340,9 @@ appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders"
 
 
 
-appControllers.controller("AccountController", ["$log", "$scope", "$orders", function ($log, $scope, $orders) {
+appControllers.controller("AccountController", ["$log", "$scope", "$http", "$orders", "$session", "$factory", function ($log, $scope, $http, $orders, $session, $factory) {
+    $scope.session = $session;
+    $scope.orders = $orders;
     $scope.tabs = [
         {
             id: 1,
@@ -357,4 +370,40 @@ appControllers.controller("AccountController", ["$log", "$scope", "$orders", fun
             });
         }
     };
+
+    $scope.save = function () {
+        var params = {
+            action : "edit",
+            date: {
+                userId: $session.getUser().id.value,
+                name: $session.getUser().name.value,
+                fname: $session.getUser().fname.value,
+                surname: $session.getUser().surname.value,
+                email: $session.getUser().email.value,
+                phone: $session.getUser().phone.value
+            }
+        };
+        $http.post("serverside/controllers/user.php", params)
+            .success(function (data) {
+                if (data !== undefined) {
+                    if (data["error_code"] !== undefined) {
+                        var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
+                        db_error.init(data);
+                        db_error.display();
+                    } else {
+                        if (JSON.parse(data) === "successs") {
+                            $session.getUser()._states_.editing(false);
+                            $session.getUser()._sattes_.changed(false);
+                        }
+                    }
+                }
+            }
+        );
+    };
+}]);
+
+
+
+appControllers.controller("ContactsController", ["$log", "$scope", function ($log, $scope) {
+
 }]);
