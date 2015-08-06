@@ -96,7 +96,7 @@
         $comment = $postdata -> data -> comment;
         $totalPrice = $postdata -> data -> totalPrice;
         $bouquets = $postdata -> data -> bouquets;
-        $result;
+        $result = new stdClass;;
         $orders = array();
         $current_timestamp = time();
         $orderId = 0;
@@ -159,20 +159,20 @@
                 echo(json_encode($result));
             } else {
                 $order_row = mysql_fetch_assoc($added_order_query);
-                $result["order"] = $order_row;
+                $result -> order = $order_row;
                 $order_bouquets = array();
 
                 $order_bouquets = mysql_query("SELECT * FROM order_bouquets WHERE order_id = $orderId");
-                if (!$order_bouquets) {
+                if (!$order_bouquets_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
                 } else {
-                    while ($bouquet = mysql_fetch_assoc($order_bouquets)) {
+                    while ($bouquet = mysql_fetch_assoc($order_bouquets_query)) {
                         array_push($order_bouquets, $bouquet);
                     }
-                    $result["order"]["bouquets"] = $order_bouquets;
+                    $result -> bouquets = $order_bouquets;
                 }
-                mysql_free_result($order_bouquets);
+                mysql_free_result($order_bouquets_query);
             }
             mysql_free_result($added_order_query);
         }
