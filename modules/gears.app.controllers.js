@@ -374,7 +374,7 @@ appControllers.controller("AccountController", ["$log", "$scope", "$http", "$ord
     $scope.save = function () {
         var params = {
             action : "edit",
-            date: {
+            data: {
                 userId: $session.getUser().id.value,
                 name: $session.getUser().name.value,
                 fname: $session.getUser().fname.value,
@@ -392,8 +392,11 @@ appControllers.controller("AccountController", ["$log", "$scope", "$http", "$ord
                         db_error.display();
                     } else {
                         if (JSON.parse(data) === "successs") {
-                            $session.getUser()._states_.editing(false);
-                            $session.getUser()._sattes_.changed(false);
+                            var user = $session.getUser();
+                            user._states_.editing(false);
+                            user._states_.changed(false);
+                            //$session.getUser()._states_.editing(false);
+                            //$session.getUser()._sattes_.changed(false);
                         }
                     }
                 }

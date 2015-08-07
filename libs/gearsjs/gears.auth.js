@@ -25,11 +25,11 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                  */
                 CurrentUser: {
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
-                    name: new Field({ source: "name", value: "", default_value: "" }),
-                    fname: new Field({ source: "fname", value: "", default_value: "" }),
-                    surname: new Field({ source: "surname", value: "", default_value: "" }),
-                    email: new Field({ source: "email", value: "", default_value: "" }),
-                    phone: new Field({ source: "phone", value: "", default_value: "" })
+                    name: new Field({ source: "name", value: "", default_value: "", backupable: true }),
+                    fname: new Field({ source: "fname", value: "", default_value: "", backupable: true }),
+                    surname: new Field({ source: "surname", value: "", default_value: "", backupable: true }),
+                    email: new Field({ source: "email", value: "", default_value: "", backupable: true }),
+                    phone: new Field({ source: "phone", value: "", default_value: "", backupable: true })
                 }
             };
 

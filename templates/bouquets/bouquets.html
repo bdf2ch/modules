@@ -90,7 +90,7 @@
     <div class="unit-75">
 
 
-        <div class="units-row" ng-show="application.isLoading === true">
+        <div class="units-row" ng-show="flowers.bouquets._states_.loaded() === false">
             <br/><br/><br/><br/><br/>
             <div class="unit-100 text-centered">
                 <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
@@ -99,7 +99,7 @@
         </div>
 
         <!-- Заглушка на случай отсутствия отфильтрованных букетов-->
-        <div id="bouquets-no-items" class="units-row" ng-show="pagination.itemsCount === 0 && application.isLoading === false">
+        <div id="bouquets-no-items" class="units-row" ng-show="pagination.itemsCount === 0 && flowers.bouquets._states_.loaded() === true">
             <br/><br/><br/><br/>
             <div class="unit-100 text-centered">
                 <div class="unit-30">
