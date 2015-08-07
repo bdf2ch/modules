@@ -170,6 +170,7 @@ var  gears = angular.module("gears.admin", [
         $rootScope.flowers = $flowers;
         $rootScope.misc = $misc;
         $log.log("Welcome to gears");
+        moment.locale("ru");
 
         //$flowers.init();
     });

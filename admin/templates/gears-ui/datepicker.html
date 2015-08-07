@@ -1,5 +1,6 @@
 <div class="gears-ui-datepicker">
-    <div class="week" ng-repeat="week in weeks track by $id(week)">
-        <div class="day" ng-repeat="day in week track by $id(day)">{{ day.number }}</div>
+    <div class="day" ng-class="{'not-this-month': day.thisMonth === false}" ng-repeat="day in days track by $id(day)" title="{{ day.title }}">
+        <span class="day-number-label">{{ day.number }}</span>
+        <span class="day-weekday-label">{{  }}</span>
     </div>
 </div>

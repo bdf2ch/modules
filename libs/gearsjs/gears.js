@@ -848,8 +848,11 @@ var gears = angular.module("gears", [])
                                         if (destination["_init_"] !== undefined && destination["_init_"].constructor === Function)
                                             destination.init_functions.push(destination["_init_"]);
 
-                                    } else
+                                    } else {
                                         destination[prop] = $classes.classes[className][prop];
+                                        if (prop === "_init_")
+                                            destination.init_functions.push(destination[prop]);
+                                    }
                                 }
                             }
                         }

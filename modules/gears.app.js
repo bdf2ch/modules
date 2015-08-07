@@ -78,7 +78,7 @@ var application = angular.module("gears.app", [
             return application;
         }]);
     })
-    .run(function ($log, $application, $menu, $rootScope, $modules, $factory) {
+    .run(function ($log, $application, $menu, $rootScope, $modules, $factory, $session, $location) {
         $modules.load($application);
         $menu.register();
         $rootScope.application = $application;
@@ -103,5 +103,19 @@ var application = angular.module("gears.app", [
         //$application.currentOrder.addressBuilding.value = "202";
         //$application.currentOrder.addressBuildingIndex.value = "";
         //$application.currentOrder.addressFlat.value = "112";
+
+        //$rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
+        //    $log.log("$locationChangeStart fires");
+        //    $log.log("newUrl = ", newUrl);
+        //    $log.log("location path = ", $location.path());
+        //    //event.preventDefault();
+        //    if ($location.path === "/order") {
+        //        $log.log("order path");
+        //        if ($session.user.loggedIn() === false) {
+        //            event.preventDefault();
+        //            $location.path("/");
+        //        }
+        //    }
+        //});
     }
 );

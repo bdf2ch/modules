@@ -95,34 +95,50 @@ grUi.directive("datepicker", ["$log", function ($log) {
         scope: {},
         controller: function ($scope) {
             var now = new moment();
+            var firstDayInMonth = moment().startOf("month");
+            var firstDayInCalendar = new moment(firstDayInMonth).add(((firstDayInMonth.weekday()) * -1), "days");
+
             var startOfMonth = moment().startOf("month");
             var endOfMonth = moment().endOf("month");
             var daysInMonth = Math.round((moment().endOf("month").unix() - moment().startOf("month").unix()) / 86400);
-            var weeks = $scope.weeks = [];
+            var firstDay = startOfMonth.weekday();
             var days = $scope.days = [];
 
-            weeks[0] = [];
-            var weekIndex = 0;
-            for (var i = 1; i <= daysInMonth; i++ ) {
-                //var temp_day = new moment().unix();
+
+
+
+            for (var i = 0; i < 42; i++ ) {
+                var temp_moment = new moment(firstDayInCalendar).add(i, "days");
                 var day = {
-                    number: i
-                    //title:
+                    number: temp_moment.date(),
+                    weekDay: "",
+                    title: temp_moment.format("DD MMMM YYYY, dddd"),
+                    thisMonth: false
                 };
-                weeks[weekIndex].push(day);
-                if (i % 7 === 0) {
-                    weekIndex++;
-                    weeks[weekIndex] = [];
-                    $log.log("weekIndex = ", weekIndex);
-                }
-
-
+                switch (temp_moment.weekday()) {
+                    case 0: day.weekDay = "Вс";
+                            break;
+                    case 1: day.weekDay = "пн";
+                        break;
+                    case 2: day.weekDay = "Вт";
+                        break;
+                    case 3: day.weekDay = "Ср";
+                        break;
+                    case 4: day.weekDay = "Чт";
+                        break;
+                    case 5: day.weekDay = "Пт";
+                        break;
+                    case 6: day.weekDay = "Сб";
+                        break;
+                };
+                day.thisMonth = temp_moment.month() !== now.month() ? false : true;
                 days.push(day);
             }
             $log.log("now = ", now.format("DD.MM.YYYY HH:mm"));
             $log.log("start of month = ", moment(startOfMonth).format("DD.MM.YYYY HH:mm"));
             $log.log("end of month of month = ", moment(endOfMonth).format("DD.MM.YYYY HH:mm"));
             $log.log("days in month = ", daysInMonth);
+            $log.log("first day in calendar = ", firstDayInCalendar.format("DD.MM.YYYY HH:mm"));
         },
         templateUrl: "templates/gears-ui/datepicker.html"
     }

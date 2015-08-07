@@ -174,8 +174,8 @@ appControllers.controller("OrderController", ["$log", "$scope", "$location", "$c
     $window.scrollTo(0, 1);
     //window.scrollTo(0, 0);
 
-    if ($session.loggedIn() === true) {
-        var user = $session.getUser();
+    if ($session.user.loggedIn() === true) {
+        var user = $session.user.get();
         $scope.order.customerName.value = user.name.value;
         $scope.order.customerFname.value = user.fname.value;
         $scope.order.customerSurname.value = user.surname.value;
@@ -327,7 +327,7 @@ appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders"
                 var temp_user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
                 temp_user._model_.fromJSON(data["user"]);
                 temp_user._backup_.setup();
-                $session.setUser(temp_user);
+                $session.user.set(temp_user);
                 $scope.accountIsCreated = true;
             }
             $application.currentOrder._states_.loaded(true);
@@ -372,15 +372,16 @@ appControllers.controller("AccountController", ["$log", "$scope", "$http", "$ord
     };
 
     $scope.save = function () {
+        var user = $session.user.get();
         var params = {
             action : "edit",
             data: {
-                userId: $session.getUser().id.value,
-                name: $session.getUser().name.value,
-                fname: $session.getUser().fname.value,
-                surname: $session.getUser().surname.value,
-                email: $session.getUser().email.value,
-                phone: $session.getUser().phone.value
+                userId: user.id.value,
+                name: user.name.value,
+                fname: user.fname.value,
+                surname: user.surname.value,
+                email: user.email.value,
+                phone: user.phone.value
             }
         };
         $http.post("serverside/controllers/user.php", params)
@@ -392,7 +393,7 @@ appControllers.controller("AccountController", ["$log", "$scope", "$http", "$ord
                         db_error.display();
                     } else {
                         if (JSON.parse(data) === "successs") {
-                            var user = $session.getUser();
+                            var user = $session.user.get();
                             user._states_.editing(false);
                             user._states_.changed(false);
                             //$session.getUser()._states_.editing(false);

@@ -44,18 +44,18 @@
                 <div id="user" class="unit-50 clearfix">
                     <div class="units-row units-split end">
                         <div id="user-icon" class="unit-30"></div>
-                        <div id="user-info" class="unit-70 text-centered" ng-show="session.loggedIn() === true">
-                            Здравствуйте, <a href="#/account">{{ session.getUser().name.value }}</a><br>
+                        <div id="user-info" class="unit-70 text-centered" ng-show="session.user.loggedIn() === true">
+                            Здравствуйте, <a href="#/account">{{ session.user.get().name.value }}</a><br>
 
                         </div>
 
-                        <div id="user-info" class="unit-70 text-centered" ng-show="session.loggedIn() === false">
+                        <div id="user-info" class="unit-70 text-centered" ng-show="session.user.loggedIn() === false">
                             Мы рады Вас видеть! &nbsp;
                             <a href="" ng-show="application.inAuthorizationMode === false" ng-click="application.inAuthorizationMode = true">Войти</a>
                             <a href="" ng-show="application.inAuthorizationMode === true" ng-click="application.inAuthorizationMode = false; authorization.reset()">Отмена</a>
                         </div>
                     </div>
-                    <div id="user-login-form" class="units-row end" ng-show="application.inAuthorizationMode === true && session.loggedIn() === false" ng-controller="AuthorizationController">
+                    <div id="user-login-form" class="units-row end" ng-show="application.inAuthorizationMode === true && session.user.loggedIn() === false" ng-controller="AuthorizationController">
                         <div class="unit-100">
                             <form action="">
                                 <input type="text"
