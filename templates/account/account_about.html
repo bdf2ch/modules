@@ -3,7 +3,7 @@
         <div class="unit-25"> &nbsp;
         </div>
         <div class="unit-50">
-            <form action="" class="forms" ng-init="user = session.getUser()">
+            <form action="" class="forms" ng-init="user = session.user.get()">
                 <label for="current-user-name">
                     Ваше имя
                     <input type="text"
@@ -54,9 +54,10 @@
                            ng-disabled="user._states_.editing() === false"
                            ng-change="user._states_.changed(true)"/>
                 </label>
-                <button class="btn btn-blue width-50 right" ng-show="user._states_.editing() === false" ng-click="user._states_.editing(true); user._backup_.setup()">Изменить</button>
-                <button class="btn btn-green width-50 left" ng-show="user._states_.changed() === true && user._states_.editing() === true" ng-click="save()">Сохранить</button>
+                <button class="btn btn-blue width-50 left" ng-show="user._states_.editing() === false" ng-click="user._states_.editing(true); user._backup_.setup()">Изменить</button>
+                <button class="btn btn-green width-50 left" ng-show="user._states_.changed() === true && user._states_.editing() === true" ng-click="session.user.save()">Сохранить</button>
                 <button class="btn btn-red width-50 right" ng-show="user._states_.editing() === true" ng-click="user._states_.editing(false); user._backup_.restore()">Отмена</button>
+                <button class="btn btn-yellow width-50 right" ng-show="user._states_.editing() === false" ng-click="session.user.logOut()">Выйти</button>
             </form>
         </div>
         <div class="unit-25">&nbsp;</div>

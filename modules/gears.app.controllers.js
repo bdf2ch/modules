@@ -340,7 +340,7 @@ appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders"
 
 
 
-appControllers.controller("AccountController", ["$log", "$scope", "$http", "$orders", "$session", "$factory", function ($log, $scope, $http, $orders, $session, $factory) {
+appControllers.controller("AccountController", ["$log", "$scope", "$http", "$orders", "$session", "$factory", "$location", "$authorization", function ($log, $scope, $http, $orders, $session, $factory, $location, $authorization) {
     $scope.session = $session;
     $scope.orders = $orders;
     $scope.tabs = [
@@ -371,38 +371,12 @@ appControllers.controller("AccountController", ["$log", "$scope", "$http", "$ord
         }
     };
 
-    $scope.save = function () {
-        var user = $session.user.get();
-        var params = {
-            action : "edit",
-            data: {
-                userId: user.id.value,
-                name: user.name.value,
-                fname: user.fname.value,
-                surname: user.surname.value,
-                email: user.email.value,
-                phone: user.phone.value
-            }
-        };
-        $http.post("serverside/controllers/user.php", params)
-            .success(function (data) {
-                if (data !== undefined) {
-                    if (data["error_code"] !== undefined) {
-                        var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
-                        db_error.init(data);
-                        db_error.display();
-                    } else {
-                        if (JSON.parse(data) === "successs") {
-                            var user = $session.user.get();
-                            user._states_.editing(false);
-                            user._states_.changed(false);
-                            //$session.getUser()._states_.editing(false);
-                            //$session.getUser()._sattes_.changed(false);
-                        }
-                    }
-                }
-            }
-        );
+
+
+    $session.onSuccessUserLogOut = function () {
+        $authorization.reset();
+        $orders.items.clear();
+        $location.url("/");
     };
 }]);
 

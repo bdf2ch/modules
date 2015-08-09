@@ -311,8 +311,8 @@ var gears = angular.module("gears", [])
                         fromAnother: function (obj) {
                             for (var another_prop in obj) {
                                 if (this.__instance__.hasOwnProperty(another_prop)) {
-                                    console.log("prop = ", another_prop);
-                                    console.log("prop constructor = ", obj[another_prop].constructor);
+                                    //console.log("prop = ", another_prop);
+                                    //console.log("prop constructor = ", obj[another_prop].constructor);
                                     if (this.__instance__[another_prop].constructor === Field) {
                                         //if (obj[another_prop].constructor === Field)
                                         //    this.__instance__[another_prop].value = obj[another_prop].value;
@@ -364,7 +364,7 @@ var gears = angular.module("gears", [])
 
 
                         _init_: function () {
-                            $log.log("Model _init_ func called");
+                            //$log.log("Model _init_ func called");
                             for (var prop in this.__instance__) {
                                 if (this.__instance__[prop].constructor === Field &&
                                     this.__instance__[prop].default_value !== undefined) {
@@ -882,7 +882,7 @@ var gears = angular.module("gears", [])
                 var obj = new FactoryObject(parameters);
                 if (obj.init_functions.length > 0) {
                     for (var i = 0; i < obj.init_functions.length; i++) {
-                        console.log("init func = ", obj.init_functions[i]);
+                        //console.log("init func = ", obj.init_functions[i]);
                         obj.init_functions[i].call(obj);
                     }
                 }

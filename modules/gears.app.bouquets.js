@@ -13,7 +13,7 @@ var flowers = angular.module("gears.app.bouquets", [])
          * $flowers
          * РЎРµСЂРІРёСЃ ...
          */
-        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$misc", function ($log, $http, $factory, $pagination, $misc) {
+        $provide.factory("$flowers", ["$log", "$http", "$factory", "$pagination", "$misc", "$session", function ($log, $http, $factory, $pagination, $misc, $session) {
             var flowers = {};
 
 
@@ -131,8 +131,11 @@ var flowers = angular.module("gears.app.bouquets", [])
 
             flowers.init = function () {
                 //$application.isLoading = true;
+                var params = {
+                    userId: $session.user.loggedIn() === true ? $session.user.get().id.value : 0
+                };
                 flowers.bouquets._states_.loaded(false);
-                $http.post("serverside/controllers/init.php", {})
+                $http.post("serverside/controllers/init.php", params)
                     .success(function (data) {
                         if (data !== undefined) {
 
