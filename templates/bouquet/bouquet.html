@@ -1,48 +1,9 @@
 <div id="template-bouquet" class="units-row">
+
+    <!-- Боковая панель -->
     <div class="unit-25 side">
-        <!-- Способы оплаты -->
-        <!--
-        <div class="units-row side-panel lightgreen">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption green">Мы принимаем к оплате</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="client/resources/img/cash.png" alt=""/>
-                </div>
-                <div class="unit-70 text-left">
-                    <span class="sidebar-leading">Наличные деньги</span>
-                    <span class="sidebar-text">Оплата при получении заказа</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="client/resources/img/visa.png" alt=""/>
-                </div>
-                <div class="unit-70">
-                    <span class="sidebar-leading">карты Visa</span>
-                    <span class="sidebar-text">
-                        Оплата при получении заказа, через терминал
-                    </span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="client/resources/img/mastercard.png" alt=""/>
-                </div>
-                <div class="unit-70 text-left">
-                    <span class="sidebar-leading">карты MasterCard</span>
-                    <span class="sidebar-text">
-                        Оплата при получении заказа, через терминал
-                    </span>
-                </div>
-            </div>
-        </div>
-        -->
 
-
+        <!-- Букеты за ту же цену -->
         <div class="units-row side-panel lightgreen">
             <div class="units-row end">
                 <div class="unit-100">
@@ -61,7 +22,7 @@
             </div>
         </div>
 
-
+        <!-- Похожие букеты -->
         <div class="units-row side-panel purple">
             <div class="units-row end">
                 <div class="unit-100">
@@ -80,65 +41,6 @@
             </div>
         </div>
 
-
-
-        <!-- Доставка -->
-        <!--
-        <div class="units-row side-panel purple">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption purple">Условия доставки</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="resources/img/money.png" alt=""/>
-                </div>
-                <div class="unit-70">
-                    <span class="sidebar-leading">Стоимость</span>
-                    <span class="sidebar-text">В Мурманск, Североморск - 350 р.</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="resources/img/clock.png" alt=""/>
-                </div>
-                <div class="unit-70">
-                    <span class="sidebar-leading">Сроки</span>
-                    <span class="sidebar-text">Доставим Ваш заказ в течении 2-х часов</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="resources/img/box.png" alt=""/>
-                </div>
-                <div class="unit-70">
-                    <span class="sidebar-leading">Самовывоз</span>
-                    <span class="sidebar-text">Ежедневно, в нашем офисе, круглосуточно</span>
-                </div>
-            </div>
-        </div>
-        -->
-
-        <!-- Гарантия качества -->
-        <!--
-        <div class="units-row side-panel lightblue">
-            <div class="units-row end units-split">
-                <div class="unit-100">
-                    <span class="caption blue">Гарантия качества</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-30">
-                    <img src="client/resources/img/flower.png" alt=""/>
-                </div>
-                <div class="unit-70">
-                    <span class="sidebar-leading">Только свежие цветы</span>
-                    <span class="sidebar-text">Букет еще долго будет радовать Вас</span>
-                </div>
-            </div>
-        </div>
-        -->
     </div>
 
 
@@ -161,15 +63,25 @@
                     <li>
                         <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
                     </li>
-                    <li>
-                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                    </li>
-                    <li>
-                        <img class="width-100" src="resources/bouquets/test1.jpg" alt=""/>
-                    </li>
-                </ul>
             </div>
             -->
+            <div class="units-row">
+                <table class="table-flat bouquet-content">
+                    <caption>В букете:</caption>
+                    <tbody>
+                    <tr style="margin-bottom: 5px;" ng-repeat="flower in bouquet.flowers.items track by $id(flower)" ng-init="fl = misc.flowers.find('id', flower.flowerId.value)">
+                        <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ fl.imageUrl.value }}" alt=""/></td>
+                        <td class="width-60">{{ fl.title.value }}</td>
+                        <td class="width-20"><i>{{ flower.amount.value + " шт."}}</i></td>
+                    </tr>
+                    <tr style="margin-bottom: 5px;" ng-repeat="addition in bouquet.additions.items track by $id(addition)" ng-init="ad = misc.additions.find('id', addition.additionId.value)">
+                        <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ ad.imageUrl.value }}" alt=""/></td>
+                        <td class="width-60">{{ ad.title.value }}</td>
+                        <td class="width-20"><i>{{ addition.amount.value + " шт."}}</i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="unit-50 bouquet-item-description">
             <div class="units-row">
@@ -187,10 +99,28 @@
                 </div>
             </div>
 
+
+            <div class="units-row end">
+                <div class="unit-100 text-right">
+                    <span class="bouquet-price">{{ bouquet.price.value + ' р.' }}</span>
+                </div>
+            </div>
+            <div class="units-row">
+                <div class="unit-100 text-right">
+                    <span class="btn-single right">
+                        <button class="btn btn-yellow"
+                                ng-click="cart.add(bouquet.id.value, bouquet.price.value)">В корзину
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+
             <div class="units-row">
                 <div class="unit-100">
 
 
+                    <!--
                     <div class="units-row">
                         <table class="table-flat bouquet-content">
                             <caption>В букете:</caption>
@@ -210,13 +140,15 @@
 
 
 
-                        <!-- Цена букета -->
+
                         <div class="unit-1000">
                             <div class="units-row end">
                                 <div class="unit-100 text-centered">
                                     <span class="bouquet-price">{{ bouquet.price.value + ' р.' }}</span>
                                 </div>
                             </div>
+
+
                             <div class="units-row">
                                 <div class="unit-100 text-centered">
                                 <span class="btn-single centered">
@@ -224,8 +156,11 @@
                                 </span>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
+                    -->
 
 
 
