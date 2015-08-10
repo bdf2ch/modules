@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="addition in misc.additions.items track by $id(addition)">
+            <tr ng-repeat="addition in misc.additions.items | orderBy:'title.value' track by $id(addition)">
 
                 <td class="width-20">
                     <span ng-show="addition._states_.editing() === false">{{ addition.title.value }}</span>

@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="bouquet in flowers.bouquets.items track by $id(bouquet)" ng-click="gotoBouquet(bouquet.id.value)">
+            <tr ng-repeat="bouquet in flowers.bouquets.items | orderBy:'title.value' track by $id(bouquet)" ng-click="gotoBouquet(bouquet.id.value)">
                 <td>{{ bouquet.title.value }}</td>
                 <td>
                     {{ bouquet.price.value + " р."}}
