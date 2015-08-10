@@ -104,11 +104,12 @@ appControllers.controller("OrderController", ["$log", "$scope", function ($log, 
 }]);
 
 
-appControllers.controller("BouquetController", ["$log", "$scope", "$routeParams", "$flowers", "$misc", function ($log, $scope, $routeParams, $flowers, $misc) {
+appControllers.controller("BouquetController", ["$log", "$scope", "$routeParams", "$flowers", "$misc", "$factory", function ($log, $scope, $routeParams, $flowers, $misc, $factory) {
     $scope.flowers = $flowers;
     $scope.misc = $misc;
     $scope.bouquet = undefined;
     $scope.bouquetPriceRangeId = 0;
+    $scope.bouquetFlowers = [];
 
     $log.log($routeParams);
 
@@ -131,6 +132,10 @@ appControllers.controller("BouquetController", ["$log", "$scope", "$routeParams"
             angular.forEach($misc.prices.items, function (price) {
                 if ($scope.bouquet.price.value >= price.start && $scope.bouquet.price.value <= price.end)
                     $scope.bouquetPriceRangeId = price.id;
+            });
+            angular.forEach($scope.bouquet.flowers, function (flower) {
+                var temp_flower = $misc.flowers.find("id", flower.flowerId.value);
+                $scope.bouquetFlowers.push(temp_flower);
             });
         }
     }

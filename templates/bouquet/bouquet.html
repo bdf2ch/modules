@@ -18,7 +18,7 @@
                     <span class="caption green">За ту же цену</span>
                 </div>
             </div>
-            <div class="units-row" ng-repeat="rb in flowers.bouquets.items | byPrice:bouquetPriceRangeId:bouquet.id.value | limitTo:2">
+            <div class="units-row" ng-repeat="rb in flowers.bouquets.items | byPrice:bouquetPriceRangeId:bouquet.id.value | limitTo:2 track by $id(rb)">
                 <div class="unit-100 related-bouquet">
                     <a href="">
                         <img src="{{ rb.imageUrl.value }}" alt=""/>
@@ -37,7 +37,7 @@
                     <span class="caption purple">Похожие букеты</span>
                 </div>
             </div>
-            <div class="units-row end">
+            <div class="units-row end" ng-repeat="rb in flowers.bouquets.items | byFlowers:bouquetFlowers | limitTo:2 track by $id(rb)">
                 <div class="unit-100 related-bouquet">
                     <a href="">
                         <img src="{{ bouquet.imageUrl.value }}" alt=""/>

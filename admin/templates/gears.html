@@ -6,10 +6,11 @@
     <title>{{ admin.title }}</title>
     <link rel="stylesheet" href="../resources/styles/kube.min.css"/>
     <link rel="stylesheet" href="../resources/styles/gears.css"/>
+    <link rel="stylesheet" href="resources/styles/lotos.admin.css"/>
     <script src="../libs/angularjs/angular.min.js"></script>
 </head>
 <body>
-    <div class="units-row">
+    <div class="units-row units-split">
         <div class="unit-20">
             <nav class="nav nav-stacked">
                 <ul>
@@ -20,7 +21,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="unit-80" ng-view>
+        <div class="unit-80" id="admin-content" ng-view>
 
         </div>
     </div>

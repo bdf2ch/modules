@@ -182,14 +182,14 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
 
 
             /**
-             * Колбэк, вызывающийся при установке пользователя в результате вызова user.set()
+             * Колбэк, вызывающийся при установке пользователя в результате вызова session.user.set()
              */
             session.onSuccessSetUser = function () {
                 $log.log("user.set() callback");
             };
 
             /**
-             * Колбэк, вызываемый при инициализации пользователя из cookie
+             * Колбэк, вызываемый при инициализации пользователя из cookie в результате вызова session.init()
              */
             session.onSuccessInitUser = function () {
                 $log.log("init user callback");
@@ -198,7 +198,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
 
             /**
              * Колбэк, вызывающийся при изменении данных пользователя
-             * @param data {object} - Данные, которые вернул сервер в результате вызова user.edit()
+             * @param data {object} - Данные, которые вернул сервер в результате вызова session.user.edit()
              */
             session.onSuccessEditUser = function (data) {
                 $log.log("user.edit() callback");
@@ -206,7 +206,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
 
 
             /**
-             * Колбэк, вызываемый при
+             * Колбэк, вызываемый при завершении сеанса пользователя, в результате вызова session.user.logOut()
              */
             session.onSuccessUserLogOut = function () {
                 $log.log("user.logOut() callback");
