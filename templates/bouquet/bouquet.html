@@ -1,7 +1,14 @@
 <div id="template-bouquet" class="units-row">
 
+
+    <div class="unit-100 text-centered" ng-show="flowers.bouquets._states_.loaded() === false">
+        <br/><br/><br/><br/><br/>
+        <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
+        <span>Загрузка...</span>
+    </div>
+
     <!-- Боковая панель -->
-    <div class="unit-25 side">
+    <div class="unit-25 side" ng-show="flowers.bouquets._states_.loaded() === true">
 
         <!-- Букеты за ту же цену -->
         <div class="units-row side-panel lightgreen">
@@ -46,7 +53,7 @@
 
 
     <!-- Контент -->
-    <div class="unit-75">
+    <div class="unit-75" ng-show="flowers.bouquets._states_.loaded() === true">
         <div class="units-row">
 
             <!-- Изображения букета -->
@@ -144,123 +151,6 @@
         </div>
 
     </div>
-
-
-
-<!--
-<div class="unit-75">
-    <div class="units-row end">
-        <div class="unit-50 bouquet-item-images">
-            <div class="units-row">
-                <img class="width-100" src="{{ bouquet.imageUrl.value }}" alt=""/>
-            </div>
-
-
-            <div class="units-row">
-                <table class="table-flat bouquet-content">
-                    <caption>В букете:</caption>
-                    <tbody>
-                    <tr style="margin-bottom: 5px;" ng-repeat="flower in bouquet.flowers.items track by $id(flower)" ng-init="fl = misc.flowers.find('id', flower.flowerId.value)">
-                        <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ fl.imageUrl.value }}" alt=""/></td>
-                        <td class="width-60">{{ fl.title.value }}</td>
-                        <td class="width-20 text-right"><i>{{ flower.amount.value + " шт."}}</i></td>
-                    </tr>
-                    <tr style="margin-bottom: 5px;" ng-repeat="addition in bouquet.additions.items track by $id(addition)" ng-init="ad = misc.additions.find('id', addition.additionId.value)">
-                        <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ ad.imageUrl.value }}" alt=""/></td>
-                        <td class="width-60">{{ ad.title.value }}</td>
-                        <td class="width-20 text-right"><i>{{ addition.amount.value + " шт."}}</i></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="unit-50 bouquet-item-description">
-            <div class="units-row">
-                <div class="unit-100">
-                <span class="bouquet-title">
-                    {{ bouquet.title.value }}
-                </span>
-                </div>
-            </div>
-            <div class="units-row">
-                <div class="unit-100">
-                    <i>
-                        {{ bouquet.descriptionFull.value }}
-                    </i>
-                </div>
-            </div>
-
-
-            <div class="units-row end">
-                <div class="unit-100 text-right">
-                    <span class="bouquet-price">{{ bouquet.price.value + ' р.' }}</span>
-                </div>
-            </div>
-            <div class="units-row">
-                <div class="unit-100 text-right">
-                    <span class="btn-single right">
-                        <button class="btn btn-yellow"
-                                ng-click="cart.add(bouquet.id.value, bouquet.price.value)">В корзину
-                        </button>
-                    </span>
-                </div>
-            </div>
-
-
-            <div class="units-row">
-                <div class="unit-100">
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="units-row">
-        <div class="units-row units-split service-info">
-            <div class="unit-10">
-                <img src="resources/img/delivery_icon.png" alt=""/>
-            </div>
-            <div class="unit-90 service-content text-left">
-                <span class="service-caption">Мы доставим Ваш заказ в течении 3-х часов.</span><br>
-                Стоимость доставки по Мурманску и Североморску - <span class="black">350 р.</span>.
-            </div>
-        </div>
-
-        <div class="units-row units-split service-info">
-            <div class="unit-10">
-                <img src="resources/img/wallet_icon.png" alt=""/>
-            </div>
-            <div class="unit-90 service-content text-left">
-                <span class="service-caption">Оплатите заказ удобным для Вас способом</span><br>
-                Вы можете оплатить Ваш заказ наличными, а так же картами <span class="black">Visa</span> и <span class="black">MasterCard</span>
-            </div>
-        </div>
-
-        <div class="units-row units-split service-info">
-            <div class="unit-10">
-                <img src="resources/img/phone_icon.png" alt=""/>
-            </div>
-            <div class="unit-90 service-content text-left">
-                <span class="service-caption">Вы можете сделать заказ по телефону <span class="black">(8152) 208-205</span></span> <br> Наши менеджеры ответят на все Ваши вопросы и помогут определиться с выбором
-            </div>
-        </div>
-    </div>
-
-
-
-
-</div>
-    -->
-
-
-
-
 
 </div>
 
