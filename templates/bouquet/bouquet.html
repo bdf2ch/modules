@@ -72,12 +72,12 @@
                     <tr style="margin-bottom: 5px;" ng-repeat="flower in bouquet.flowers.items track by $id(flower)" ng-init="fl = misc.flowers.find('id', flower.flowerId.value)">
                         <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ fl.imageUrl.value }}" alt=""/></td>
                         <td class="width-60">{{ fl.title.value }}</td>
-                        <td class="width-20"><i>{{ flower.amount.value + " шт."}}</i></td>
+                        <td class="width-20 text-right"><i>{{ flower.amount.value + " шт."}}</i></td>
                     </tr>
                     <tr style="margin-bottom: 5px;" ng-repeat="addition in bouquet.additions.items track by $id(addition)" ng-init="ad = misc.additions.find('id', addition.additionId.value)">
                         <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ ad.imageUrl.value }}" alt=""/></td>
                         <td class="width-60">{{ ad.title.value }}</td>
-                        <td class="width-20"><i>{{ addition.amount.value + " шт."}}</i></td>
+                        <td class="width-20 text-right"><i>{{ addition.amount.value + " шт."}}</i></td>
                     </tr>
                     </tbody>
                 </table>
