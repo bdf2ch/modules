@@ -45,7 +45,7 @@
                     <div class="units-row units-split end">
                         <div id="user-icon" class="unit-30"></div>
                         <div id="user-info" class="unit-70 text-centered" ng-show="session.user.loggedIn() === true">
-                            Здравствуйте, <a href="#/account">{{ session.user.get().name.value }}</a><br>
+                            Здравствуйте, <a href="#/account">{{ session.user.get()._backup_.data.name }}</a><br>
 
                         </div>
 

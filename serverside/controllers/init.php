@@ -22,6 +22,7 @@
     $payment_methods = array();
     $delivery_methods = array();
     $cities = array();
+    $orders = array();
 
     /* Заполнение массива поводов */
     $query_reasons = mysql_query("SELECT * FROM reasons");

@@ -32,6 +32,9 @@
                 case "remindPassword":
                     remindPassword($postdata);
                     break;
+                case "edit_user":
+                    edit_user($postdata);
+                    break;
             }
         }
     }
@@ -53,12 +56,12 @@
                 $result -> user = mysql_fetch_assoc($query);
                 $result -> data = new stdClass;
                 $result -> data -> orders = array();
-                $userId = $result -> user -> id;
-                //$orders = array();
+                $userId = $result -> user["id"];
+                $orders = array();
 
-                $user_orders_query = mysql_num_rows("SELECT * FROM orders WHERE user_id = $userId ORDER BY created ASC");
+                $user_orders_query = mysql_query("SELECT * FROM orders WHERE user_id = $userId ORDER BY created ASC");
                 if (!$user_orders_query) {
-                    $result = new DBError(mysql_errno(), mysql_error());
+                   $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
                 } else {
                     while ($order = mysql_fetch_assoc($user_orders_query)) {
@@ -73,6 +76,30 @@
 
         /* Закрываем соединение с БД и освобождаем ресурсы */
         mysql_free_result($query);
+        mysql_close($link);
+    };
+
+
+    function edit_user ($postdata) {
+        $userId = $postdata -> data -> id;
+        $name = $postdata -> data -> name;
+        $fname = $postdata -> data -> fname;
+        $surname = $postdata -> data -> surname;
+        $email = $postdata -> data -> email;
+        $phone = $postdata -> data -> phone;
+        $result = "";
+
+        $edit_user_query = mysql_query("UPDATE users SET name = '$name', fname = '$fname', surname = '$surname', email = '$email', phone = '$phone' WHERE id = $userId");
+        if (!$edit_user_query) {
+            $result = new DBError(mysql_errno(), mysql_error());
+            echo(json_encode($result));
+        } else {
+            $result = "success";
+        }
+        echo(json_encode($result));
+
+        /* Закрываем соединение с БД и освобождаем ресурсы */
+        mysql_free_result($edit_user_query);
         mysql_close($link);
     };
 

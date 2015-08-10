@@ -44,27 +44,25 @@ var appOrders = angular.module("gears.app.orders", [])
             orders.items = $factory({ classes: ["Collection"], base_class: "Collection" });
 
 
-            orders.get = function () {
+            orders.getByUserId = function (userId) {
                 var params = {
                     action: "query",
                     data: {
-                        userId: 12
+                        userId: userId
                     }
                 };
                 $http.post("serverside/controllers/orders.php", params)
                     .success(function (data) {
-                        if (data === undefined) {
-                            if (data["error_code"] !== undefined) {
-                                 $log.log(data);
-                                if (data["order"] !== undefined) {
+                        if (data !== undefined) {
+                            if (data["error_code"] === undefined) {
+                                $log.log(data);
+                                angular.forEach(data, function (order) {
                                     var temp_order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
-                                    temp_order._model_.fromJSON(data["order"]);
+                                    temp_order._model_.fromJSON(order);
                                     temp_order._backup_.setup();
+                                    $log.log(temp_order);
                                     orders.items.append(temp_order);
-                                }
-                                if (data["user"] !== undefined) {
-                                    var temp_user = $factory({ classes: ["CurrentUser", "Model", "Backup", "States"], base_class: "CurrentUser" });
-                                }
+                                });
                             } else {
                                 var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
                                 db_error.init(data);

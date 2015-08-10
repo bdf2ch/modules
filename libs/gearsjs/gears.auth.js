@@ -14,7 +14,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
          * $session
          * Сервис сессии текущего пользователя
          */
-        $provide.factory("$session", ["$log", "$cookies", "$factory", function ($log, $cookies, $factory) {
+        $provide.factory("$session", ["$log", "$cookies", "$http", "$factory", function ($log, $cookies, $http, $factory) {
             var session = {};
 
 
@@ -101,11 +101,12 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                  */
                 save: function () {
                     var result = false;
-                    if (session.user.loggedIn() === true && currentUser._states_.changed() === true) {
+                    if (session.user.loggedIn() === true) {
                         var user = session.user.get();
                         var params = {
-                            action: "edit",
+                            action: "edit_user",
                             data: {
+                                id: user.id.value,
                                 name: user.name.value,
                                 fname: user.fname.value,
                                 surname: user.surname.value,
@@ -117,7 +118,12 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                             .success(function (data) {
                                 if (data !== undefined) {
                                     if (data["error_code"] === undefined) {
+                                        $log.log(data);
                                         session.onSuccessEditUser(data);
+                                        $cookies.appUser = currentUser._model_.toString();
+                                        currentUser._states_.editing(false);
+                                        currentUser._states_.changed(false);
+                                        currentUser._backup_.setup();
                                         result = true;
                                     } else {
                                         var db_error = $factory({ classes: ["DBError"], base_class: "DBError" });
@@ -149,7 +155,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                         currentSession = undefined;
                         $cookies.appUser = undefined;
                         isLoggedIn = false;
-                        session.onSuccessUserLogOut(data);
+                        session.onSuccessUserLogOut();
                     }
                     return isLoggedIn;
                 }
@@ -180,6 +186,13 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
              */
             session.onSuccessSetUser = function () {
                 $log.log("user.set() callback");
+            };
+
+            /**
+             * Колбэк, вызываемый при инициализации пользователя из cookie
+             */
+            session.onSuccessInitUser = function () {
+                $log.log("init user callback");
             };
 
 
@@ -221,6 +234,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
                 $log.log("current session = ", currentSession);
                 $log.log("user is logged in = ", session.user.loggedIn());
                 $log.log("currentUser = ", currentUser);
+                session.onSuccessInitUser();
             };
 
             return session;
@@ -347,7 +361,7 @@ var grAuth = angular.module("gears.auth", ["ngCookies", "ngRoute", "gears"])
     .run(function ($modules, $rootScope, $authorization, $session) {
         $modules.load($authorization);
         $modules.load($session);
-        $session.init();
+        //$session.init();
         $rootScope.authorization = $authorization;
         $rootScope.session = $session;
     });

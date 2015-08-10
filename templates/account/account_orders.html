@@ -1,8 +1,8 @@
 <table class="table-hovered">
-    <tr ng-repeat="order in orders.items track by $id(order)">
+    <tr ng-repeat="order in orders.items.items track by $id(order)">
         <td class="text-left">{{ "Заказ #" + order.id.value }}</td>
-        <td class="text-centered">{{ "от " + order.created.value }}</td>
-        <td class="text-right">8450 р.</td>
+        <td class="text-centered">{{ order.created.value | dateView }}</td>
+        <td class="text-right">{{ order.totalPrice.value + " р." }}</td>
     </tr>
     <tr ng-show="orders.items.size() === 0">
         <td colspan="3" class="text-centered">У Вас еще нет заказов.</td>

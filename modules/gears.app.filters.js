@@ -129,6 +129,15 @@ var AppFilters = angular.module("gears.app.filters", [])
             }
         }]);
 
+
+        $filterProvider.register("dateView", ["$log", function ($log) {
+            return function (input) {
+                $log.log("unix = ", input);
+                $log.log("date = ", moment.unix(input).format("DD MMM YYYY, HH:mm"));
+                return moment.unix(input).format("DD MMM YYYY в HH:mm");
+            }
+        }]);
+
     })
     .run(function () {
 

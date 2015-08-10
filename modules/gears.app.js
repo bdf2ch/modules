@@ -51,7 +51,7 @@ var application = angular.module("gears.app", [
          * $application
          * Сервис приложения
          */
-        $provide.factory("$application", ["$log", "$factory", "$orders", function ($log, $factory, $orders) {
+        $provide.factory("$application", ["$log", "$factory", "$orders", "$session", function ($log, $factory, $orders, $session) {
             var application = {};
 
             application.title = "Флористический салон Белый Лотос";
@@ -64,25 +64,41 @@ var application = angular.module("gears.app", [
 
             application.onSuccessLogin = function (data) {
                 if (data !== undefined) {
-                    if (data["orders"] !== undefined) {
-                        angular.forEach(data["orders"], function (order) {
-                            var temp_order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
-                            temp_order._model_.fromJSON(order);
-                            temp_order._backup_.setup();
-                            $orders.items.append(temp_order);
-                        });
+                    if (data["data"] !== undefined) {
+                        if (data["data"]["orders"] !== undefined) {
+                            angular.forEach(data["data"]["orders"], function (order) {
+                                var temp_order = $factory({ classes: ["Order", "Model", "Backup", "States"], base_class: "Order" });
+                                temp_order._model_.fromJSON(order);
+                                temp_order._backup_.setup();
+                                $orders.items.append(temp_order);
+                            });
+                        }
                     }
+                    application.inAuthorizationMode = false;
                 }
             };
 
             return application;
         }]);
     })
-    .run(function ($log, $application, $menu, $rootScope, $modules, $factory, $session, $location) {
+    .run(function ($log, $application, $menu, $rootScope, $modules, $factory, $session, $location, $orders) {
         $modules.load($application);
         $menu.register();
         $rootScope.application = $application;
         $rootScope.menu = $menu;
+
+        $session.onSuccessUserLogOut = function () {
+            $authorization.reset();
+            $orders.items.clear();
+            $location.url("/");
+        };
+
+        $session.onSuccessInitUser = function () {
+            $orders.getByUserId($session.user.get().id.value);
+        };
+        $session.init();
+
+        moment.locale("ru");
 
         /**
          * Инициализация динамически создаваемых объектов
