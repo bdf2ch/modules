@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="flower in misc.flowers.items track by $id(flower)">
+            <tr ng-repeat="flower in misc.flowers.items | orderBy:'title.value' track by $id(flower)">
 
                 <td class="width-20">
                     <span ng-show="flower._states_.editing() === false">{{ flower.title.value }}</span>

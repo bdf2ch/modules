@@ -482,7 +482,6 @@ body {
 }
 .service-info {
   line-height: 20px;
-  font-family: 'Lobster', cursive;
   font-size: 17px;
   color: #A39E95;
 }
@@ -491,10 +490,15 @@ body {
   height: 64px;
 }
 .service-info .service-content {
-  padding-top: 10px;
+  line-height: 17px;
+  font-family: "Helvetica";
+  font-size: 15px;
+  font-style: italic;
 }
 .service-info .service-caption {
-  font-size: 20px;
+  font-family: 'Lobster', cursive;
+  font-style: normal;
+  font-size: 17px;
   color: #0869A6;
 }
 .bouquet-content {

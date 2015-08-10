@@ -141,6 +141,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° С†РІРµС‚РѕРІ */
                             if (data["flowers"] !== undefined) {
+                                $misc.flowers.clear();
                                 angular.forEach(data["flowers"], function (flower) {
                                     var temp_flower = $factory({ classes: ["Flower", "Model", "States", "Backup"], base_class: "Flower"});
                                     temp_flower._model_.fromJSON(flower);
@@ -152,6 +153,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
                             if (data["reasons"] !== undefined) {
+                                $misc.reasons.clear();
                                 angular.forEach(data["reasons"], function (reason) {
                                     var temp_reason = $factory({ classes: ["Reason", "Model", "States", "Backup"], base_class: "Reason"});
                                     temp_reason._model_.fromJSON(reason);
@@ -164,6 +166,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РґРµРєРѕСЂР°С‚РёРІРЅС‹С… РѕС„РѕСЂРјР»РµРЅРёР№ */
                             if (data["additions"] !== undefined) {
+                                $misc.additions.clear();
                                 angular.forEach(data["additions"], function (addition) {
                                     var temp_addition = $factory({ classes: ["Addition", "Model", "States", "Backup"], base_class: "Addition"});
                                     temp_addition._model_.fromJSON(addition);
@@ -176,6 +179,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕР»СѓС‡Р°С‚РµР»РµР№ Р±СѓРєРµС‚Р° */
                             if (data["addressees"] !== undefined) {
+                                $misc.addressees.clear();
                                 angular.forEach(data["addressees"], function (addressee) {
                                     var temp_addressee = $factory({ classes: ["Addressee", "Model", "States", "Backup"], base_class: "Addressee"});
                                     temp_addressee._model_.fromJSON(addressee);
@@ -187,6 +191,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° Р±СѓРєРµС‚РѕРІ */
                             if (data["bouquets"] !== undefined) {
+                                flowers.bouquets.clear();
                                 angular.forEach(data["bouquets"], function (bouquet) {
                                     var temp_bouquet = $factory({ classes: ["Bouquet", "Model", "States", "Backup"], base_class: "Bouquet"});
                                     temp_bouquet._model_.fromJSON(bouquet);
@@ -242,6 +247,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° СЃРїРѕСЃРѕР±РѕРІ РѕРїР»Р°С‚С‹ */
                             if (data["payment_methods"] !== undefined) {
+                                $misc.paymentMethods.clear();
                                 angular.forEach(data["payment_methods"], function (payment_method) {
                                     var temp_payment_method = $factory({ classes: ["PaymentMethod", "Model"], base_class: "PaymentMethod"});
                                     temp_payment_method._model_.fromJSON(payment_method);
@@ -252,6 +258,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° СЃРїРѕСЃРѕР±РѕРІ РґРѕСЃС‚Р°РІРєРё */
                             if (data["delivery_methods"] !== undefined) {
+                                $misc.deliveryMethods.clear();
                                 angular.forEach(data["delivery_methods"], function (delivery_method) {
                                     var temp_delivery_method = $factory({ classes: ["DeliveryMethod", "Model"], base_class: "DeliveryMethod"});
                                     temp_delivery_method._model_.fromJSON(delivery_method);
@@ -262,6 +269,7 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РіРѕСЂРѕРґРѕРІ */
                             if (data["cities"] !== undefined) {
+                                $misc.cities.clear();
                                 angular.forEach(data["cities"], function (city) {
                                     var temp_city = $factory({ classes: ["City", "Model"], base_class: "City"});
                                     temp_city._model_.fromJSON(city);
