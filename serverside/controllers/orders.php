@@ -101,6 +101,9 @@
         $current_timestamp = time();
         $orderId = 0;
 
+        $mail = "";
+        $password = "";
+
         if ($userId == 0) {
             $generated_password = generate_password();
             $add_user_query = mysql_query("
@@ -113,7 +116,7 @@
             } else {
                 $added_user_id = mysql_insert_id();
                 $userId = $added_user_id;
-                $added_user_query = mysql_query("SELECT id, name, fname, surname, email, phone, registered, last_visited FROM USERS WHERE id = $added_user_id");
+                $added_user_query = mysql_query("SELECT id, name, fname, surname, email, phone, password, registered, last_visited FROM USERS WHERE id = $added_user_id");
                 if (!$added_user_query) {
                     $result = new DBError(mysql_errno(), mysql_error());
                     echo(json_encode($result));
@@ -122,6 +125,14 @@
                     $result -> user = $user_row;
                 }
                 mysql_free_result($added_user_query);
+
+                $mail = $user_row["email"];
+                $password = $user_row["password"];
+                $message = "Здравствуйте, $customer_name!<br>Для Вас была создана учетная запись на lotos51.ru.".
+                           " Для авторизации на сайте используйте Вашу электронную почту и пароль, приведенные ниже:<br><br>".
+                           "E-mail: <b>$email</b><br>Пароль: <b>$password</b><br><br>".
+                           "Благодарим Вас за интерес к нашему магазину, Мы всегда рады видеть Вас!";
+                mail($mail, "Ваша учетная запись на lotos51.ru", $message);
             }
 
             mysql_free_result($add_user_query);

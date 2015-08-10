@@ -6,6 +6,7 @@ var  gears = angular.module("gears.admin", [
     "ngCookies",
     "gears",
     "gears.ui",
+    "gears.auth",
     "gears.admin.controllers",
     "gears.admin.filters",
     "gears.app.bouquets",
