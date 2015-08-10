@@ -37,12 +37,12 @@
                     <span class="caption purple">Похожие букеты</span>
                 </div>
             </div>
-            <div class="units-row end" ng-repeat="rb in flowers.bouquets.items | byFlowers:bouquetFlowers | limitTo:2 track by $id(rb)">
+            <div class="units-row" ng-repeat="rb in flowers.bouquets.items | byFlowers:bouquetFlowers | limitTo:2 track by $id(rb)">
                 <div class="unit-100 related-bouquet">
                     <a href="">
-                        <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                        <img src="{{ rb.imageUrl.value }}" alt=""/>
                         <div class="related-bouquet-title">
-                            Название букета за ту же сумму
+                            {{ rb.title.value }}
                         </div>
                     </a>
                 </div>
