@@ -1,14 +1,15 @@
-<div id="template-bouquet" class="units-row">
-
-
+<div class="units-row">
+    <br/><br/><br/><br/><br/>
     <div class="unit-100 text-centered" ng-show="flowers.bouquets._states_.loaded() === false">
-        <br/><br/><br/><br/><br/>
         <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
         <span>Загрузка...</span>
     </div>
+</div>
+
+<div id="template-bouquet" class="units-row" ng-show="flowers.bouquets._states_.loaded() === true">
 
     <!-- Боковая панель -->
-    <div class="unit-25 side" ng-show="flowers.bouquets._states_.loaded() === true">
+    <div class="unit-25 side">
 
         <!-- Букеты за ту же цену -->
         <div class="units-row side-panel lightgreen">
@@ -53,7 +54,7 @@
 
 
     <!-- Контент -->
-    <div class="unit-75" ng-show="flowers.bouquets._states_.loaded() === true">
+    <div class="unit-75">
         <div class="units-row">
 
             <!-- Изображения букета -->
