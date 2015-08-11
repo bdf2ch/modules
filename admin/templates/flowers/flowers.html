@@ -39,9 +39,7 @@
                 </td>
 
                 <td class="width-10">
-                     <span ng-show="flower._states_.editing() === false && flower.height.value !== ''">
-                        <i>{{ flower.height.value }}</i>
-                    </span>
+                     <span ng-show="flower._states_.editing() === false">{{ flower.height.value }}</span>
                     <input type="text" name="" id="" class="width-100"
                            ng-model="flower.height.value"
                            ng-show="flower._states_.editing() === true"
@@ -49,9 +47,7 @@
                 </td>
 
                 <td class="width-10">
-                     <span ng-show="flower._states_.editing() === false && flower.country.value !== ''">
-                        <i>{{ flower.country.value }}</i>
-                    </span>
+                     <span ng-show="flower._states_.editing() === false">{{ flower.country.value }}</span>
                     <input type="text" name="" id="" class="width-100"
                            ng-model="flower.country.value"
                            ng-show="flower._states_.editing() === true"
