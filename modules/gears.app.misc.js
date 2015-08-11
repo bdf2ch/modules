@@ -28,7 +28,12 @@ var misc = angular.module("gears.app.misc", [])
 
                     _init_: function () {
                         //this.display = this.title.value + " (" + this.price.value + " р.)";
-                        this.display = this.title.value + ", " + this.height.value + ", " + this.country.value;
+
+                        this.display = this.title.value;
+                        if (this.height.value !== "")
+                            this.display += ", " + this.height.value;
+                        if (this.country !== "")
+                            this.display += " (" + this.country.value + ")";
                     }
 
                 },
