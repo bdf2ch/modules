@@ -21,7 +21,12 @@ var nisc = angular.module("gears.app.misc", [])
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true}),
                     description: new Field({ source: "description", value: "", default_value: "", backupable: true, required: true }),
                     price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true }),
-                    imageUrl: new Field({ source: "image_url", value: "", default_value: "" })
+                    imageUrl: new Field({ source: "image_url", value: "", default_value: "" }),
+                    display: "",
+
+                    _init_: function () {
+                        this.display = this.title.value + " (" + this.price.value + " р.)";
+                    }
 
                 },
 
@@ -42,7 +47,12 @@ var nisc = angular.module("gears.app.misc", [])
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
                     description: new Field({ source: "description", value: "", default_value: "", backupable: true }),
-                    price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true })
+                    price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true }),
+                    display: "",
+
+                    _init_: function () {
+                        this.display = this.title.value + " (" + this.price.value + " р.)";
+                    }
                 },
 
                 /**

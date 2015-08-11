@@ -39,7 +39,7 @@
                 </tr>
                 <tr ng-show="inAddFlowerMode === true">
                     <td>
-                        <select name="" id="" ng-model="newFlower.flowerId.value" ng-options="flw.id.value as flw.title.value for flw in misc.flowers.items | usedFlowers:currentBouquet.id.value"></select>
+                        <select name="" id="" ng-model="newFlower.flowerId.value" ng-options="flw.id.value as flw.display for flw in misc.flowers.items | usedFlowers:currentBouquet.id.value"></select>
                     </td>
                     <td>
                         <input type="text" name="" id="" ng-model="newFlower.amount.value"/>
@@ -96,7 +96,7 @@
             </tr>
             <tr ng-show="inAddAdditionMode === true">
                 <td>
-                    <select name="" id="" ng-model="newAddition.additionId.value" ng-options="add.id.value as add.title.value for add in misc.additions.items | usedAdditions:currentBouquet.id.value"></select>
+                    <select name="" id="" ng-model="newAddition.additionId.value" ng-options="add.id.value as add.display for add in misc.additions.items | usedAdditions:currentBouquet.id.value"></select>
                 </td>
                 <td>
                     <input type="text" name="" id="" ng-model="newAddition.amount.value"/>
