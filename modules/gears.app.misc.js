@@ -2,7 +2,7 @@
 
 
 
-var nisc = angular.module("gears.app.misc", [])
+var misc = angular.module("gears.app.misc", [])
     .config(function ($provide) {
         $provide.factory("$misc", ["$log", "$factory", function ($log, $factory) {
             var misc = {};
@@ -22,10 +22,13 @@ var nisc = angular.module("gears.app.misc", [])
                     description: new Field({ source: "description", value: "", default_value: "", backupable: true, required: true }),
                     price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true }),
                     imageUrl: new Field({ source: "image_url", value: "", default_value: "" }),
+                    height: new Field({ source: "height", value: "", default_value: "", backupable: true }),
+                    country: new Field({ source: "country", value: "", default_value: "", backupable: true, required: true }),
                     display: "",
 
                     _init_: function () {
-                        this.display = this.title.value + " (" + this.price.value + " р.)";
+                        //this.display = this.title.value + " (" + this.price.value + " р.)";
+                        this.display = this.title.value + ", " + this.height.value + ", " + this.country.value;
                     }
 
                 },

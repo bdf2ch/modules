@@ -11,6 +11,8 @@
             <tr>
                 <th>Наименование</th>
                 <th>Описание</th>
+                <th>Высота</th>
+                <th>Страна</th>
                 <th>Цена</th>
                 <th></th>
             </tr>
@@ -26,12 +28,32 @@
                            ng-change="flower._states_.changed(true)"/>
                 </td>
 
-                <td class="width-40">
-                <span ng-show="flower._states_.editing() === false && flower.description.value !== ''">
-                    <i>{{ flower.description.value }}</i>
-                </span>
+                <td class="width-30">
+                    <span ng-show="flower._states_.editing() === false && flower.description.value !== ''">
+                        <i>{{ flower.description.value }}</i>
+                    </span>
                     <input type="text" name="" id="" class="width-100"
                            ng-model="flower.description.value"
+                           ng-show="flower._states_.editing() === true"
+                           ng-change="flower._states_.changed(true)"/>
+                </td>
+
+                <td class="width-10">
+                     <span ng-show="flower._states_.editing() === false && flower.height.value !== ''">
+                        <i>{{ flower.height.value }}</i>
+                    </span>
+                    <input type="text" name="" id="" class="width-100"
+                           ng-model="flower.height.value"
+                           ng-show="flower._states_.editing() === true"
+                           ng-change="flower._states_.changed(true)"/>
+                </td>
+
+                <td class="width-10">
+                     <span ng-show="flower._states_.editing() === false && flower.country.value !== ''">
+                        <i>{{ flower.country.value }}</i>
+                    </span>
+                    <input type="text" name="" id="" class="width-100"
+                           ng-model="flower.country.value"
                            ng-show="flower._states_.editing() === true"
                            ng-change="flower._states_.changed(true)"/>
                 </td>
@@ -43,7 +65,7 @@
                            ng-show="flower._states_.editing() === true"
                            ng-change="flower._states_.changed(true)"/>
                 </td>
-                <td class="text-right width-30">
+                <td class="text-right width-20">
                     <button class="btn btn-blue btn-small" ng-show="flower._states_.editing() === false" ng-click="flower._states_.editing(true); admin.currentFlowerId = flower.id.value">Изменить</button>
                     <button class="btn btn-green btn-small" ng-show="flower._states_.changed() === true" ng-click="save()" ng-disabled="flower._states_.loaded() === false">Сохранить</button>
                     <button class="btn btn-red btn-small" ng-show="flower._states_.editing() === true" ng-click="flower._states_.editing(false); flower._states_.changed(false); flower._backup_.restore(); admin.currentFlowerId = 0">Отмена</button>
