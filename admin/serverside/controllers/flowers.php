@@ -72,8 +72,8 @@
         $flower_id =  $postdata -> data -> flowerId;
         $flower_title = $postdata -> data -> title;
         $flower_description = $postdata -> data -> description;
-        $flower_height -> $postdata -> data -> height;
-        $flower_country -> $postdata -> data -> country;
+        $flower_height = $postdata -> data -> height;
+        $flower_country = $postdata -> data -> country;
         $flower_price = $postdata -> data -> price;
         $result = "";
 
