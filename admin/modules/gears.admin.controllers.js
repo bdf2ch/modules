@@ -426,7 +426,9 @@ admControllers.controller("GearsFlowersController", ["$log", "$scope", "$http", 
                 flowerId: temp_flower.id.value,
                 title: temp_flower.title.value,
                 description: temp_flower.description.value,
-                price:  temp_flower.price.value
+                price:  temp_flower.price.value,
+                height: temp_flower.height.value,
+                country: temp_flower.country.value
             }
         };
         temp_flower._states_.loaded(false);
@@ -468,6 +470,8 @@ admControllers.controller("GearsAddFlowerController", ["$log", "$scope", "$http"
             $scope.errors.push("Вы не указали наименование цветка");
         if ($scope.flower.price.value === "" || $scope.flower.price.value === 0)
             $scope.errors.push("Вы не указали стоимость цветка");
+        if ($scope.flower.country.value === "")
+            $scope.errors.push("Вы не указали страну-производителя цветка");
 
         if ($scope.errors.length === 0 && $scope.flower._states_.loaded() === true) {
             var params = {
@@ -475,6 +479,8 @@ admControllers.controller("GearsAddFlowerController", ["$log", "$scope", "$http"
                 data: {
                     title: $scope.flower.title.value,
                     description: $scope.flower.description.value,
+                    height: $scope.flower.height.value,
+                    country: $scope.flower.country.value,
                     price: $scope.flower.price.value
                 }
             };

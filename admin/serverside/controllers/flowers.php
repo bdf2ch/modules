@@ -44,9 +44,11 @@
         $flower_title = $postdata -> data -> title;
         $flower_description = $postdata -> data -> description;
         $flower_price = $postdata -> data -> price;
+        $flower_height = $postdata -> data -> height;
+        $flower_country = $postdata -> data -> country;
         $added_flower_id = 0;
 
-        $add_flower_query = mysql_query("INSERT INTO flowers (title, description, price) VALUES ('$flower_title', '$flower_description', $flower_price)");
+        $add_flower_query = mysql_query("INSERT INTO flowers (title, description, height, country, price) VALUES ('$flower_title', '$flower_description', '$flower_height', '$flower_country', $flower_price)");
         if (!add_flower_query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
@@ -70,10 +72,12 @@
         $flower_id =  $postdata -> data -> flowerId;
         $flower_title = $postdata -> data -> title;
         $flower_description = $postdata -> data -> description;
+        $flower_height -> $postdata -> data -> height;
+        $flower_country -> $postdata -> data -> country;
         $flower_price = $postdata -> data -> price;
         $result = "";
 
-        $save_flower_query = mysql_query("UPDATE flowers SET title = '$flower_title', description = '$flower_description', price = $flower_price WHERE id = $flower_id");
+        $save_flower_query = mysql_query("UPDATE flowers SET title = '$flower_title', description = '$flower_description', height = '$flower_height', country = '$flower_country', price = $flower_price WHERE id = $flower_id");
         if (!$save_flower_query) {
             $result = new DBError(mysql_errno(), mysql_error());
             echo(json_encode($result));
