@@ -32,7 +32,7 @@ var misc = angular.module("gears.app.misc", [])
                         this.display = this.title.value;
                         if (this.height.value !== "")
                             this.display += ", " + this.height.value + " см";
-                        if (this.country !== "")
+                        if (this.country.value !== "")
                             this.display += " (" + this.country.value + ")";
                     }
 
