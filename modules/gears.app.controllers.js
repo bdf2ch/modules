@@ -133,7 +133,7 @@ appControllers.controller("BouquetController", ["$log", "$scope", "$routeParams"
                 if ($scope.bouquet.price.value >= price.start && $scope.bouquet.price.value <= price.end)
                     $scope.bouquetPriceRangeId = price.id;
             });
-            angular.forEach($scope.bouquet.flowers, function (flower) {
+            angular.forEach($scope.bouquet.flowers.items, function (flower) {
                 var temp_flower = $misc.flowers.find("id", flower.flowerId.value);
                 $scope.bouquetFlowers.push(temp_flower);
             });
