@@ -54,7 +54,7 @@ admControllers.controller("GearsBouquetController", ["$log", "$scope", "$flowers
         $scope.tabs = [
             {
                 id: 1,
-                title: "�?нформация о букете",
+                title: "Информация о букете",
                 template: "templates/bouquet/bouquet-info.html",
                 active: true
             },
@@ -66,12 +66,18 @@ admControllers.controller("GearsBouquetController", ["$log", "$scope", "$flowers
             },
             {
                 id: 3,
+                title: "Категории",
+                template: "templates/bouquet/bouquet-categories.html",
+                active: false
+            },
+            {
+                id: 4,
                 title: "Поводы подарить букет",
                 template: "templates/bouquet/bouquet-reasons.html",
                 active: false
             },
             {
-                id: 4,
+                id: 5,
                 title: "Кому можно подарить буает",
                 template: "templates/bouquet/bouquet-addressees.html",
                 active: false
@@ -150,6 +156,36 @@ admControllers.controller("GearsBouquetController", ["$log", "$scope", "$flowers
                             }
                         }
                         $scope.misc.addressees._states_.loaded(true);
+                    }
+                );
+            }
+        };
+
+
+        $scope.changeCategory = function (categoryId, value) {
+            if (categoryId !== undefined && value !== undefined && value.constructor === Boolean) {
+                var params = {
+                    action: "changeCategory",
+                    data: {
+                        bouquetId: $scope.currentBouquet.id.value,
+                        categoryId: categoryId,
+                        value: value === true ? 1 : 0
+                    }
+                };
+                $scope.misc.categories._states_.loaded(false);
+                $http.post("serverside/controllers/bouquets.php", params)
+                    .success(function (data) {
+                        if (data !== undefined) {
+                            if (JSON.parse(data) === "success") {
+                                var category = $scope.currentBouquet.categories.find("id", categoryId);
+                                if (category !== false)
+                                    category.enabled = value;
+                                else {
+                                    $scope.currentBouquet.addCategory(categoryId, value);
+                                }
+                            }
+                        }
+                        $scope.misc.categories._states_.loaded(true);
                     }
                 );
             }

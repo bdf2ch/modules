@@ -36,6 +36,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                     additions: $factory({ classes: ["Collection"], base_class: "Collection" }),
                     reasons: $factory({ classes: ["Collection"], base_class: "Collection" }),
                     addressees: $factory({ classes: ["Collection"], base_class: "Collection" }),
+                    categories: $factory({ classes: ["Collection"], base_class: "Collection" }),
 
                     /**
                      * Р”РѕР±Р°РІР»СЏРµС‚ С†РІРµС‚РѕРє Рє РјР°СЃСЃРёРІСѓ С†РІРµС‚РѕРІ, РІС…РѕРґСЏС‰РёС… РІ Р±СѓРєРµС‚
@@ -75,6 +76,22 @@ var flowers = angular.module("gears.app.bouquets", [])
                                 new_reason._model_.fromAnother($misc.reasons.find("id", reasonId));
                                 new_reason.enabled = value;
                                 this.reasons.append(new_reason);
+                            }
+                        }
+                    },
+
+                    addCategory: function (categoryId, value) {
+                        console.log("categoryId = ", categoryId);
+                        console.log("value = ", value);
+                        if (categoryId !== undefined && value !== undefined && value.constructor === Boolean) {
+                            var temp_category = this.categories.find("id", categoryId);
+                            if (temp_category !== false)
+                                temp_category.enabled = value;
+                            else {
+                                var new_category = $factory({ classes: ["Category", "Model"], base_class: "Category" });
+                                new_category._model_.fromAnother($misc.categories.find("id", categoryId));
+                                new_category.enabled = value;
+                                this.categories.append(new_category);
                             }
                         }
                     },
@@ -151,6 +168,20 @@ var flowers = angular.module("gears.app.bouquets", [])
                                 $log.log("flowers = ", $misc.flowers.items);
                             }
 
+
+                            /* Обработка списка категорий */
+                            if (data["categories"] !== undefined) {
+                                $misc.categories.clear();
+                                angular.forEach(data["categories"], function (category) {
+                                    var temp_category = $factory({ classes: ["Category", "Model", "States", "Backup"], base_class: "Category"});
+                                    temp_category._model_.fromJSON(category);
+                                    temp_category._backup_.setup();
+                                    $misc.categories.append(temp_category);
+                                });
+                                $log.log("categories = ", $misc.categories.items);
+                            }
+
+
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
                             if (data["reasons"] !== undefined) {
                                 $misc.reasons.clear();
@@ -217,6 +248,14 @@ var flowers = angular.module("gears.app.bouquets", [])
                                             bouquet_addition._model_.fromJSON(addition);
                                             bouquet_addition._backup_.setup();
                                             temp_bouquet.additions.append(bouquet_addition);
+                                        });
+                                    }
+
+                                    if (bouquet["categories"] !== undefined) {
+                                        angular.forEach(bouquet["categories"], function (category) {
+                                            var category_id = parseInt(category["category_id"]);
+                                            var value = parseInt(category["value"]) === 1 ? true : false;
+                                            temp_bouquet.addCategory(category_id, value);
                                         });
                                     }
 

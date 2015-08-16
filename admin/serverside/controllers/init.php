@@ -16,6 +16,7 @@
     $reasons = array();
     $bouquets = array();
     $addressees = array();
+    $categories = array();
     $images = array();
     $flowers = array();
     $additions = array();
@@ -35,6 +36,7 @@
     }
     $result["reasons"] = $reasons;
 
+
     /* Заполнение массива адресатов */
     $query_addressees = mysql_query("SELECT * FROM addressees");
     if (!$query_addressees) {
@@ -46,6 +48,18 @@
     }
     $result["addressees"] = $addressees;
 
+
+    /* Заполнение массива адресатов */
+    $query_categories = mysql_query("SELECT * FROM categories");
+    if (!$query_categories) {
+        die('Неверный запрос: ' . mysql_error());
+    } else {
+        while ($row = mysql_fetch_assoc($query_categories)) {
+            array_push($categories, $row);
+        }
+    }
+    $result["categories"] = $categories;
+
     /* Заполнение массива букетов */
     $query_bouquets = mysql_query("SELECT * FROM bouquets");
     if (!$query_bouquets) {
@@ -55,6 +69,7 @@
             $bouquet_id = $row["id"];
             $bouquet_flowers = array();
             $bouquet_additions = array();
+            $bouquet_categories = array();
             $bouquet_reasons = array();
             $bouquet_addressees = array();
 
@@ -78,6 +93,17 @@
                      array_push($bouquet_additions, $addition_row);
                  }
                  $row["additions"] = $bouquet_additions;
+            }
+
+            /* Заполнение массива категорий букета */
+            $query_bouquet_categories = mysql_query("SELECT * FROM bouquet_categories WHERE bouquet_id = $bouquet_id");
+            if (!$query_bouquet_categories) {
+                die('Неверный запрос: ' . mysql_error());
+            } else {
+                while ($category_row = mysql_fetch_assoc($query_bouquet_categories)) {
+                    array_push($bouquet_categories, $category_row);
+                }
+                $row["categories"] = $bouquet_categories;
             }
 
             /* Заполнение массива поводов подарить букет */

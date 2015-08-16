@@ -1,0 +1,21 @@
+<table>
+    <thead>
+    <tr>
+        <th>Категория</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="category in misc.categories.items track by $id(category)">
+        <td>
+            {{ category.title.value }}
+        </td>
+        <td>
+            <input type="checkbox" name="" id=""
+                   ng-checked="currentBouquet.categories.find('id', category.id.value).enabled === true"
+                   ng-disabled="misc.categories._states_.loaded() === false"
+                   ng-click="changeCategory(category.id.value, !currentBouquet.categories.find('id', category.id.value).enabled)"/>
+        </td>
+    </tr>
+    </tbody>
+</table>

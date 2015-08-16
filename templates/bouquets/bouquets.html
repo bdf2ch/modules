@@ -63,6 +63,28 @@
             </div>
         </div>
 
+        <!-- Категории букетов -->
+        <div class="units-row side-panel purple">
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="caption purple">Цветы в букете</span>
+                </div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-100">
+                    <span class="sidebar-icon text-left" ng-repeat="category in misc.categories.items track by $id(category)">
+                        <img src="{{ category.imageUrl.value }}" class="rounded" alt=""/>
+                        <img src="resources/img/icons/check.png" class="check" ng-show="category._states_.selected() === true"/>
+                        <a href
+                           ng-class="{'selected': category._states_.selected() === true}"
+                           ng-click="selectCategory(category.id.value)">
+                            {{ category.title.value }}
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
         <!-- Цветы в составе -->
         <div class="units-row side-panel purple">
             <div class="units-row end">

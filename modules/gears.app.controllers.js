@@ -80,6 +80,21 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                 });
             }
         };
+
+        $scope.selectCategory = function (categoryId) {
+            if (categoryId !== undefined) {
+                angular.forEach($misc.categories.items, function (category) {
+                    if (category.id.value === categoryId) {
+                        if (category._states_.selected() === false) {
+                            $misc.categories.select("id", categoryId);
+                        } else {
+                            $misc.categories.deselect(category);
+                        }
+                    }
+                });
+            }
+        };
+
     }]
 );
 

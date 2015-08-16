@@ -79,6 +79,20 @@ var misc = angular.module("gears.app.misc", [])
                     id: new Field({ source: "id", value: 0, default_value: 0 }),
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
                     imageUrl: new Field({ source: "image_url", value: "", default_value: "", backupable: true, required: true }),
+                    position: new Field({ source: "position", value: 0, default_value: 0, backupable: true, required: true }),
+                    enabled: false
+                },
+
+                /**
+                 * Category
+                 * Набор свойст, описывающих категорию букета
+                 */
+                Category: {
+                    id: new Field({ source: "id", value: 0, default_value: 0 }),
+                    title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
+                    description : new Field({ source: "description", value: "", default_value: "", backupable: true }),
+                    imageUrl: new Field({ source: "iamge_url", value: "", default_value: "", backupable: true }),
+                    position: new Field({ source: "position", value: 0, default_value: 0, backupable: true }),
                     enabled: false
                 },
 
@@ -143,6 +157,10 @@ var misc = angular.module("gears.app.misc", [])
                     }
                 },
 
+                /**
+                 * Gender
+                 * Набор свойств, опичывающих пол
+                 */
                 Gender: {
                     id: 0,
                     title: "",
@@ -165,6 +183,7 @@ var misc = angular.module("gears.app.misc", [])
             misc.flowers = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.additions = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.reasons = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
+            misc.categories = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
             misc.addressees = $factory({ classes: ["Collection", "States"], base_class: "Collection" });
             misc.paymentMethods = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.deliveryMethods = $factory({ classes: ["Collection"], base_class: "Collection" });

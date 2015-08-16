@@ -23,9 +23,10 @@
     $delivery_methods = array();
     $cities = array();
     $orders = array();
+    $categories = array();
 
     /* Заполнение массива поводов */
-    $query_reasons = mysql_query("SELECT * FROM reasons");
+    $query_reasons = mysql_query("SELECT * FROM reasons ORDER BY position ASC");
     if (!$query_reasons) {
         die('Неверный запрос: ' . mysql_error());
     } else {
@@ -46,6 +47,17 @@
     }
     $result["addressees"] = $addressees;
 
+    /* Заполнение массива адресатов */
+    $query_categories = mysql_query("SELECT * FROM categories");
+    if (!$query_categories) {
+        die('Неверный запрос: ' . mysql_error());
+    } else {
+        while ($row = mysql_fetch_assoc($query_categories)) {
+            array_push($categories, $row);
+        }
+    }
+    $result["categories"] = $categories;
+
     /* Заполнение массива букетов */
     $query_bouquets = mysql_query("SELECT * FROM bouquets");
     if (!$query_bouquets) {
@@ -57,6 +69,7 @@
             $bouquet_additions = array();
             $bouquet_reasons = array();
             $bouquet_addressees = array();
+            $bouquet_categories = array();
 
             /* Заполнение массива цветов, входящих в состав букета */
             $query_bouquet_flowers = mysql_query("SELECT * FROM bouquet_flowers WHERE bouquet_id = $bouquet_id");
@@ -78,6 +91,17 @@
                      array_push($bouquet_additions, $addition_row);
                  }
                  $row["additions"] = $bouquet_additions;
+            }
+
+            /* Заполнение массива категорий букета */
+            $query_bouquet_categories = mysql_query("SELECT * FROM bouquet_categories WHERE bouquet_id = $bouquet_id");
+            if (!$query_bouquet_categories) {
+                die('Неверный запрос: ' . mysql_error());
+            } else {
+                while ($category_row = mysql_fetch_assoc($query_bouquet_categories)) {
+                    array_push($bouquet_categories, $category_row);
+                }
+                $row["categories"] = $bouquet_categories;
             }
 
             /* Заполнение массива поводов подарить букет */

@@ -31,6 +31,9 @@
                 case "changeAddressee":
                     change_addressee($postdata);
                     break;
+                case "changeCategory":
+                    change_category($postdata);
+                    break;
                 case "save":
                     save_bouquet($postdata);
                     break;
@@ -139,6 +142,48 @@
 
         /* Закрываем соединение с БД и освобождаем ресурсы */
         mysql_free_result($get_addressees_query);
+        mysql_close($link);
+    };
+
+
+    /**
+     * Меняет категорию букета
+     **/
+    function change_category ($postdata) {
+        $result = "";
+        $bouquetId = $postdata -> data -> bouquetId;
+        $categoryId = $postdata -> data -> categoryId;
+        $value = $postdata -> data -> value;
+
+
+        $get_categories_query = mysql_query("SELECT * FROM bouquet_categories WHERE bouquet_id = $bouquetId AND category_id = $categoryId");
+        if (!$get_categories_query) {
+            $result = new DBError(mysql_errno(), mysql_error());
+            echo(json_encode($result));
+        } else {
+            if (mysql_num_rows($get_categories_query) > 0) {
+                $set_category_query = mysql_query("UPDATE bouquet_categories SET value = $value WHERE bouquet_id = $bouquetId AND category_id = $categoryId");
+                if (!$set_category_query) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                } else {
+                    $result = "success";
+                }
+            } else {
+                $add_category_query = mysql_query("INSERT INTO bouquet_categories (bouquet_id, category_id, value) VALUES ($bouquetId, $categoryId, $value)");
+                if (!$add_category_query) {
+                    $result = new DBError(mysql_errno(), mysql_error());
+                    echo(json_encode($result));
+                } else {
+                    $result = "success";
+                }
+            }
+        }
+
+        echo(json_encode($result));
+
+        /* Закрываем соединение с БД и освобождаем ресурсы */
+        mysql_free_result($get_categories_query);
         mysql_close($link);
     };
 
