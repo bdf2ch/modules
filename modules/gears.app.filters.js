@@ -129,6 +129,42 @@ var AppFilters = angular.module("gears.app.filters", [])
             }
         }]);
 
+        /**
+         * byCategory
+         * Фильтр букето по категориям
+         */
+        $filterProvider.register("byCategory", ["$log", "$misc", function ($log, $misc) {
+            return function (input, categories) {
+                if (categories !== undefined && categories.length > 0) {
+                    var result = [];
+                    angular.forEach(input, function (bouquet) {
+                        var size = categories.length;
+                        var bingos = 0;
+
+                        angular.forEach(categories, function (category) {
+
+                            if (bouquet.categories.find("id", category.id.value) !== false) {
+                                bingos++;
+                            }
+
+                        });
+
+                        if (bingos === size)
+                            result.push(bouquet);
+                        else {
+                            angular.forEach(result, function (res, key) {
+                                if (res.id.value === bouquet.id.value)
+                                    result.splice(key, 1);
+                            });
+                        }
+
+                    });
+                    return result;
+                } else
+                    return input;
+            }
+        }]);
+
 
         $filterProvider.register("dateView", ["$log", function ($log) {
             return function (input) {
