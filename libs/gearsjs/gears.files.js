@@ -59,6 +59,6 @@ var grFiles = angular.module("gears.files", [])
 
     })
     .run(function ($modules, $files) {
-
+        $modules.load($files);
     }
 );
