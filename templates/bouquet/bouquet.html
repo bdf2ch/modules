@@ -23,7 +23,7 @@
                      ng-class="{'end': $last === true}"
                      ng-repeat="rb in flowers.bouquets.items | byPrice:bouquetPriceRangeId:bouquet.id.value | limitTo:2 track by $id(rb)">
                     <div class="unit-100 related-bouquet">
-                        <a href="{{ '/bouquets/' + rb.id.value }}">
+                        <a href="{{ '#/bouquets/' + rb.id.value }}">
                             <img src="{{ rb.imageUrl.value }}" alt=""/>
                             <div class="related-bouquet-title">
                                 {{ rb.title.value }}
@@ -46,7 +46,7 @@
                      ng-class="{'end': $last === true}"
                      ng-repeat="rb in flowers.bouquets.items | byFlowers:bouquetFlowers | limitTo:2 track by $id(rb)">
                     <div class="unit-100 related-bouquet">
-                        <a href="{{ '/bouquets/' + rb.id.value }}">
+                        <a href="{{ '#/bouquets/' + rb.id.value }}">
                             <img src="{{ rb.imageUrl.value }}" alt=""/>
                             <div class="related-bouquet-title">
                                 {{ rb.title.value }}
