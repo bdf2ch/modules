@@ -267,7 +267,7 @@
                 <div class="units-row end units-split" ng-show="application.currentOrder.deliveryMethodId.value !== 1">
                     <div class="unit-100">
                         <span class="subtitle-caption">
-                            Адрес и срок доставки
+                            Адрес доставки
                         </span>
                     </div>
                     <div class="units-row end">
@@ -342,7 +342,7 @@
                 </div>
                 <div class="units-row">
                     <div class="unit-100">
-                        Вы можете заходить на сайт, используя Вашу электронную почту, либо номер телефона.<br>
+                        Вы можете заходить на сайт, используя Вашу электронную почту.<br>
                         Мы отправили Вам письмо с информацией о Вашей учетной записи.<br>
                         <a href="#/account">Перейти в личный кабинет</a>
                     </div>
@@ -356,7 +356,8 @@
                 <button class="btn btn-yellow btn-big right width-100" ng-click="gotoOrder()">Изменить детали заказа</button>
             </div>
             <div class="unit-50 text-centered">
-                <button class="btn btn-green btn-big right width-100" ng-click="application.currentOrder._states_.loaded(false); orders.add(application.currentOrder, session.getUser().id.value, cart.items.items, cart.price(), onSuccessAddOrder)">
+                <button class="btn btn-green btn-big right width-100"
+                        ng-click="application.currentOrder._states_.loaded(false); orders.add(application.currentOrder, session.user.get().id.value, cart.items.items, cart.price(), onSuccessAddOrder)">
                     Подтвердить заказ
                 </button>
             </div>

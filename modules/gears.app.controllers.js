@@ -29,6 +29,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                         }
                     }
                 });
+                $pagination.set(1);
             }
             $log.log("currentReasonId = ", $application.currentReasonId);
         };
@@ -47,6 +48,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                         }
                     }
                 });
+                $pagination.set(1);
             }
             $log.log("currentAddresseeId = ", $application.currentAddresseeId);
         };
@@ -62,6 +64,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                     if (priceRange.id === priceRangeId)
                         $application.currentPriceRangeId = priceRange.id;
                 });
+                $pagination.set(1);
                 $log.log("currentPriceRangeId = ", $application.currentPriceRangeId);
             }
         };
@@ -92,6 +95,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                         }
                     }
                 });
+                $pagination.set(1);
             }
         };
 
@@ -351,6 +355,8 @@ appControllers.controller("ConfirmationController", ["$log", "$scope", "$orders"
                 $scope.accountIsCreated = true;
             }
             $application.currentOrder._states_.loaded(true);
+            $application.currentOrder._model_.reset();
+            $cart.clear();
         }
     };
 

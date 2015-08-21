@@ -65,8 +65,8 @@ var flowers = angular.module("gears.app.bouquets", [])
                     },
 
                     addReason: function (reasonId, value) {
-                        console.log("reasonId = ", reasonId);
-                        console.log("value = ", value);
+                        //console.log("reasonId = ", reasonId);
+                        //console.log("value = ", value);
                         if (reasonId !== undefined && value !== undefined && value.constructor === Boolean) {
                             var temp_reason = this.reasons.find("id", reasonId);
                             if (temp_reason !== false)
@@ -81,8 +81,8 @@ var flowers = angular.module("gears.app.bouquets", [])
                     },
 
                     addCategory: function (categoryId, value) {
-                        console.log("categoryId = ", categoryId);
-                        console.log("value = ", value);
+                        //console.log("categoryId = ", categoryId);
+                        //console.log("value = ", value);
                         if (categoryId !== undefined && value !== undefined && value.constructor === Boolean) {
                             var temp_category = this.categories.find("id", categoryId);
                             if (temp_category !== false)
@@ -110,8 +110,8 @@ var flowers = angular.module("gears.app.bouquets", [])
                     },
 
                     addAddressee: function (addresseeId, value) {
-                        console.log("addresseeId = ", addresseeId);
-                        console.log("value = ", value);
+                        //console.log("addresseeId = ", addresseeId);
+                        //console.log("value = ", value);
                         if (addresseeId !== undefined && value !== undefined && value.constructor === Boolean) {
                             var temp_addressee = this.addressees.find("id", addresseeId);
                             if (temp_addressee !== false)
@@ -165,7 +165,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_flower._backup_.setup();
                                     $misc.flowers.append(temp_flower);
                                 });
-                                $log.log("flowers = ", $misc.flowers.items);
+                                //$log.log("flowers = ", $misc.flowers.items);
                             }
 
 
@@ -178,7 +178,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_category._backup_.setup();
                                     $misc.categories.append(temp_category);
                                 });
-                                $log.log("categories = ", $misc.categories.items);
+                                //$log.log("categories = ", $misc.categories.items);
                             }
 
 
@@ -191,7 +191,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_reason._backup_.setup();
                                     $misc.reasons.append(temp_reason);
                                 });
-                                $log.log("reasons = ", $misc.reasons.items);
+                                //$log.log("reasons = ", $misc.reasons.items);
                             }
 
 
@@ -204,7 +204,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_addition._backup_.setup();
                                     $misc.additions.append(temp_addition);
                                 });
-                                $log.log("additions = ", $misc.additions.items);
+                                //$log.log("additions = ", $misc.additions.items);
                             }
 
 
@@ -217,7 +217,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_addressee._backup_.setup();
                                     $misc.addressees.append(temp_addressee);
                                 });
-                                $log.log("addressees = ", $misc.addressees.items);
+                                //$log.log("addressees = ", $misc.addressees.items);
                             }
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° Р±СѓРєРµС‚РѕРІ */
@@ -277,9 +277,9 @@ var flowers = angular.module("gears.app.bouquets", [])
 
                                     flowers.bouquets.append(temp_bouquet);
                                 });
-                                $log.log("bouquets = ", flowers.bouquets.items);
+                                //$log.log("bouquets = ", flowers.bouquets.items);
                                 $pagination.init({
-                                    itemsOnPage: 12,
+                                    itemsOnPage: 12
                                 //    itemsCount: flowers.bouquets.size()
                                 });
                             }
@@ -292,7 +292,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_payment_method._model_.fromJSON(payment_method);
                                     $misc.paymentMethods.append(temp_payment_method);
                                 });
-                                $log.log("payment methods = ", $misc.addressees.items);
+                                //$log.log("payment methods = ", $misc.addressees.items);
                             }
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° СЃРїРѕСЃРѕР±РѕРІ РґРѕСЃС‚Р°РІРєРё */
@@ -303,7 +303,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_delivery_method._model_.fromJSON(delivery_method);
                                     $misc.deliveryMethods.append(temp_delivery_method);
                                 });
-                                $log.log("delivery methods = ", $misc.deliveryMethods.items);
+                                //$log.log("delivery methods = ", $misc.deliveryMethods.items);
                             }
 
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РіРѕСЂРѕРґРѕРІ */
@@ -314,7 +314,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                                     temp_city._model_.fromJSON(city);
                                     $misc.cities.append(temp_city);
                                 });
-                                $log.log("cities = ", $misc.cities.items);
+                                //$log.log("cities = ", $misc.cities.items);
                             }
 
                         }

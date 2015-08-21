@@ -12,7 +12,7 @@
                 <div class="unit-100">
                     <span class="sidebar-icon text-left" ng-repeat="reason in misc.reasons.items track by $id(reason)">
                         <img src="{{ reason.imageUrl.value }}" alt=""/>
-                        <img src="resources/img/icons/check.png" class="check" ng-show="reason._states_.selected() === true"/>
+                        <img ng-src="resources/img/icons/check.png" class="check" ng-show="reason._states_.selected() === true"/>
                         <a href
                            ng-class="{'selected': reason._states_.selected() === true}"
                            ng-click="selectReason(reason.id.value)">
@@ -85,7 +85,9 @@
             </div>
         </div>
 
+
         <!-- Цветы в составе -->
+        <!--
         <div class="units-row side-panel purple">
             <div class="units-row end">
                 <div class="unit-100">
@@ -106,6 +108,7 @@
                 </div>
             </div>
         </div>
+        -->
 
     </div>
 

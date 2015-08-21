@@ -65,7 +65,7 @@ var gears = angular.module("gears", [])
                         for (var class_ in module.classes) {
                             $classes.classes[class_] = module.classes[class_];
                             result = true;
-                            $log.log("Класс " + class_ + " загружен в стек классов.");
+                            //$log.log("Класс " + class_ + " загружен в стек классов.");
                         }
                     }
                     if (module.menu !== undefined)
@@ -222,7 +222,8 @@ var gears = angular.module("gears", [])
                         } else
                             menuItem.active = false;
                     });
-                } else  $log.error("$menu: Не указан идентификатор раздела меню");
+                } else
+                    $log.error("$menu: Не указан идентификатор раздела меню");
                 return result;
             };
 
@@ -315,20 +316,10 @@ var gears = angular.module("gears", [])
                         fromAnother: function (obj) {
                             for (var another_prop in obj) {
                                 if (this.__instance__.hasOwnProperty(another_prop)) {
-                                    //console.log("prop = ", another_prop);
-                                    //console.log("prop constructor = ", obj[another_prop].constructor);
-                                    if (this.__instance__[another_prop].constructor === Field) {
-                                        //if (obj[another_prop].constructor === Field)
-                                        //    this.__instance__[another_prop].value = obj[another_prop].value;
-                                       // else
-                                            this.__instance__[another_prop].value = obj[another_prop].value;
-
-                                    } else {
-                                        //if (obj[another_prop].constructor === Field)
-                                            this.__instance__[another_prop] = obj[another_prop].value;
-                                        //else
-                                            //this.__instance__[another_prop] = obj[another_prop];
-                                    }
+                                    if (this.__instance__[another_prop].constructor === Field)
+                                        this.__instance__[another_prop].value = obj[another_prop].value;
+                                     else
+                                        this.__instance__[another_prop] = obj[another_prop].value;
                                 }
                             }
                         },
@@ -447,7 +438,7 @@ var gears = angular.module("gears", [])
                         selected: function (flag) {
                             if (flag !== undefined && flag.constructor === Boolean) {
                                 this.isSelected = flag;
-                                console.log("selected = ", this.isSelected);
+                                //console.log("selected = ", this.isSelected);
                             }
                             return this.isSelected;
                         },
@@ -582,7 +573,7 @@ var gears = angular.module("gears", [])
 
                         /* Если требуется найти элемент коллекции по значению поля */
                         if (field !== undefined && value !== undefined) {
-                            console.log("finding item by field and value");
+                            //console.log("finding item by field and value");
                             for (var i = 0; i < length; i++) {
                                 if (this.items[i][field] !== undefined) {
                                     if (this.items[i][field].constructor === Field) {
@@ -612,7 +603,7 @@ var gears = angular.module("gears", [])
 
                         /* Если требуется найти элемент коллекции по значению */
                         if (field !== undefined && value === undefined) {
-                            console.log("finding item by value");
+                            //console.log("finding item by value");
                             for (var i = 0; i < length; i++) {
                                 if (this.items[i] === field) {
                                     if (this.allowMultipleSearch === true) {
@@ -660,7 +651,7 @@ var gears = angular.module("gears", [])
 
                         /* Если требуется удалить элементы коллекции по полю и его значению */
                         if (field !== undefined && value !== undefined) {
-                            console.log("deleting by field and value");
+                            //console.log("deleting by field and value");
                             for (var i = 0; i < this.items.length; i++) {
                                 if (this.items[i][field] !== undefined) {
                                     if (this.items[i][field].constructor === Field) {
@@ -680,7 +671,7 @@ var gears = angular.module("gears", [])
 
                         /* Если требуется удалить элементы по значению */
                         if (field !== undefined && value === undefined) {
-                            console.log("deleting by value");
+                            //console.log("deleting by value");
                             for (var i = 0; i < length; i++) {
                                 if (this.items[i] === field) {
                                     this.items.splice(i, 1);
@@ -731,7 +722,7 @@ var gears = angular.module("gears", [])
                                     var item = undefined;
                                     if (this.items[i][field].constructor === Field) {
                                         if (this.items[i][field].value === value) {
-                                            console.log("element found", this.items[i]);
+                                            //console.log("element found", this.items[i]);
                                             item = this.items[i];
                                         }
                                     } else {
@@ -763,7 +754,7 @@ var gears = angular.module("gears", [])
                             }
                         }
 
-                        console.log("selectedItems = ", this.selectedItems);
+                        //console.log("selectedItems = ", this.selectedItems);
 
                         if (result.length === 0)
                             return false;
@@ -790,7 +781,7 @@ var gears = angular.module("gears", [])
                                 }
                             }
                         }
-                        console.log(this.selectedItems);
+                        //console.log(this.selectedItems);
                         return this.selectedItems;
                     }
                 }
@@ -1014,7 +1005,7 @@ var gears = angular.module("gears", [])
                 if (pageNumber !== undefined) {
                     if (isNaN(pageNumber) === false) {
                         if (pageNumber > 0 && pageNumber <= pagination.totalPages) {
-                            $log.log("currentpage = ", pageNumber);
+                            //$log.log("currentpage = ", pageNumber);
                             pagination.currentPage = pageNumber;
                         } else
                             $log.error("$pagination: Номер страницы не может быть меньше 0 и больше общего количества страниц");
@@ -1054,7 +1045,7 @@ var gears = angular.module("gears", [])
                         var items = [];
                         var start = (pageNumber * itemsOnPage) - itemsOnPage ;
                         $pagination.init({ itemsOnPage: 12, itemsCount: input.length });
-                        $log.log("input size = ", input.length);
+                        //$log.log("input size = ", input.length);
                         angular.forEach(input, function (item, key) {
                             if (key >= start && key <= (start + itemsOnPage) - 1)
                                 items.push(item);
