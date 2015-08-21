@@ -55,6 +55,7 @@ var misc = angular.module("gears.app.misc", [])
                     title: new Field({ source: "title", value: "", default_value: "", backupable: true, required: true }),
                     description: new Field({ source: "description", value: "", default_value: "", backupable: true }),
                     price: new Field({ source: "price", value: 0, default_value: 0, backupable: true, required: true }),
+                    imageUrl: new Field({ source: "image_url", value: "", default_value: "", backupable: true }),
                     display: "",
 
                     _init_: function () {
