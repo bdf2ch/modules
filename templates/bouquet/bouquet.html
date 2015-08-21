@@ -37,18 +37,22 @@
         <!-- Похожие букеты -->
         <div class="units-row side-panel purple">
             <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption purple">Похожие букеты</span>
+                <div class="units-row end">
+                    <div class="unit-100">
+                        <span class="caption purple">Похожие букеты</span>
+                    </div>
                 </div>
-            </div>
-            <div class="units-row" ng-repeat="rb in flowers.bouquets.items | byFlowers:bouquetFlowers | limitTo:2 track by $id(rb)">
-                <div class="unit-100 related-bouquet">
-                    <a href="{{ '/bouquets/' + rb.id.value }}">
-                        <img src="{{ rb.imageUrl.value }}" alt=""/>
-                        <div class="related-bouquet-title">
-                            {{ rb.title.value }}
-                        </div>
-                    </a>
+                <div class="units-row"
+                     ng-class="{'end': $last === true}"
+                     ng-repeat="rb in flowers.bouquets.items | byFlowers:bouquetFlowers | limitTo:2 track by $id(rb)">
+                    <div class="unit-100 related-bouquet">
+                        <a href="{{ '/bouquets/' + rb.id.value }}">
+                            <img src="{{ rb.imageUrl.value }}" alt=""/>
+                            <div class="related-bouquet-title">
+                                {{ rb.title.value }}
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
