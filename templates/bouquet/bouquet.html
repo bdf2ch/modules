@@ -122,6 +122,18 @@
 
             <!-- Сервисная информация -->
             <div class="unit-50">
+                <table class="table-flat bouquet-content">
+                    <caption>Поводы подарить:</caption>
+                    <tbody>
+                    <tr style="margin-bottom: 5px;" ng-repeat="reason in bouquet.reasons.items track by $id(reason)" ng-init="rs = misc.reasons.find('id', reason.id.value)">
+                        <td class="width-20"><img style="width: 48px; height: 48px; border: 1px solid orange; border-radius: 48px;" src="{{ rs.imageUrl.value }}" alt=""/></td>
+                        <td class="width-60">{{ rs.title.value }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <!--
                 <div class="units-row units-split service-info">
                     <div class="unit-20">
                         <img src="resources/img/delivery_icon.png" alt=""/>
@@ -148,6 +160,7 @@
                         <span class="service-caption">Сделайте заказ по телефону <span class="black">(8152) 208-205</span></span> <br> Наши менеджеры ответят на все Ваши вопросы и помогут определиться с выбором
                     </div>
                 </div>
+                -->
             </div>
         </div>
 
