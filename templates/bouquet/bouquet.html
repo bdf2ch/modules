@@ -12,20 +12,22 @@
     <div class="unit-25 side">
 
         <!-- Букеты за ту же цену -->
-        <div class="units-row end side-panel lightgreen">
+        <div class="units-row side-panel lightgreen">
             <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption green">За ту же цену</span>
+                <div class="units-row end">
+                    <div class="unit-100">
+                        <span class="caption green">За ту же цену</span>
+                    </div>
                 </div>
-            </div>
-            <div class="units-row" ng-repeat="rb in flowers.bouquets.items | byPrice:bouquetPriceRangeId:bouquet.id.value | limitTo:2 track by $id(rb)">
-                <div class="unit-100 related-bouquet">
-                    <a href="{{ '/bouquets/' + rb.id.value }}">
-                        <img src="{{ rb.imageUrl.value }}" alt=""/>
-                        <div class="related-bouquet-title">
-                            {{ rb.title.value }}
-                        </div>
-                    </a>
+                <div class="units-row end" ng-repeat="rb in flowers.bouquets.items | byPrice:bouquetPriceRangeId:bouquet.id.value | limitTo:2 track by $id(rb)">
+                    <div class="unit-100 related-bouquet">
+                        <a href="{{ '/bouquets/' + rb.id.value }}">
+                            <img src="{{ rb.imageUrl.value }}" alt=""/>
+                            <div class="related-bouquet-title">
+                                {{ rb.title.value }}
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
