@@ -1,0 +1,57 @@
+html,
+body {
+  height: 100%;
+  background: #F5D6B3;
+}
+#wrapper {
+  position: relative;
+  width: 1100px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background: #E6CDB1;
+}
+#logo {
+  position: relative;
+  height: 150px;
+  border: 1px solid red;
+}
+#promo {
+  height: 250px;
+  border: 1px solid green;
+}
+#promo #banner {
+  height: 100%;
+  border: 1px solid blue;
+}
+#promo #chooser {
+  height: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid yellow;
+}
+#promo #chooser form {
+  margin-bottom: 5px;
+}
+#promo #chooser label {
+  margin-bottom: 5px;
+}
+#promo #chooser select {
+  padding: 5px;
+}
+#content .bouquet {
+  padding: 10px;
+}
+#content .bouquet img {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+}
+#content .bouquet .bouquet-title {
+  display: block;
+  font-family: "Helvetica";
+  font-size: 16px;
+  color: #8F2231;
+}

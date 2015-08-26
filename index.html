@@ -1,193 +1,85 @@
 <!DOCTYPE html>
-<html ng-app="gears.app">
-<head lang="en">
+<html lang="en" ng-app="gears.app">
+<head>
     <meta charset="UTF-8">
     <title>{{ application.title }}</title>
     <link rel="stylesheet" href="resources/styles/kube.min.css"/>
-    <link rel="stylesheet" href="resources/styles/lotos.css"/>
+    <link rel="stylesheet" href="resources/styles/lotos_.css"/>
     <link href='http://fonts.googleapis.com/css?family=Lobster&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div id="top-header">
-    <div class="units-row units-split header-container">
-
-        <!-- Логотип -->
-        <div id="logo" class="unit-25">
-            <a href="#/">
-                <img src="resources/img/lotos.png" alt="Флористический салон Белый Лотос"/>
-                <div class="logo-wrapper">
-                    <span class="big-caption">Белый Лотос</span>
-                    <span class="small-caption">Флористический &nbsp; &nbsp; салон</span>
-                </div>
-            </a>
-        </div>
-
-        <!--
-        <div id="ribbon">
-        &nbsp;
-        </div>
-        -->
-
-
-        <!-- Меню -->
-        <div id="header-menu" class="unit-25">
-            <a href="#/">Каталог букетов</a>
-            <a href="#/contacts">Контакты</a>
-        </div>
-
-        <!-- Пользователь и корзина -->
-        <div id="user-panel" class="unit-50">
-            <div class="units-row units-split end">
-
-                <!-- Пользователь -->
-                <div id="user" class="unit-50 clearfix">
-                    <div class="units-row units-split end">
-                        <div id="user-icon" class="unit-30"></div>
-                        <div id="user-info" class="unit-70 text-centered" ng-show="session.user.loggedIn() === true">
-                            Здравствуйте, <a href="#/account">{{ session.user.get()._backup_.data.name }}</a><br>
-
-                        </div>
-
-                        <div id="user-info" class="unit-70 text-centered" ng-show="session.user.loggedIn() === false">
-                            Мы рады Вас видеть! &nbsp;
-                            <a href="" ng-show="application.inAuthorizationMode === false" ng-click="application.inAuthorizationMode = true">Войти</a>
-                            <a href="" ng-show="application.inAuthorizationMode === true" ng-click="application.inAuthorizationMode = false; authorization.reset()">Отмена</a>
-                        </div>
-                    </div>
-                    <div id="user-login-form" class="units-row end" ng-show="application.inAuthorizationMode === true && session.user.loggedIn() === false" ng-controller="AuthorizationController">
+        <div id="wrapper">
+            <div class="units-row end">
+                <div id="logo" class="unit-100"></div>
+            </div>
+            <div id="promo" class="units-row">
+                <div id="banner" class="unit-60"></div>
+                <div id="chooser" class="unit-40">
+                    <div class="units-row end">
                         <div class="unit-100">
-                            <form action="">
-                                <input type="text"
-                                       class="width-100"
-                                       name="user-login"
-                                       id="user-login"
-                                       placeholder="E-mail"
-                                       ng-model="auth.username"
-                                       ng-class="{'input-error': auth.errors.username.length > 0}" />
-                                <input type="text"
-                                       class="width-100"
-                                       name="user-password"
-                                       id="user-password"
-                                       placeholder="Пароль"
-                                       ng-model="auth.password"
-                                       ng-class="{'input-error': auth.errors.password.length > 0}" />
+                            <div class="unit-100">Быстро выбрать букет</div>
+                        </div>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-100">
+                            <form action="" class="forms">
+                                <label for="">
+                                    Подарок для
+                                    <select name="" id="" class="width-100"></select>
+                                </label>
+                                <label for="">
+                                    Цветы в составе
+                                    <select name="" id="" class="width-100"></select>
+                                </label>
+                                <label for="">
+                                    Цена
+                                    <select name="" id="" class="width-100"></select>
+                                </label>
                             </form>
-                            <submit class="btn btn-green btn-small width-100" ng-click="auth.logIn(application.onSuccessLogin)">Войти</submit>
+                        </div>
+                    </div>
+                    <div class="units-row end">
+                        <div class="unit-100">
+                            <button class="btn btn-red btn-small width-100">Искать подходящие букеты</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Корзина -->
-                <div id="cart" class="unit-50">
-                    <a href="#/cart">
-                        <div id="cart-icon">
-                            <span class="badge badge-red right"
-                                  ng-show="cart.items.items.length > 0">{{ cart.amount() }}
-                            </span>
-                        </div>
-                        <span id="empty-cart"
-                              ng-show="cart.items.items.length === 0">
-                            Ваша корзина пуста
-                        </span>
-                        <span id="cart-total-price"
-                              ng-show="cart.amount() > 0">
-                            {{ cart.price() + " р."}}
-                        </span>
-                    </a>
-                </div>
-                </a>
-
-
             </div>
-        </div>
-    </div>
 
-</div>
 
-<div id="wrapper">
-    <div id="content" ng-view></div>
-</div>
-
-<div id="footer">
-    <div class="units-row end">
-        <div class="unit-25 text-left copyrights">&copy; флористический салон «Белый лотос»<br>
-            &nbsp; &nbsp; 2015 г.
-        </div>
-        <dib class="unit-75 text-right contacts">
-            8 (8152) 208-205<br>
-            Мы работаем круглосуточно
-        </dib>
-        <!--
-        <div class="unit-40">
-            <div class="units-row end units-split">
-                <div class="unit-33 text-centered">
-                    <a href="">О нас</a>
-                </div>
-                <div class="unit-33 text-centered">
-                    <a href="">Доставка и оплата</a>
-                </div>
-                <div class="unit-33 text-centered">
-                    <a href="">Контакты</a>
+            <div id="content" class="units-row units-split">
+                <div class="unit-20">menu</div>
+                <div class="unit-80">
+                    <ul class="blocks-4">
+                        <li class="bouquet text-centered">
+                            <img src="" alt=""/>
+                            <span class="bouquet-title">Название букета</span>
+                        </li>
+                        <li>33%</li>
+                        <li>33%</li>
+                        <li>33%</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="unit-35">
-            <div class="unit-100 text-right">
-                <a href="">Напишите нам письмо</a>
-            </div>
-        </div>
-        -->
-    </div>
-</div>
 
+        </div>
 
 
 <!-- Подключение библиотек и модулей -->
-    <script src="libs/momentjs/moment-with-locales.min.js"></script>
-    <script src="libs/angularjs/angular.min.js"></script>
-    <script src="libs/angularjs/angular-route.min.js"></script>
-    <script src="libs/angularjs/angular-cookies.min.js"></script>
-    <script src="libs/gearsjs/gears.js"></script>
+<script src="libs/momentjs/moment-with-locales.min.js"></script>
+<script src="libs/angularjs/angular.min.js"></script>
+<script src="libs/angularjs/angular-route.min.js"></script>
+<script src="libs/angularjs/angular-cookies.min.js"></script>
+<script src="libs/gearsjs/gears.js"></script>
 
-    <script src="libs/gearsjs/gears.shop.js"></script>
-    <script src="libs/gearsjs/gears.auth.js"></script>
-    <script src="modules/gears.app.js"></script>
-    <script src="modules/gears.app.bouquets.js"></script>
-    <script src="modules/gears.app.orders.js"></script>
-    <script src="modules/gears.app.misc.js"></script>
-    <script src="modules/gears.app.filters.js"></script>
-    <script src="modules/gears.app.controllers.js"></script>
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter32076141 = new Ya.Metrika({
-                        id:32076141,
-                        clickmap:true,
-                        trackLinks:true,
-                        accurateTrackBounce:true,
-                        webvisor:true,
-                        trackHash:true
-                    });
-                } catch(e) { }
-            });
-
-            var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else { f(); }
-        })(document, window, "yandex_metrika_callbacks");
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/32076141" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+<script src="libs/gearsjs/gears.shop.js"></script>
+<script src="libs/gearsjs/gears.auth.js"></script>
+<script src="modules/gears.app.js"></script>
+<script src="modules/gears.app.bouquets.js"></script>
+<script src="modules/gears.app.orders.js"></script>
+<script src="modules/gears.app.misc.js"></script>
+<script src="modules/gears.app.filters.js"></script>
+<script src="modules/gears.app.controllers.js"></script>
 </body>
 </html>
