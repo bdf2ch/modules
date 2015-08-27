@@ -1,7 +1,6 @@
 html,
 body {
   height: 100%;
-  background: #F5D6B3;
 }
 #wrapper {
   position: relative;
@@ -9,49 +8,95 @@ body {
   height: 100%;
   margin-left: auto;
   margin-right: auto;
-  background: #E6CDB1;
 }
 #logo {
   position: relative;
-  height: 150px;
-  border: 1px solid red;
+  padding: 10px;
+}
+#menu {
+  background: #BD7D85;
+  border: 3px solid #F2F0F0;
+}
+#menu ul {
+  margin-bottom: 0px;
+}
+#menu ul li {
+  margin-bottom: 0px;
+  padding: 5px;
+  text-align: center;
+  border-right: 1px dotted white;
+}
+#menu ul li.active {
+  color: white;
+  background: #910D1F;
 }
 #promo {
-  height: 250px;
-  border: 1px solid green;
+  height: 300px;
+  padding-top: 10px;
 }
 #promo #banner {
   height: 100%;
-  border: 1px solid blue;
+}
+#promo #banner img {
+  height: 100%;
 }
 #promo #chooser {
   height: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
-  border: 1px solid yellow;
+  background: #FAFAFA;
 }
 #promo #chooser form {
-  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 #promo #chooser label {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 #promo #chooser select {
   padding: 5px;
+}
+#content {
+  overflow: auto;
 }
 #content .bouquet {
   padding: 10px;
 }
 #content .bouquet img {
-  width: 200px;
-  height: 200px;
+  display: block;
+  width: 250px;
+  height: 230px;
+  padding: 10px;
+  border: 1px solid #910D1F;
   border-radius: 200px;
 }
 #content .bouquet .bouquet-title {
   display: block;
-  font-family: "Helvetica";
-  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 17px;
+  font-family: 'Lobster', cursive;
+  font-size: 17px;
   color: #8F2231;
+}
+#content .bouquet .bouquet-price {
+  line-height: 36px;
+  color: #910D1F;
+  font-family: "Helvetica";
+  font-size: 25px;
+  font-weight: bold;
+}
+#footer {
+  padding: 5px;
+  font-family: "Helvetica";
+  font-size: 14px;
+  color: white;
+  background: #910D1F;
+}
+.block-header {
+  padding: 5px;
+  color: white;
+  background: #C70822;
 }

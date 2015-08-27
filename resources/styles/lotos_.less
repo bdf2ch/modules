@@ -1,6 +1,6 @@
 html, body {
   height: 100%;
-  background: #F5D6B3;
+  //background: #F5D6B3;
 }
 
 
@@ -10,7 +10,7 @@ html, body {
   height: 100%;
   margin-left: auto;
   margin-right: auto;
-  background: #E6CDB1;
+  //background: #E6CDB1;
   //border-left: 1px solid grey;
   //border-right: 1px solid grey;
   //border: 1px solid red;
@@ -19,34 +19,64 @@ html, body {
 
 #logo {
   position: relative;
-  height: 150px;
-  border: 1px solid red;
+  //height: 150px;
+  padding: 10px;
+  //border: 1px solid red;
+}
+
+#menu {
+  //border: 1px solid red;
+  background: #BD7D85;
+  border: 3px solid #F2F0F0;
+
+  ul {
+    margin-bottom: 0px;
+
+    li {
+      margin-bottom: 0px;
+      //margin-left: 0px;
+      padding: 5px;
+      text-align: center;
+      border-right: 1px dotted white;
+      &.active {
+        color: white;
+        background: #910D1F;
+      }
+    }
+  }
 }
 
 #promo {
-  height: 250px;
-  border: 1px solid green;
+  height: 300px;
+  padding-top: 10px;
+  //border: 1px solid green;
 
   #banner {
     height: 100%;
-    border: 1px solid blue;
+    //border: 1px solid blue;
+
+    img {
+      height: 100%;
+    }
   }
 
 
   #chooser {
     height: 100%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    border: 1px solid yellow;
+    background: #FAFAFA;
+    //border: 1px solid yellow;
     
     form {
-      margin-bottom: 5px;
+      margin-top: 5px;
+      margin-bottom: 10px;
     }
 
     label {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
 
     select {
@@ -56,25 +86,58 @@ html, body {
 }
 
 #content {
+  overflow: auto;
 
   .bouquet {
     padding: 10px;
 
     img {
-      width: 200px;
-      height: 200px;
+      display: block;
+      width: 250px;
+      height: 230px;
+      padding: 10px;
+      border: 1px solid #910D1F;
       border-radius: 200px;
     }
 
     .bouquet-title {
       display: block;
-      font-family: "Helvetica";
-      font-size: 16px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      line-height: 17px;
+      font-family: 'Lobster', cursive;
+      font-size: 17px;
       color: #8F2231;
+    }
+
+    .bouquet-price {
+      line-height: 36px;
+      color: #910D1F;
+      font-family: "Helvetica";
+      font-size: 25px;
+      font-weight: bold;
     }
 
   }
 
+}
+
+
+#footer {
+  //height: 50px;
+  padding: 5px;
+  font-family: "Helvetica";
+  font-size: 14px;
+  color: white;
+  background: #910D1F;
+}
+
+
+.block-header {
+  //margin-bottom: 5px;
+  padding: 5px;
+  color: white;
+  background: #C70822;
 }
 
 

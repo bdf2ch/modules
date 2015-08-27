@@ -1,233 +1,56 @@
-<div class="units-row end">
-    <div class="unit-25 side">
+<slider slider-source="sliderImages"></slider>
 
-        <!-- Поводы подарить букет -->
-        <div class="units-row side-panel lightblue">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption blue">Какой повод</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="sidebar-icon text-left" ng-repeat="reason in misc.reasons.items track by $id(reason)">
-                        <img src="{{ reason.imageUrl.value }}" alt=""/>
-                        <img ng-src="resources/img/icons/check.png" class="check" ng-show="reason._states_.selected() === true"/>
-                        <a href
-                           ng-class="{'selected': reason._states_.selected() === true}"
-                           ng-click="selectReason(reason.id.value)">
-                            {{ reason.title.value }}
-                        </a>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Адресат -->
-        <div class="units-row side-panel lightgreen">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption green">Для кого букет</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="sidebar-icon text-left" ng-repeat="addressee in misc.addressees.items track by $id(addressee)">
-                        <img src="{{ addressee.imageUrl.value }}" alt=""/>
-                        <img src="resources/img/icons/check.png" class="check" ng-show="addressee._states_.selected() === true"/>
-                        <a href
-                           ng-class="{'selected': addressee._states_.selected() === true}"
-                           ng-click="selectAddressee(addressee.id.value)">
-                            {{ addressee.title.value }}
-                        </a>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Цена -->
-        <div class="units-row side-panel pink">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption red">Цена букета</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-100">
-                    <select name="" id=""
-                            ng-model="app.currentPriceRangeId"
-                            ng-options="price.id as price.title for price in misc.prices.items"
-                            ng-change="selectPriceRange(app.currentPriceRangeId)">
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- Категории букетов -->
-        <div class="units-row side-panel purple">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption purple">Цветы в букете</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="sidebar-icon text-left" ng-repeat="category in misc.categories.items track by $id(category)">
-                        <img src="{{ category.imageUrl.value }}" class="rounded" alt=""/>
-                        <img src="resources/img/icons/check.png" class="check" ng-show="category._states_.selected() === true"/>
-                        <a href
-                           ng-class="{'selected': category._states_.selected() === true}"
-                           ng-click="selectCategory(category.id.value)">
-                            {{ category.title.value }}
-                        </a>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Цветы в составе -->
-        <!--
-        <div class="units-row side-panel purple">
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="caption purple">Цветы в букете</span>
-                </div>
-            </div>
-            <div class="units-row end">
-                <div class="unit-100">
-                    <span class="sidebar-icon text-left" ng-repeat="flower in misc.flowers.items track by $id(flower)">
-                        <img src="{{ flower.imageUrl.value }}" class="rounded" alt=""/>
-                        <img src="resources/img/icons/check.png" class="check" ng-show="flower._states_.selected() === true"/>
-                        <a href
-                           ng-class="{'selected': flower._states_.selected() === true}"
-                           ng-click="selectFlower(flower.id.value)">
-                            {{ flower.title.value }}
-                        </a>
-                    </span>
-                </div>
-            </div>
-        </div>
-        -->
-
-    </div>
-
-    <div class="unit-75">
-
-
-        <div class="units-row" ng-show="flowers.bouquets._states_.loaded() === false">
-            <br/><br/><br/><br/><br/>
-            <div class="unit-100 text-centered">
-                <img src="resources/img/loading.gif" alt=""/>&nbsp; &nbsp;
-                <span>Загрузка...</span>
-            </div>
-        </div>
-
-        <!-- Заглушка на случай отсутствия отфильтрованных букетов-->
-        <div id="bouquets-no-items" class="units-row" ng-show="pagination.itemsCount === 0 && flowers.bouquets._states_.loaded() === true">
-            <br/><br/><br/><br/>
-            <div class="unit-100 text-centered">
-                <div class="unit-30">
-                    <img class="right" src="resources/img/flower.png" alt=""/>
-                </div>
-                <div class="unit-50 text-left">
-                    Не найдено букетов в соответствии с заданными Вами критериями, попробуйте изменить параметры отбора или
-                    позвоните нам по номеру <span class="black">(8152) 208-205</span> и наши консультанты помогут Вам сделать подходящий выбор.
-                </div>
-                <div class="unit-20">&nbsp;</div>
-            </div>
-        </div>
-
-        <div class="units-row end" ng-show="application.isLoading === false && pagination.itemsCount !== 0">
-            <!-- Пагинация -->
-            <div class="units-row end">
-                <div class="unit-50">
+<div id="paginator" class="units-row">
+    <div class="unit-50">
                     <span id="filter-items-count" class="width-100">
                         Всего букетов: {{ pagination.itemsCount }}
                     </span>
-                </div>
-                <div class="unit-50">
-                    <ul class="pagination right" ng-show="pagination.totalPages > 1">
-                        <li ng-show="pagination.currentPage > 1">
-                            <a href title="Предыдущая страница" ng-click="pagination.previous()">&larr;</a>
-                        </li>
-                        <li ng-show="(pagination.currentPage - 1) > 0">
-                            <a href ng-click="pagination.set(pagination.currentPage - 1)">{{ pagination.currentPage - 1 }}</a>
-                        </li>
-                        <li class="active-page">
-                            <a href ng-click="pagination.set(pagination.currentPage)">{{ pagination.currentPage }}</a>
-                        </li>
-                        <li ng-show="(pagination.currentPage + 1) <= pagination.totalPages">
-                            <a href ng-click="pagination.set(pagination.currentPage + 1)">{{ pagination.currentPage + 1 }}</a>
-                        </li>
-                        <li ng-show="pagination.currentPage < pagination.totalPages">
-                            <a href title="Следующая страница" ng-click="pagination.next()">&rarr;</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Список букетов -->
-            <div class="units-row end">
-                <div class="unit-100">
-                    <ul class="blocks-3">
-                        <li ng-repeat="bouquet in flowers.bouquets.items | byReason: app.currentReasonId | byAddressee: app.currentAddresseeId | byFlowers: misc.flowers.selectedItems | byPrice: app.currentPriceRangeId | pagination: pagination.itemsOnPage:pagination.currentPage track by $id(bouquet)" class="bouquet">
-                            <!-- Изображение букета -->
-                            <div class="units-row end bouquet-img">
-                                <a href="{{ '#/bouquet/' + bouquet.id.value }}">
-                                    <img src="{{ bouquet.imageUrl.value }}" alt="{{ bouquet.title.value }}"/>
-                                </a>
-                                <!--
-                                <div class="bouquet-labels">
-                                    <span class="label label-red right">ХИТ ПРОДАЖ</span>
-                                    <span class="label label-green right">Скидка 10%</span>
-                                </div>
-                                -->
-                            </div>
-                            <!-- Информация о букете -->
-                            <div class="units-row end bouquet-info">
-                                <div class="unit-65 clip">
-                                    <span class="bouquet-title">{{ bouquet.title.value }}</span>
-                                </div>
-                                <div class="unit-35">
-                                    <button class="btn btn-small btn-yellow right width-100"
-                                            ng-click="cart.add(bouquet.id.value, bouquet.price.value)">
-                                        <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>
-                                        В корзину
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Пагинация -->
-            <div class="units-row pagination-bottom" ng-show="pagination.totalPages > 1">
-                <div class="unit-100">
-                    <ul class="pagination right">
-                        <li ng-show="pagination.currentPage > 1">
-                            <a href title="Предыдущая страница" ng-click="pagination.previous()">&larr;</a>
-                        </li>
-                        <li ng-show="(pagination.currentPage - 1) > 0">
-                            <a href ng-click="pagination.set(pagination.currentPage - 1)">{{ pagination.currentPage - 1 }}</a>
-                        </li>
-                        <li class="active-page">
-                            <a href ng-click="pagination.set(pagination.currentPage)">{{ pagination.currentPage }}</a>
-                        </li>
-                        <li ng-show="(pagination.currentPage + 1) <= pagination.totalPages">
-                            <a href ng-click="pagination.set(pagination.currentPage + 1)">{{ pagination.currentPage + 1 }}</a>
-                        </li>
-                        <li ng-show="pagination.currentPage < pagination.totalPages">
-                            <a href title="Следующая страница" ng-click="pagination.next()">&rarr;</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
+    </div>
+    <div class="unit-50">
+        <ul class="pagination right" ng-show="pagination.totalPages > 1">
+            <li ng-show="pagination.currentPage > 1">
+                <a href title="Предыдущая страница" ng-click="pagination.previous()">&larr;</a>
+            </li>
+            <li ng-show="(pagination.currentPage - 1) > 0">
+                <a href ng-click="pagination.set(pagination.currentPage - 1)">{{ pagination.currentPage - 1 }}</a>
+            </li>
+            <li class="active-page">
+                <a href ng-click="pagination.set(pagination.currentPage)">{{ pagination.currentPage }}</a>
+            </li>
+            <li ng-show="(pagination.currentPage + 1) <= pagination.totalPages">
+                <a href ng-click="pagination.set(pagination.currentPage + 1)">{{ pagination.currentPage + 1 }}</a>
+            </li>
+            <li ng-show="pagination.currentPage < pagination.totalPages">
+                <a href title="Следующая страница" ng-click="pagination.next()">&rarr;</a>
+            </li>
+        </ul>
     </div>
 </div>
 
+<div class="units-row end">
+    <div class="unit-100">
+        <ul class="blocks-4">
+            <li class="bouquet text-centered"
+                ng-repeat="bouquet in flowers.bouquets.items | byReason: app.currentReasonId | byAddressee: app.currentAddresseeId | byFlowers: misc.flowers.selectedItems | byPrice: app.currentPriceRangeId | pagination: pagination.itemsOnPage:pagination.currentPage track by $id(bouquet)">
+                <div class="units-row end">
+                    <div class="unit-100">
+                        <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                    </div>
+                </div>
+                <div class="units-row end">
+                    <div class="unit-100 text-left">
+                        <span class="bouquet-title">{{ bouquet.title.value }}</span>
+                    </div>
+                </div>
+                <div class="units-row end">
+                    <div class="unit-40">
+                        <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>
+                    </div>
+                    <div class="unit-60">
+                        <button class="btn btn-small btn-red">В корзину</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

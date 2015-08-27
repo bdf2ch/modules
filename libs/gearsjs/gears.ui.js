@@ -143,3 +143,16 @@ grUi.directive("datepicker", ["$log", function ($log) {
         templateUrl: "templates/gears-ui/datepicker.html"
     }
 }]);
+
+
+
+grUi.directive("slider", [function () {
+    return {
+        restrict: "E",
+        scope: {},
+        templateUrl: "templates/ui/slider/slider.html",
+        link: function (scope, element, attrs, ctrl) {
+
+        }
+    }
+}]);

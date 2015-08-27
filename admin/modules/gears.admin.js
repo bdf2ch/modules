@@ -16,7 +16,7 @@ var  gears = angular.module("gears.admin", [
 
         $routeProvider
             .when("/", {
-                templateUrl: "templates/bouquets/bouquets.html",
+                templateUrl: "templates/bouquets/bouquets_.html",
                 controller: "GearsBouquetsController"})
             .when("/bouquets/:bouquetId", {
                 templateUrl: "templates/bouquet/bouquet.html",
