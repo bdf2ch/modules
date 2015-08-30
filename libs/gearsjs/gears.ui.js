@@ -146,12 +146,31 @@ grUi.directive("datepicker", ["$log", function ($log) {
 
 
 
-grUi.directive("slider", [function () {
+grUi.directive("slider", ["$log", "$location", function ($log, $location) {
     return {
-        restrict: "E",
-        scope: {},
+        restrict: "A",
+        scope: {
+            sliderSource: "="
+        },
         templateUrl: "templates/ui/slider/slider.html",
+
         link: function (scope, element, attrs, ctrl) {
+            scope.currentSlide = undefined;
+
+            $log.log("element = ", element);
+            var arrows_container = element[0].querySelector(".arrows-container");
+            var parent = element[0].parentElement;
+            $log.log("parent = ", parent);
+            $log.log("arrows-container = ", arrows_container);
+            angular.element(arrows_container).css({
+                "margin-top": (element[0].offsetHeight / 2) * -1 + "px"
+            });
+
+            element.on("mouseup", function (event) {
+                refresh_variants();
+            });
+
+            scope.currentSlide = scope.sliderSource[0];
 
         }
     }

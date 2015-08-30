@@ -100,3 +100,57 @@ body {
   color: white;
   background: #C70822;
 }
+.gears-ui-slider {
+  position: relative;
+  height: 300px;
+}
+.gears-ui-slider img {
+  display: block;
+  position: relative;
+  height: 100%;
+  z-index: 1;
+}
+.gears-ui-slider .arrows-container {
+  position: relative;
+  clear: left;
+  height: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  z-index: 2;
+}
+.gears-ui-slider .arrows-container .arrow {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  font-family: "Verdana";
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background: #aaaaaa;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.gears-ui-slider .arrows-container .arrow:hover {
+  background: black;
+}
+.gears-ui-slider .arrows-container .arrow.left {
+  float: left;
+}
+.gears-ui-slider .arrows-container .arrow.right {
+  float: right;
+}
+.gears-ui-slider .arrow-right {
+  display: inline-block;
+  float: right;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  font-family: "Helvetica";
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  background: #aaaaaa;
+  border-radius: 50px;
+}

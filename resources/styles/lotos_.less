@@ -141,3 +141,74 @@ html, body {
 }
 
 
+
+
+
+
+.gears-ui-slider {
+  position: relative;
+  height: 300px;
+
+  img {
+    display: block;
+    position: relative;
+    height: 100%;
+    //border: 1px solid red;
+    z-index: 1;
+  }
+
+  .arrows-container {
+    position: relative;
+    clear: left;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 2;
+    //border: 1px solid blue;
+
+    .arrow {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      font-family: "Verdana";
+      font-size: 25px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+      background: #aaaaaa;
+      border-radius: 50px;
+      cursor: pointer;
+
+      &:hover {
+        background: black;
+      }
+
+      &.left {
+        float: left;
+      }
+
+      &.right {
+        float: right;
+      }
+    }
+  }
+
+
+
+
+  .arrow-right {
+    display: inline-block;
+    float: right;
+    //clear: left;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    font-family: "Helvetica";
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    background: #aaaaaa;
+    border-radius: 50px;
+  }
+}

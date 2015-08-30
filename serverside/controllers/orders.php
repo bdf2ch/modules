@@ -66,7 +66,7 @@
 
         /* Закрываем соединение с БД и освобождаем ресурсы */
         mysql_free_result($query);
-        mysql_close($link);
+        //mysql_close($link);
     };
 
 
@@ -126,16 +126,17 @@
                 }
                 mysql_free_result($added_user_query);
 
-                //$mail = $user_row["email"];
-                //$password = $user_row["password"];
-                //$message = "Здравствуйте, $customer_name!<br>Для Вас была создана учетная запись на lotos51.ru.".
-                //           " Для авторизации на сайте используйте Вашу электронную почту и пароль, приведенные ниже:<br><br>".
-                //           "E-mail: <b>$email</b><br>Пароль: <b>$password</b><br><br>".
-                //           "Благодарим Вас за интерес к нашему магазину, Мы всегда рады видеть Вас!";
-                //mail($mail, "Ваша учетная запись на lotos51.ru", $message);
+                $headers = "MIME-Version: 1.0"."\r\n"."Content-type: text/html; charset=utf-8"."\r\n"."From: manager@lotos51.ru"."\r\n"."Reply-To: manager@lotos51.ru";
+                $mail = $user_row["email"];
+                $password = $user_row["password"];
+                $message = "<html><head><title></title></head><body>Здравствуйте, $customerName!<br>Для Вас была создана учетная запись на сайте lotos51.ru.<br>".
+                           " Для авторизации на сайте используйте Вашу электронную почту и пароль, приведенные ниже:<br><br>".
+                           "E-mail: <b>$customerEmail</b><br>Пароль: <b>$password</b><br><br></body></html>".
+                           "Благодарим Вас за интерес к нашему магазину, Мы всегда рады видеть Вас!";
+                mail($mail, "Учетная запись на lotos51.ru", $message, $headers);
             }
 
-            mysql_free_result($add_user_query);
+            //mysql_free_result($add_user_query);
         }
 
 
@@ -186,6 +187,11 @@
                 //    $result -> bouquets = $order_bouquets;
                 //}
                 //mysql_free_result($order_bouquets_query);
+
+                $headers = "MIME-Version: 1.0"."\r\n"."Content-type: text/html; charset=utf-8"."\r\n"."From: manager@lotos51.ru" . "\r\n" ."Reply-To: manager@lotos51.ru";
+                $message = "<html><head><title></title></head><body>Здравствуйте, $customerName!<br>Мы получили Ваш заказ и занимаемся его обработкой.<br>".
+                           " В ближайшее время с Вами свяжется наш менеджер и уточнит детали Вашего заказа.<br>Благодарим Вас за интерес к нашему магазину, мы всегда рады видеть Вас!</body></html>";
+                mail($customerEmail, "Учетная запись на lotos51.ru", $message, $headers);
             }
             mysql_free_result($added_order_query);
         }
@@ -197,8 +203,8 @@
         echo(json_encode($result));
 
         /* Закрываем соединение с БД и освобождаем ресурсы */
-        mysql_free_result($add_order_query);
-        mysql_close($link);
+        //mysql_free_result($add_order_query);
+        //mysql_close($link);
     };
 
 ?>

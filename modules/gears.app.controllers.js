@@ -10,6 +10,16 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
         $scope.misc = $misc;
         $scope.cart = $cart;
         $scope.app = $application;
+        $scope.slides = [
+            {
+                image: "resources/img/promo.jpg",
+                url: "#/order"
+            },
+            {
+                image: "",
+                url: "#/confirm"
+            }
+        ];
 
 
         /**
