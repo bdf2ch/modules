@@ -191,6 +191,16 @@ var misc = angular.module("gears.app.misc", [])
             misc.cities = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.prices = $factory({ classes: ["Collection"], base_class: "Collection" });
             misc.genders = $factory({ classes: ["Collection"], base_class: "Collection" });
+            misc.slides = [
+                {
+                    image: "resources/img/promo.jpg",
+                    url: "#/order"
+                },
+                {
+                    image: "resources/img/promo2.jpg",
+                    url: "#/confirm"
+                }
+            ];
 
             return misc;
         }]) ;

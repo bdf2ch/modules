@@ -82,10 +82,11 @@ var application = angular.module("gears.app", [
             return application;
         }]);
     })
-    .run(function ($log, $application, $menu, $rootScope, $modules, $factory, $session, $location, $orders) {
+    .run(function ($log, $application, $menu, $rootScope, $modules, $factory, $session, $location, $orders, $misc) {
         $modules.load($application);
         $menu.register();
         $rootScope.application = $application;
+        $rootScope.misc = $misc;
         $rootScope.menu = $menu;
 
         $session.onSuccessUserLogOut = function () {

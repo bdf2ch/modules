@@ -11,23 +11,60 @@ body {
 }
 #logo {
   position: relative;
+  float: left;
   padding: 10px;
+  padding-left: 0px;
+}
+#user {
+  position: relative;
+  float: left;
+  padding-top: 30px;
+}
+#user img {
+  position: relative;
+  float: left;
+  width: 50px;
+  margin-right: 10px;
+}
+#user a {
+  color: #910D1F;
+}
+#cart {
+  position: relative;
+  display: inline-block;
+  float: left;
+  padding-top: 30px;
+}
+#cart img {
+  position: relative;
+  float: left;
+  width: 50px;
+  margin-right: 10px;
+}
+#cart .empty-cart {
+  line-height: 16px;
+  font-family: "Helvetica";
+  font-size: 16px;
+  text-align: center;
 }
 #menu {
   background: #BD7D85;
   border: 3px solid #F2F0F0;
 }
-#menu ul {
-  margin-bottom: 0px;
-}
-#menu ul li {
-  margin-bottom: 0px;
+#menu .menu-item {
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 16.666666667%;
   padding: 5px;
   text-align: center;
-  border-right: 1px dotted white;
-}
-#menu ul li.active {
+  text-decoration: none;
   color: white;
+}
+#menu .menu-item:hover {
+  background: #B34D5B;
+}
+#menu .menu-item.active {
   background: #910D1F;
 }
 #promo {
@@ -47,6 +84,7 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   background: #FAFAFA;
+  border: 3px solid #F2F0F0;
 }
 #promo #chooser form {
   margin-top: 5px;
@@ -94,11 +132,23 @@ body {
   font-size: 14px;
   color: white;
   background: #910D1F;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .block-header {
   padding: 5px;
-  color: white;
-  background: #C70822;
+  padding-top: 0px;
+  font-family: 'Lobster', cursive;
+  font-size: 18px;
+  color: #910D1F;
+  background: #FAFAFA;
+  border-bottom: 1px dashed #910D1F;
+}
+.chapter-title {
+  line-height: 22px;
+  font-family: 'Lobster', cursive;
+  font-size: 26px;
+  color: #8F2231;
 }
 .gears-ui-slider {
   position: relative;
@@ -110,16 +160,9 @@ body {
   height: 100%;
   z-index: 1;
 }
-.gears-ui-slider .arrows-container {
-  position: relative;
-  clear: left;
-  height: 50px;
-  padding-left: 10px;
-  padding-right: 10px;
-  z-index: 2;
-}
-.gears-ui-slider .arrows-container .arrow {
+.gears-ui-slider .arrow {
   display: inline-block;
+  position: relative;
   width: 50px;
   height: 50px;
   padding: 10px;
@@ -128,29 +171,19 @@ body {
   font-weight: bold;
   text-align: center;
   color: white;
-  background: #aaaaaa;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 50px;
   cursor: pointer;
+  z-index: 2;
 }
-.gears-ui-slider .arrows-container .arrow:hover {
+.gears-ui-slider .arrow:hover {
   background: black;
 }
-.gears-ui-slider .arrows-container .arrow.left {
+.gears-ui-slider .arrow.left {
   float: left;
+  margin-left: 10px;
 }
-.gears-ui-slider .arrows-container .arrow.right {
+.gears-ui-slider .arrow.right {
   float: right;
-}
-.gears-ui-slider .arrow-right {
-  display: inline-block;
-  float: right;
-  width: 50px;
-  height: 50px;
-  padding: 10px;
-  font-family: "Helvetica";
-  font-size: 40px;
-  text-align: center;
-  color: white;
-  background: #aaaaaa;
-  border-radius: 50px;
+  margin-right: 10px;
 }

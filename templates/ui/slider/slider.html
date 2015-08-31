@@ -2,11 +2,8 @@
     <a href="{{ currentSlide.url }}">
         <img src="{{ currentSlide.image }}" alt=""/>
     </a>
-
-    <div class="arrows-container">
-        <div class="arrow left">&#9664;</div>
-        <div class="arrow right">&#9654;</div>
-    </div>
+    <div class="arrow left" ng-click="previous()">&#9664;</div>
+    <div class="arrow right" ng-click="next()">&#9654;</div>
 
     <div class="slides"></div>
 </div>

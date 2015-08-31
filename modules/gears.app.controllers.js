@@ -16,7 +16,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                 url: "#/order"
             },
             {
-                image: "",
+                image: "resources/img/promo2.jpg",
                 url: "#/confirm"
             }
         ];
@@ -107,6 +107,11 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
                 });
                 $pagination.set(1);
             }
+        };
+
+
+        $scope.applyFilters = function () {
+
         };
 
     }]

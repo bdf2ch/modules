@@ -10,67 +10,56 @@
 <body>
 
         <div id="wrapper">
+
             <div class="units-row end">
-                <div id="logo" class="unit-60">
+                <div id="logo" class="unit-50">
                     <img src="resources/img/logo.png" alt=""/>
                 </div>
-                <div id="cart" class="unit-40 text-right">
-                    cart
+                <div id="user" class="unit-25">
+                    <img src="resources/img/man.png" alt=""/>
+                    Мы рады Вас видеть!<br>
+                    <a href="">Войти</a>
+                    <a href="">Отмена</a>
+                    <div id="login-box">
+
+                    </div>
+                </div>
+                <div id="cart" class="unit-25">
+                    <img src="resources/img/cart4.png" alt=""/>
+                    <span class="empty-cart">В Вашей корзине еще ничего нет</span>
+                    <span class="cart-price">5250 р.</span>
                 </div>
             </div>
+
             <div id="menu" class="units-row end">
-                <ul class="blocks-6">
-                    <li class="active">Каталог букетов</li>
-                    <li>Хиты продаж</li>
-                    <li>Мегабукеты</li>
-                    <li>Композиции</li>
-                    <li>Для свадеб</li>
-                    <li>Для детей</li>
-                </ul>
-            </div>
-            <div id="promo" class="units-row">
-                <div id="banner" class="unit-60">
-                    <img src="resources/img/promo.jpg" alt=""/>
-                </div>
-                <div class="unit-40">
-                    <div class="units-row end">
-                        <div class="unit-100 block-header">
-                            <div class="unit-100">Быстро подобрать букет</div>
-                        </div>
-                    </div>
-                    <div id="chooser" class="units-row end">
-                        <div class="unit-100">
-                            <form action="" class="forms">
-                                <label for="">
-                                    Подарок для
-                                    <select name="" id="" class="width-100"></select>
-                                </label>
-                                <label for="">
-                                    Цветы в составе
-                                    <select name="" id="" class="width-100"></select>
-                                </label>
-                                <label for="">
-                                    Цена
-                                    <select name="" id="" class="width-100"></select>
-                                </label>
-                            </form>
-                            <button class="btn btn-red btn-small width-100">Искать подходящие букеты</button>
-                        </div>
-                    </div>
-                </div>
+                <a class="menu-item active" href="/">
+                    Каталог букетов
+                </a>
+                 <a class="menu-item" href="#/hits">
+                    Хиты продаж
+                </a>
+                 <a class="menu-item" href="#/mega-bouquets">
+                    Мегабукеты
+                </a>
+                 <a class="menu-item" href="#/compositions">
+                    Композиции
+                </a>
+                 <a class="menu-item" href="#/for-wedding">
+                    Для свадеб
+                </a>
+                 <a class="menu-item" href="#/for-children">
+                    Для детей
+                </a>
             </div>
 
 
-            <div id="content" class="units-row units-split" ng-view>
-
-
-            </div>
+            <div id="content" class="units-row" ng-view></div>
 
 
             <div id="footer" class="units-row end">
                 <div class="units-row end">
                     <div class="unit-50 text-left copyrights">&copy; флористический салон «Белый лотос»<br>
-                        &nbsp; &nbsp; 2015 г.
+                        2015 г.
                     </div>
                     <dib class="unit-50 text-right contacts">
                         8 (8152) 208-205<br>

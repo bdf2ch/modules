@@ -19,29 +19,75 @@ html, body {
 
 #logo {
   position: relative;
+  float: left;
   //height: 150px;
   padding: 10px;
+  padding-left: 0px;
   //border: 1px solid red;
 }
+
+
+#user {
+  position: relative;
+  float: left;
+  padding-top: 30px;
+
+  img {
+    position: relative;
+    float: left;
+    width: 50px;
+    margin-right: 10px;
+  }
+
+  a {
+    color: #910D1F;
+  }
+}
+
+
+#cart {
+  position: relative;
+  display: inline-block;
+  float: left;
+  padding-top: 30px;
+
+  img {
+    position: relative;
+    float: left;
+    width: 50px;
+    margin-right: 10px;
+  }
+
+  .empty-cart {
+    line-height: 16px;
+    font-family: "Helvetica";
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
 
 #menu {
   //border: 1px solid red;
   background: #BD7D85;
   border: 3px solid #F2F0F0;
 
-  ul {
-    margin-bottom: 0px;
+  .menu-item {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 16.666666667%;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
 
-    li {
-      margin-bottom: 0px;
-      //margin-left: 0px;
-      padding: 5px;
-      text-align: center;
-      border-right: 1px dotted white;
-      &.active {
-        color: white;
-        background: #910D1F;
-      }
+    &:hover {
+      background: #B34D5B;
+    }
+
+    &.active {
+      background: #910D1F;
     }
   }
 }
@@ -53,7 +99,6 @@ html, body {
 
   #banner {
     height: 100%;
-    //border: 1px solid blue;
 
     img {
       height: 100%;
@@ -68,6 +113,7 @@ html, body {
     padding-left: 10px;
     padding-right: 10px;
     background: #FAFAFA;
+    border: 3px solid #F2F0F0;
     //border: 1px solid yellow;
     
     form {
@@ -130,14 +176,27 @@ html, body {
   font-size: 14px;
   color: white;
   background: #910D1F;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 
 .block-header {
   //margin-bottom: 5px;
   padding: 5px;
-  color: white;
-  background: #C70822;
+  padding-top: 0px;
+  font-family: 'Lobster', cursive;
+  font-size: 18px;
+  color: #910D1F;
+  background: #FAFAFA;
+  border-bottom: 1px dashed #910D1F;
+}
+
+.chapter-title {
+  line-height: 22px;
+  font-family: 'Lobster', cursive;
+  font-size: 26px;
+  color: #8F2231;
 }
 
 
@@ -153,62 +212,38 @@ html, body {
     display: block;
     position: relative;
     height: 100%;
-    //border: 1px solid red;
     z-index: 1;
   }
 
-  .arrows-container {
-    position: relative;
-    clear: left;
-    height: 50px;
-    padding-left: 10px;
-    padding-right: 10px;
-    z-index: 2;
-    //border: 1px solid blue;
-
-    .arrow {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      padding: 10px;
-      font-family: "Verdana";
-      font-size: 25px;
-      font-weight: bold;
-      text-align: center;
-      color: white;
-      background: #aaaaaa;
-      border-radius: 50px;
-      cursor: pointer;
-
-      &:hover {
-        background: black;
-      }
-
-      &.left {
-        float: left;
-      }
-
-      &.right {
-        float: right;
-      }
-    }
-  }
-
-
-
-
-  .arrow-right {
+  .arrow {
     display: inline-block;
-    float: right;
-    //clear: left;
+    position: relative;
     width: 50px;
     height: 50px;
     padding: 10px;
-    font-family: "Helvetica";
-    font-size: 40px;
+    font-family: "Verdana";
+    font-size: 25px;
+    font-weight: bold;
     text-align: center;
     color: white;
-    background: #aaaaaa;
+    background: RGBA(0, 0, 0, 0.6);
     border-radius: 50px;
+    cursor: pointer;
+    z-index: 2;
+
+    &:hover {
+      background: black;
+    }
+
+    &.left {
+      float: left;
+      margin-left: 10px;
+    }
+
+    &.right {
+      float: right;
+      margin-right: 10px;
+    }
   }
+
 }

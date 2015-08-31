@@ -1,13 +1,40 @@
-<!--<div class="units-row">
-    <div class="unit-50" slider slider-source="slides"></div>
+<div id="promo" class="units-row">
+    <div class="unit-60" slider slider-source="misc.slides" slider-period="5"></div>
+    <div class="unit-40">
+        <div id="chooser" class="units-row end">
+            <div class="units-row end">
+                <div class="unit-100 block-header">Быстро подобрать букет</div>
+            </div>
+            <div class="units-row end">
+                <div class="unit-100">
+                    <form action="" class="forms">
+                        <label for="">
+                            Подарок для
+                            <select name="" id="" class="width-100"></select>
+                        </label>
+                        <label for="">
+                            Цветы в составе
+                            <select name="" id="" class="width-100"></select>
+                        </label>
+                        <label for="">
+                            Цена
+                            <select name="" id="" class="width-100"></select>
+                        </label>
+                    </form>
+                    <button class="btn btn-red width-100">Искать подходящие букеты</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
--->
 
 <div id="paginator" class="units-row">
     <div class="unit-50">
-                    <span id="filter-items-count" class="width-100">
-                        Всего букетов: {{ pagination.itemsCount }}
-                    </span>
+        <span class="chapter-title" class="width-100">
+            <!--Всего букетов: {{ pagination.itemsCount }}-->
+            Каталог букетов
+        </span>
     </div>
     <div class="unit-50">
         <ul class="pagination right" ng-show="pagination.totalPages > 1">
@@ -37,12 +64,14 @@
                 ng-repeat="bouquet in flowers.bouquets.items | byReason: app.currentReasonId | byAddressee: app.currentAddresseeId | byFlowers: misc.flowers.selectedItems | byPrice: app.currentPriceRangeId | pagination: pagination.itemsOnPage:pagination.currentPage track by $id(bouquet)">
                 <div class="units-row end">
                     <div class="unit-100">
-                        <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                        <a href="">
+                            <img src="{{ bouquet.imageUrl.value }}" alt=""/>
+                        </a>
                     </div>
                 </div>
                 <div class="units-row end">
                     <div class="unit-100 text-left">
-                        <span class="bouquet-title">{{ bouquet.title.value }}</span>
+                        <a class="bouquet-title">{{ bouquet.title.value }}</a>
                     </div>
                 </div>
                 <div class="units-row end">
@@ -50,7 +79,7 @@
                         <span class="bouquet-price">{{ bouquet.price.value + " р." }}</span>
                     </div>
                     <div class="unit-60">
-                        <button class="btn btn-small btn-red">В корзину</button>
+                        <button class="btn btn-small btn-red" ng-click="cart.add(bouquet.id.value, bouquet.price.value)">В корзину</button>
                     </div>
                 </div>
             </li>
