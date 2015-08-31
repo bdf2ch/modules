@@ -26,8 +26,8 @@
                 </div>
                 <div id="cart" class="unit-25">
                     <img src="resources/img/cart4.png" alt=""/>
-                    <span class="empty-cart">В Вашей корзине еще ничего нет</span>
-                    <span class="cart-price">5250 р.</span>
+                    <span class="empty-cart" ng-show="cart.amount() === 0">В Вашей корзине еще ничего нет</span>
+                    <span class="cart-price" ng-show="cart.amount() > 0">{{ cart.price() + " р." }}</span>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
             </div>
 
 
-            <div id="content" class="units-row" ng-view></div>
+            <div id="content" class="units-row end" ng-view></div>
 
 
             <div id="footer" class="units-row end">
