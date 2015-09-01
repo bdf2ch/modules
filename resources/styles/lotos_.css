@@ -6,6 +6,7 @@ body {
   position: relative;
   width: 1100px;
   height: 100%;
+  min-height: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -55,7 +56,7 @@ body {
   position: relative;
   display: inline-block;
   float: left;
-  width: 16.666666667%;
+  width: 14.285714286%;
   padding: 5px;
   text-align: center;
   text-decoration: none;
@@ -98,6 +99,8 @@ body {
 }
 #content {
   overflow: auto;
+  margin-bottom: -50px;
+  min-height: 600px;
 }
 #content .bouquet {
   padding: 10px;
@@ -128,6 +131,11 @@ body {
   font-weight: bold;
 }
 #footer {
+  position: relative;
+  width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -50px;
   padding: 5px;
   font-family: "Helvetica";
   font-size: 14px;
@@ -187,4 +195,204 @@ body {
 .gears-ui-slider .arrow.right {
   float: right;
   margin-right: 10px;
+}
+.title-image {
+  width: 110px;
+  height: 110px;
+  margin-top: -10px;
+}
+.title-caption {
+  display: block;
+  font-family: 'Lobster', cursive;
+  font-size: 36px;
+  line-height: 45px;
+  color: #910D1F;
+  border-bottom: 1px solid #910D1F;
+}
+.subtitle-caption {
+  font-family: 'Lobster', cursive;
+  font-size: 22px;
+  line-height: 45px;
+  color: #b2232f;
+}
+/*** ORDER ***/
+#template-order {
+  padding-top: 40px;
+}
+#template-order select {
+  padding: 7px;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+#template-order #customer {
+  padding-right: 15px;
+  border-right: 1px dotted lightgrey;
+}
+#template-order #reciever {
+  padding-left: 15px;
+  padding-right: 20px;
+}
+/*** CONFIRMATION ***/
+#template-confirmation {
+  padding-top: 40px;
+}
+#template-confirmation .confirmation-left {
+  padding-right: 20px;
+  border-right: 1px dotted lightgrey;
+}
+#template-confirmation .confirmation-right {
+  padding-left: 20px;
+}
+#template-confirmation .conformation-order-label {
+  line-height: 18px;
+}
+#template-confirmation .confirmation-order-content {
+  margin-bottom: 10px !important;
+  font-style: italic;
+  line-height: 18px;
+}
+#template-confirmation .confirmation-success {
+  margin-bottom: 20px;
+  padding: 30px;
+  background: #d5ecd9;
+  border-radius: 4px;
+  line-height: 18px;
+  font-style: italic;
+}
+#template-confirmation .confirmation-success .order-success-title {
+  display: block;
+  margin-bottom: 15px;
+  font-family: 'Lobster', cursive;
+  font-size: 26px;
+  font-style: normal;
+  color: #237f35;
+}
+#template-confirmation .confirmation-account {
+  padding: 30px;
+  background: #B4DCED;
+  border-radius: 4px;
+  line-height: 18px;
+  font-style: italic;
+}
+#template-confirmation .confirmation-account .confirmation-account-title {
+  display: block;
+  margin-bottom: 15px;
+  font-family: 'Lobster', cursive;
+  font-size: 26px;
+  font-style: normal;
+  color: #134da5;
+}
+#template-confirmation .confirmation-cart-items {
+  padding-bottom: 10px;
+  padding-right: 20px;
+}
+#template-confirmation .confirmation-cart-items img {
+  width: 64px;
+  height: 64px;
+  border: 1px solid #FAB83E;
+  border-radius: 64px;
+}
+#template-confirmation .confirmation-delivery {
+  padding-right: 20px;
+  margin-bottom: 10px !important;
+}
+#template-confirmation .confirmation-delivery .delivery {
+  padding-top: 16px;
+  line-height: 14px;
+}
+#template-confirmation .confirmation-delivery img {
+  width: 64px;
+  height: 64px;
+}
+#template-confirmation .confirmation-total-price {
+  margin-top: 5px !important;
+  padding-right: 20px;
+  padding-top: 10px;
+  font-size: 24px;
+  border-top: 1px dashed lightgrey;
+}
+#template-confirmation .confirmation-total-price .total {
+  font-size: 26px;
+  font-weight: bold;
+}
+/*** CART ***/
+#template-cart {
+  padding-top: 40px;
+}
+#template-cart #cart-items a {
+  display: block;
+  width: 200px;
+  text-decoration: none;
+}
+#template-cart #cart-items .cart-item {
+  margin-bottom: 20px !important;
+}
+#template-cart #cart-items .item-title {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 50px;
+  margin-top: -50px;
+  padding: 3px;
+  padding-top: 10px;
+  font-family: 'Lobster', cursive;
+  font-size: 18px;
+  line-height: 15px;
+  color: midnightblue;
+  background: rgba(237, 155, 0, 0.5);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  vertical-align: top;
+  text-align: center;
+}
+#template-cart #cart-items .amount {
+  margin-top: 10px;
+  margin-left: -5px;
+  margin-right: -5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 40px;
+}
+#template-cart #cart-items .item-price {
+  display: inline-block;
+  margin-top: 90px;
+  font-family: "Helvetica";
+  font-size: 30px;
+  color: #445588;
+}
+#template-cart #cart-items img {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #FFC800;
+  border-bottom: 1px solid lightgrey;
+  border-radius: 4px;
+}
+#template-cart #cart-no-items {
+  padding-top: 50px;
+  font-family: 'Lobster', cursive;
+  font-size: 20px;
+  color: lightgrey;
+}
+#template-cart #cart-no-items img {
+  margin-top: -5px;
+}
+#template-cart #total-summ {
+  padding-top: 20px;
+  border-top: 1px dashed black;
+}
+#template-cart #total-summ .total {
+  font-family: 'Lobster', cursive;
+  font-size: 25px;
+}
+#template-cart #total-summ .total-summ-value {
+  font-family: "Helvetica";
+  font-size: 32px;
+  font-weight: bold;
+  color: #b2232f;
+}
+/*** CONTACTS ***/
+#template-contacts {
+  padding-top: 40px;
 }
