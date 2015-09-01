@@ -511,3 +511,121 @@ html, body {
 #template-contacts {
   padding-top: 40px;
 }
+
+
+
+/*** BOUQUET ***/
+.bouquet-item-images {
+  padding-top: 40px;
+
+  img {
+    height: 450px;
+    border: 1px solid #FFC800;
+    border-radius: 2px;
+  }
+
+  ul {
+    img {
+      height: 80px;
+      border: 1px solid lightgrey;
+      border-radius: 2px;
+
+      &:hover {
+        border: 1px solid #FFC800;
+      }
+    }
+  }
+}
+
+.bouquet-item-description {
+  padding-top: 40px;
+
+  .bouquet-title {
+    font-family: 'Lobster', cursive;
+    font-size: 33px;
+    color: #237f35;
+  }
+
+  .bouquet-price {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
+    color: #F74D63;
+  }
+
+  .bouquet-flowers {
+    line-height: 22px;
+    margin-bottom: 7px !important;
+
+    img {
+      width: 50px;
+      height: 50px;
+      padding: 2px;
+      background: white;
+      border: 2px solid #FFC800;
+      border-radius: 50px;
+    }
+  }
+}
+
+.related-bouquets {
+  margin-top: 50px;
+  background: #d3e3fb;
+  padding: 10px;
+  border-radius: 2px;
+
+  &.same-price {
+    background: #DDEDDD;
+  }
+
+  .title {
+    margin-bottom: 10px !important;
+    font-family: 'Lobster', cursive;
+    font-size: 20px;
+    color: #1a52a5;
+  }
+
+  img {
+    height: 130px;
+    border: 1px solid lightgrey;
+  }
+
+  ul {
+    margin-bottom: 0px !important;
+  }
+}
+
+.service-info {
+  line-height: 20px;
+  //font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+  //font-size: 16px;
+  font-size: 17px;
+  color: #A39E95;
+
+  img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .service-content {
+    //padding-top: 10px;
+    line-height: 17px;
+    font-family: "Helvetica";
+    font-size: 15px;
+    font-style: italic;
+  }
+
+  .service-caption {
+    font-family: 'Lobster', cursive;
+    font-style: normal;
+    font-size: 17px;
+    color: #0869A6;
+  }
+}
+
+.bouquet-content {
+  border-collapse: separate;
+  border-spacing: 5px;
+}
