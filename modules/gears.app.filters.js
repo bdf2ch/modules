@@ -174,6 +174,17 @@ var AppFilters = angular.module("gears.app.filters", [])
             }
         }]);
 
+
+        $filterProvider.register("bySection", ["$log", function ($log) {
+            return function (input, sectionId) {
+                angular.forEach(input, function (bouquet) {
+                    if (bouquet.sectionId.value === sectionId) {
+
+                    }
+                });
+            };
+        }]);
+
     })
     .run(function () {
 

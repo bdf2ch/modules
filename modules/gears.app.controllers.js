@@ -18,6 +18,10 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
             {
                 image: "resources/img/promo2.jpg",
                 url: "#/confirm"
+            },
+            {
+                image: "resources/img/promo3.jpg",
+                url: "#/account"
             }
         ];
 
@@ -116,6 +120,11 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
 
     }]
 );
+
+
+appControllers.controller("MegaBouquetsController", ["$log", "$scope", "$flowers", function ($log, $scope, $flowers) {
+    $scope.flowers = $flowers;
+}]);
 
 
 appControllers.controller("BouquetController", ["$log", "$scope", "$cart", function ($log, $scope, $cart) {

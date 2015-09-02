@@ -37,6 +37,7 @@ var flowers = angular.module("gears.app.bouquets", [])
                     reasons: $factory({ classes: ["Collection"], base_class: "Collection" }),
                     addressees: $factory({ classes: ["Collection"], base_class: "Collection" }),
                     categories: $factory({ classes: ["Collection"], base_class: "Collection" }),
+                    typeId: new Field({ source: "type_id", value: 0, default_value: 0, backupable: true, required: true }),
 
                     /**
                      * Р”РѕР±Р°РІР»СЏРµС‚ С†РІРµС‚РѕРє Рє РјР°СЃСЃРёРІСѓ С†РІРµС‚РѕРІ, РІС…РѕРґСЏС‰РёС… РІ Р±СѓРєРµС‚

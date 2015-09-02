@@ -21,6 +21,10 @@ var application = angular.module("gears.app", [
             .when("/", {
                 templateUrl: "templates/bouquets/bouquets.html",
                 controller: "BouquetsController"})
+            .when("/mega-bouquets", {
+                templateUrl: "templates/bouquets/mega.html",
+                controller: "MegaBouquetsController"
+            })
             .when("/bouquet/:bouquetId", {
                 templateUrl: "templates/bouquet/bouquet.html",
                 controller: "BouquetController"

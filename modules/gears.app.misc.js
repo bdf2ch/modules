@@ -174,6 +174,16 @@ var misc = angular.module("gears.app.misc", [])
                             }
                         }
                     }
+                },
+
+                /**
+                 * Section
+                 * Набор свойст, описывающих раздел приложения
+                 */
+                Section: {
+                    id: new Field({ source: "id", value: 0, default_value: 0 }),
+                    title: new Field({ source: "title", value: "", default_value: "" }),
+                    description: new Field({ source: "description", value: "", default_value: "" })
                 }
             };
 
@@ -199,6 +209,10 @@ var misc = angular.module("gears.app.misc", [])
                 {
                     image: "resources/img/promo2.jpg",
                     url: "#/confirm"
+                },
+                {
+                    image: "resources/img/promo3.jpg",
+                    url: "#/account"
                 }
             ];
 

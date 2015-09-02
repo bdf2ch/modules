@@ -199,18 +199,20 @@ grUi.directive("slider", ["$log", "$location", "$interval", function ($log, $loc
                 scope.start();
             }
 
-            $log.log("element = ", element);
-            $log.log("slider period  = ", parseInt(scope.sliderPeriod) * 60);
+            //$log.log("element = ", element);
+            //$log.log("slider period  = ", parseInt(scope.sliderPeriod) * 60);
             var arrows = element[0].querySelectorAll(".arrow");
             var parent = element[0].parentElement;
-            $log.log("parent = ", parent);
-            $log.log("arrows = ", arrows);
+            //$log.log("parent = ", parent);
+            //$log.log("arrows = ", arrows);
             var length = arrows.length;
             //for (var i = 0; i < length; i++) {
                 angular.element(arrows).css({
                     "margin-top": (element[0].offsetHeight / 2) * -1 + "px"
                 });
             //}
+
+            $log.log("slides = ", scope.sliderSource);
         }
     }
 }]);

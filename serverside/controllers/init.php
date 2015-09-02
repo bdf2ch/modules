@@ -24,6 +24,7 @@
     $cities = array();
     $orders = array();
     $categories = array();
+    $sections = array();
 
     /* Заполнение массива поводов */
     $query_reasons = mysql_query("SELECT * FROM reasons ORDER BY position ASC");
@@ -47,7 +48,7 @@
     }
     $result["addressees"] = $addressees;
 
-    /* Заполнение массива адресатов */
+    /* Заполнение массива категорий */
     $query_categories = mysql_query("SELECT * FROM categories");
     if (!$query_categories) {
         die('Неверный запрос: ' . mysql_error());
@@ -57,6 +58,17 @@
         }
     }
     $result["categories"] = $categories;
+
+    /* Заполнение массива разделов */
+    $query_sections = mysql_query("SELECT * FROM sections");
+    if (!$query_sections) {
+        die('Неверный запрос: ' . mysql_error());
+    } else {
+        while ($row = mysql_fetch_assoc($query_sections)) {
+            array_push($sections, $row);
+        }
+    }
+    $result["sections"] = $sections;
 
     /* Заполнение массива букетов */
     $query_bouquets = mysql_query("SELECT * FROM bouquets");

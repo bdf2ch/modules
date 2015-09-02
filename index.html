@@ -11,23 +11,45 @@
 
         <div id="wrapper">
 
-            <div class="units-row end">
+            <div id="header" class="units-row end">
                 <div id="logo" class="unit-50">
                     <img src="resources/img/logo.png" alt=""/>
                 </div>
                 <div id="user" class="unit-25">
                     <img src="resources/img/man.png" alt=""/>
                     Мы рады Вас видеть!<br>
-                    <a href="">Войти</a>
-                    <a href="">Отмена</a>
-                    <div id="login-box">
-
+                    <a href="" ng-click="application.inAuthorizationMode = true" ng-class="{'auth-mode': application.inAuthorizationMode === true}">Войти</a>
+                    <div id="login-box" class="units-row end" ng-show="application.inAuthorizationMode === true && session.user.loggedIn() === false" ng-controller="AuthorizationController">
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                <input type="text" name="" id="" class="width-100" placeholder="E-mail"/>
+                            </div>
+                        </div>
+                        <div class="units-row end">
+                            <div class="unit-100">
+                                <input type="text" name="" id="" class="unit-100" placeholder="Пароль"/>
+                            </div>
+                        </div>
+                        <div class="units-row end">
+                            <div class="unit-50 text-centered">
+                                <button class="btn btn-smaller btn-green width-100">Войти</button>
+                            </div>
+                            <div class="unit-50 text-centered">
+                                <button class="btn btn-smaller btn-red width-100" ng-click="application.inAuthorizationMode = false; authorization.reset()">Отмена</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="cart" class="unit-25">
-                    <img src="resources/img/cart4.png" alt=""/>
+                    <a href="#/cart">
+                        <img src="resources/img/cart4.png" alt=""/>
+                    </a>
                     <span class="empty-cart" ng-show="cart.amount() === 0">В Вашей корзине еще ничего нет</span>
-                    <span class="cart-price" ng-show="cart.amount() > 0">{{ cart.price() + " р." }}</span>
+                    <a href="#/cart">
+                        <span class="cart-price" ng-show="cart.amount() > 0">{{ cart.price() + " р." }}</span>
+                    </a>
+                    <br ng-show="cart.amount() > 0">
+                    <span ng-show="cart.amount() > 0">{{ 'Товаров в корзине: ' + cart.amount() }}</span>
                 </div>
             </div>
 
@@ -56,11 +78,7 @@
             </div>
 
 
-
             <div id="content" class="units-row" ng-view></div>
-
-
-
 
         </div>
 
@@ -77,20 +95,20 @@
         </div>
 
 
-<!-- Подключение библиотек и модулей -->
-<script src="libs/momentjs/moment-with-locales.min.js"></script>
-<script src="libs/angularjs/angular.min.js"></script>
-<script src="libs/angularjs/angular-route.min.js"></script>
-<script src="libs/angularjs/angular-cookies.min.js"></script>
-<script src="libs/gearsjs/gears.js"></script>
+    <!-- Подключение библиотек и модулей -->
+    <script src="libs/momentjs/moment-with-locales.min.js"></script>
+    <script src="libs/angularjs/angular.min.js"></script>
+    <script src="libs/angularjs/angular-route.min.js"></script>
+    <script src="libs/angularjs/angular-cookies.min.js"></script>
+    <script src="libs/gearsjs/gears.js"></script>
         <script src="libs/gearsjs/gears.ui.js"></script>
 
-<script src="libs/gearsjs/gears.shop.js"></script>
-<script src="libs/gearsjs/gears.auth.js"></script>
-<script src="modules/gears.app.js"></script>
-<script src="modules/gears.app.bouquets.js"></script>
-<script src="modules/gears.app.orders.js"></script>
-<script src="modules/gears.app.misc.js"></script>
+    <script src="libs/gearsjs/gears.shop.js"></script>
+    <script src="libs/gearsjs/gears.auth.js"></script>
+    <script src="modules/gears.app.js"></script>
+    <script src="modules/gears.app.bouquets.js"></script>
+    <script src="modules/gears.app.orders.js"></script>
+    <script src="modules/gears.app.misc.js"></script>
 <script src="modules/gears.app.filters.js"></script>
 <script src="modules/gears.app.controllers.js"></script>
 </body>

@@ -94,3 +94,28 @@
         </ul>
     </div>
 </div>
+
+<div class="units-row end">
+    <div class="unit-50">
+        &nbsp;
+    </div>
+    <div class="unit-50">
+        <ul class="pagination bottom right" ng-show="pagination.totalPages > 1">
+            <li ng-show="pagination.currentPage > 1">
+                <a href title="Предыдущая страница" ng-click="pagination.previous()">&larr;</a>
+            </li>
+            <li ng-show="(pagination.currentPage - 1) > 0">
+                <a href ng-click="pagination.set(pagination.currentPage - 1)">{{ pagination.currentPage - 1 }}</a>
+            </li>
+            <li class="active-page">
+                <a href ng-click="pagination.set(pagination.currentPage)">{{ pagination.currentPage }}</a>
+            </li>
+            <li ng-show="(pagination.currentPage + 1) <= pagination.totalPages">
+                <a href ng-click="pagination.set(pagination.currentPage + 1)">{{ pagination.currentPage + 1 }}</a>
+            </li>
+            <li ng-show="pagination.currentPage < pagination.totalPages">
+                <a href title="Следующая страница" ng-click="pagination.next()">&rarr;</a>
+            </li>
+        </ul>
+    </div>
+</div>

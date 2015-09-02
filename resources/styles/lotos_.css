@@ -4,17 +4,35 @@ body {
 }
 #wrapper {
   position: relative;
+  overflow: visible;
   width: 1100px;
-  height: 100%;
   min-height: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+#header {
+  height: 100px;
 }
 #logo {
   position: relative;
   float: left;
   padding: 10px;
   padding-left: 0px;
+}
+#login-box {
+  position: absolute;
+  z-index: 10;
+  margin-left: 60px;
+  margin-top: -1px;
+  padding: 5px;
+  background: white;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  border-top: 1px solid lightgrey;
+}
+#login-box input {
+  margin-bottom: 5px;
 }
 #user {
   position: relative;
@@ -28,7 +46,20 @@ body {
   margin-right: 10px;
 }
 #user a {
+  display: inline-block;
+  position: relative;
+  z-index: 15;
   color: #910D1F;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid transparent;
+}
+#user a.auth-mode {
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid white;
 }
 #cart {
   position: relative;
@@ -42,13 +73,23 @@ body {
   width: 50px;
   margin-right: 10px;
 }
+#cart a {
+  text-decoration: none;
+  color: black;
+}
 #cart .empty-cart {
   line-height: 16px;
   font-family: "Helvetica";
   font-size: 16px;
   text-align: center;
 }
+#cart .cart-price {
+  font-family: "Helvetica";
+  font-size: 28px;
+}
 #menu {
+  height: 40px;
+  clear: both;
   background: #BD7D85;
   border: 3px solid #F2F0F0;
 }
@@ -56,7 +97,7 @@ body {
   position: relative;
   display: inline-block;
   float: left;
-  width: 14.285714286%;
+  width: 14.285714285%;
   padding: 5px;
   text-align: center;
   text-decoration: none;
@@ -98,8 +139,7 @@ body {
   padding: 5px;
 }
 #content {
-  overflow: auto;
-  margin-bottom: -50px;
+  overflow: visible;
   min-height: 600px;
 }
 #content .bouquet {
@@ -129,6 +169,31 @@ body {
   font-family: "Helvetica";
   font-size: 25px;
   font-weight: bold;
+}
+#content .pagination {
+  margin-top: 30px;
+  margin-bottom: 10px !important;
+}
+#content .pagination a {
+  background: transparent !important;
+  color: black;
+  border-radius: 4px;
+}
+#content .pagination li {
+  background: transparent !important;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+#content .pagination li:hover {
+  border: 1px solid #FFC800;
+}
+#content .pagination li.active-page {
+  font-weight: bold;
+  background: #FFC800 !important;
+  border-radius: 4px;
+}
+#content .pagination li.active-page:hover {
+  border: 1px solid transparent;
 }
 #footer {
   position: relative;
@@ -338,8 +403,8 @@ body {
   font-family: 'Lobster', cursive;
   font-size: 18px;
   line-height: 15px;
-  color: midnightblue;
-  background: rgba(237, 155, 0, 0.5);
+  color: white;
+  background: rgba(179, 77, 91, 0.5);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   vertical-align: top;
@@ -365,7 +430,7 @@ body {
   display: block;
   width: 200px;
   height: 200px;
-  border: 1px solid #FFC800;
+  border: 1px solid #910D1F;
   border-bottom: 1px solid lightgrey;
   border-radius: 4px;
 }
@@ -401,8 +466,7 @@ body {
   padding-top: 40px;
 }
 .bouquet-item-images img {
-  height: 450px;
-  border: 1px solid #FFC800;
+  border: 1px solid #910D1F;
   border-radius: 2px;
 }
 .bouquet-item-images ul img {
@@ -419,7 +483,7 @@ body {
 .bouquet-item-description .bouquet-title {
   font-family: 'Lobster', cursive;
   font-size: 33px;
-  color: #237f35;
+  color: #910D1F;
 }
 .bouquet-item-description .bouquet-price {
   display: inline-block;
@@ -438,7 +502,7 @@ body {
   height: 50px;
   padding: 2px;
   background: white;
-  border: 2px solid #FFC800;
+  border: 2px solid #910D1F;
   border-radius: 50px;
 }
 .related-bouquets {
@@ -487,4 +551,13 @@ body {
 .bouquet-content {
   border-collapse: separate;
   border-spacing: 5px;
+}
+#template-account {
+  padding-top: 40px;
+}
+.pagination li {
+  border: 1px solid #910D1F;
+}
+#template-mega {
+  padding-top: 40px;
 }
