@@ -4,8 +4,8 @@ body {
 }
 #wrapper {
   position: relative;
+  overflow: visible;
   width: 1100px;
-  height: 100%;
   min-height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -42,11 +42,19 @@ body {
   width: 50px;
   margin-right: 10px;
 }
+#cart a {
+  text-decoration: none;
+  color: black;
+}
 #cart .empty-cart {
   line-height: 16px;
   font-family: "Helvetica";
   font-size: 16px;
   text-align: center;
+}
+#cart .cart-price {
+  font-family: "Helvetica";
+  font-size: 28px;
 }
 #menu {
   background: #BD7D85;
@@ -98,8 +106,7 @@ body {
   padding: 5px;
 }
 #content {
-  overflow: auto;
-  margin-bottom: -50px;
+  overflow: visible;
   min-height: 600px;
 }
 #content .bouquet {
@@ -338,8 +345,8 @@ body {
   font-family: 'Lobster', cursive;
   font-size: 18px;
   line-height: 15px;
-  color: midnightblue;
-  background: rgba(237, 155, 0, 0.5);
+  color: white;
+  background: rgba(179, 77, 91, 0.5);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   vertical-align: top;
@@ -365,7 +372,7 @@ body {
   display: block;
   width: 200px;
   height: 200px;
-  border: 1px solid #FFC800;
+  border: 1px solid #910D1F;
   border-bottom: 1px solid lightgrey;
   border-radius: 4px;
 }
@@ -401,8 +408,7 @@ body {
   padding-top: 40px;
 }
 .bouquet-item-images img {
-  height: 450px;
-  border: 1px solid #FFC800;
+  border: 1px solid #910D1F;
   border-radius: 2px;
 }
 .bouquet-item-images ul img {
@@ -419,7 +425,7 @@ body {
 .bouquet-item-description .bouquet-title {
   font-family: 'Lobster', cursive;
   font-size: 33px;
-  color: #237f35;
+  color: #910D1F;
 }
 .bouquet-item-description .bouquet-price {
   display: inline-block;
@@ -438,7 +444,7 @@ body {
   height: 50px;
   padding: 2px;
   background: white;
-  border: 2px solid #FFC800;
+  border: 2px solid #910D1F;
   border-radius: 50px;
 }
 .related-bouquets {
@@ -487,4 +493,7 @@ body {
 .bouquet-content {
   border-collapse: separate;
   border-spacing: 5px;
+}
+#template-account {
+  padding-top: 40px;
 }

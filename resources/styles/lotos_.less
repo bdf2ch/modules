@@ -6,8 +6,9 @@ html, body {
 
 #wrapper {
   position: relative;
+  overflow: visible;
   width: 1100px;
-  height: 100%;
+  //height: 100%;
   min-height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -59,11 +60,21 @@ html, body {
     margin-right: 10px;
   }
 
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
   .empty-cart {
     line-height: 16px;
     font-family: "Helvetica";
     font-size: 16px;
     text-align: center;
+  }
+
+  .cart-price {
+    font-family: "Helvetica";
+    font-size: 28px;
   }
 }
 
@@ -133,8 +144,8 @@ html, body {
 }
 
 #content {
-  overflow: auto;
-  margin-bottom: -50px;
+  overflow: visible;
+  //margin-bottom: -60px;
   min-height: 600px;
 
   .bouquet {
@@ -169,6 +180,43 @@ html, body {
     }
 
   }
+
+
+  .pagination {
+    margin-top: 30px;
+    margin-bottom: 10px !important;
+
+    a {
+      background: transparent !important;
+      color: black;
+      border-radius: 4px;
+
+      //&:hover {
+      // background: #FFC800 !important;
+      //}
+    }
+
+
+    li {
+      background: transparent !important;
+      border: 1px solid transparent;
+      border-radius: 4px;
+
+      &:hover {
+        //background: #FFC800 !important;
+        border: 1px solid #FFC800;
+      }
+
+      &.active-page {
+        font-weight: bold;
+        background: #FFC800 !important;
+        border-radius: 4px;
+
+        &:hover {
+          border: 1px solid transparent;
+        }
+      }
+    }
 
 }
 
@@ -436,8 +484,8 @@ html, body {
       font-family: 'Lobster', cursive;
       font-size: 18px;
       line-height: 15px;
-      color: midnightblue;
-      background: rgba(237, 155, 0, 0.5);
+      color: white;
+      background: rgba(179, 77, 91, 0.5);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       vertical-align: top;
@@ -469,7 +517,7 @@ html, body {
       width: 200px;
       height: 200px;
       //z-index: 5;
-      border: 1px solid #FFC800;
+      border: 1px solid #910D1F;
       border-bottom: 1px solid lightgrey;
       border-radius: 4px;
     }
@@ -519,8 +567,8 @@ html, body {
   padding-top: 40px;
 
   img {
-    height: 450px;
-    border: 1px solid #FFC800;
+   // height: 450px;
+    border: 1px solid #910D1F;
     border-radius: 2px;
   }
 
@@ -543,7 +591,7 @@ html, body {
   .bouquet-title {
     font-family: 'Lobster', cursive;
     font-size: 33px;
-    color: #237f35;
+    color: #910D1F;
   }
 
   .bouquet-price {
@@ -564,7 +612,7 @@ html, body {
       height: 50px;
       padding: 2px;
       background: white;
-      border: 2px solid #FFC800;
+      border: 2px solid #910D1F;
       border-radius: 50px;
     }
   }
@@ -628,4 +676,10 @@ html, body {
 .bouquet-content {
   border-collapse: separate;
   border-spacing: 5px;
+}
+
+
+
+#template-account {
+  padding-top: 40px;
 }

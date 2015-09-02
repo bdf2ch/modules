@@ -25,9 +25,15 @@
                     </div>
                 </div>
                 <div id="cart" class="unit-25">
-                    <img src="resources/img/cart4.png" alt=""/>
+                    <a href="#/cart">
+                        <img src="resources/img/cart4.png" alt=""/>
+                    </a>
                     <span class="empty-cart" ng-show="cart.amount() === 0">В Вашей корзине еще ничего нет</span>
-                    <span class="cart-price" ng-show="cart.amount() > 0">{{ cart.price() + " р." }}</span>
+                    <a href="#/cart">
+                        <span class="cart-price" ng-show="cart.amount() > 0">{{ cart.price() + " р." }}</span>
+                    </a>
+                    <br ng-show="cart.amount() > 0">
+                    <span ng-show="cart.amount() > 0">{{ 'Товаров в корзине: ' + cart.amount() }}</span>
                 </div>
             </div>
 
@@ -56,7 +62,7 @@
             </div>
 
 
-            <div id="content" class="units-row end" ng-view></div>
+            <div id="content" class="units-row" ng-view></div>
 
 
 
