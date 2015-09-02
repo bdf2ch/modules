@@ -184,9 +184,9 @@ var AppFilters = angular.module("gears.app.filters", [])
                             result.push(bouquet);
                         }
                     });
+                    return result;
                 } else
                     return input;
-                return result;
             };
         }]);
 

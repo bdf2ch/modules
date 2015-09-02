@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div id="paginator" class="units-row end">
+    <div id="paginator" class="units-row end" ng-show="flowers.bouquets._states_.loaded() === true">
         <div class="unit-50">
         <span class="chapter-title" class="width-100">
             <!--Всего букетов: {{ pagination.itemsCount }}-->
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <div class="units-row end">
+    <div class="units-row end" ng-show="flowers.bouquets._states_.loaded() === true">
         <div class="unit-50">
             &nbsp;
         </div>
@@ -90,6 +90,7 @@
             </ul>
         </div>
     </div>
+
 
 </div>
 

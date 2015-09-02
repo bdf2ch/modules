@@ -129,6 +129,34 @@ appControllers.controller("MegaBouquetsController", ["$log", "$scope", "$flowers
     $scope.app.currentSectionId = 1;
 }]);
 
+appControllers.controller("HitBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
+    $scope.flowers = $flowers;
+    $scope.app = $application;
+
+    $scope.app.currentSectionId = 5;
+}]);
+
+appControllers.controller("CompositionBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
+    $scope.flowers = $flowers;
+    $scope.app = $application;
+
+    $scope.app.currentSectionId = 2;
+}]);
+
+appControllers.controller("WeddingBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
+    $scope.flowers = $flowers;
+    $scope.app = $application;
+
+    $scope.app.currentSectionId = 3;
+}]);
+
+
+appControllers.controller("KidsBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
+    $scope.flowers = $flowers;
+    $scope.app = $application;
+
+    $scope.app.currentSectionId = 4;
+}]);
 
 appControllers.controller("BouquetController", ["$log", "$scope", "$cart", function ($log, $scope, $cart) {
     $scope.cart = $cart;
