@@ -18,9 +18,11 @@ var application = angular.module("gears.app", [
 
 
         $routeProvider
+
             .when("/", {
                 templateUrl: "templates/bouquets/bouquets.html",
                 controller: "BouquetsController"})
+
             .when("/mega-bouquets", {
                 templateUrl: "templates/bouquets/mega.html",
                 controller: "MegaBouquetsController"
@@ -111,6 +113,77 @@ var application = angular.module("gears.app", [
          * Инициализация динамически создаваемых объектов
          */
         $application.currentOrder = $factory({ classes: ["Order", "Model", "States"], base_class: "Order" });
+
+        /*
+        $menu.load(
+            $menu.set(
+                {
+                    id: 1,
+                    title: "Каталог букетов",
+                    description: "Каталог всех букетов флористического салона 'Белый Лотос'",
+                    url: "/",
+                    template: "templates/bouquets/bouquets.html",
+                    controller: "BouquetsController"
+                }
+            ));
+
+        $menu.load($menu.set({
+            id: 2,
+            title: "Хиты продаж",
+            description: "Хиты продаж",
+            url: "#/hits",
+            template: "templates/bouquets/hits.html",
+            controller: "HitBouquetsController"
+        }));
+
+
+        $menu.load($menu.set({
+            id: 3,
+            title: "МЕГА Букеты",
+            description: "МЕГА Букеты'",
+            url: "#/mega-bouquets",
+            template: "templates/bouquets/mega.html",
+            controller: "MegaBouquetsController"
+        }));
+
+        $menu.load($menu.set({
+            id: 4,
+            title: "Композиции",
+            description: "Композиции",
+            url: "#/compositions",
+            template: "templates/bouquets/compositions.html",
+            controller: "CompositionsBouquetsController"
+        }));
+
+        $menu.load($menu.set({
+            id: 5,
+            title: "Для свадеб",
+            description: "Для свадеб",
+            url: "#/wedding",
+            template: "templates/bouquets/bouquets.html",
+            controller: "BouquetsController"
+        }));
+
+
+        $menu.load($menu.set({
+            id: 6,
+            title: "Для детей",
+            description: "Для детей",
+            url: "#/kids",
+            template: "templates/bouquets/fids.html",
+            controller: "kidsBouquetsController"
+        }));
+
+        $menu.load($menu.set({
+            id: 7,
+            title: "Контакты",
+            description: "Наши контакты",
+            url: "#/contacts",
+            template: "templates/contacts/contacts.html",
+            controller: "ContactsController"
+        }));
+        */
+
 
         //$application.currentOrder.customerName.value = "Евлампий";
         //$application.currentOrder.customerFname.value = "Алибардович";

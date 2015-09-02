@@ -133,6 +133,7 @@ var gears = angular.module("gears", [])
                      * @param parameters
                      */
                     init: function (parameters) {
+                        $log.log("menu init called");
                         if (parameters !== undefined) {
                             for (var param in parameters) {
                                 if (this.hasOwnProperty(param))
@@ -175,10 +176,10 @@ var gears = angular.module("gears", [])
             menu.set = function (parameters) {
                 var result = false;
                 if (parameters !== undefined) {
-                    var menu_tem = $factory({ classes: ["MenuItem"], base_class: "MenuItem" });
+                    var menu_item = $factory({ classes: ["MenuItem"], base_class: "MenuItem" });
                     menu_item.init(parameters);
-                    menu.items.append(menu_item);
-                    result = menuItem;
+                    //menu.items.append(menu_item);
+                    result = menu_item;
                 }
                 return result;
             };

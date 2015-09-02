@@ -25,6 +25,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
             }
         ];
 
+        $application.currentSectionId = 1;
 
         /**
          * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
@@ -126,28 +127,28 @@ appControllers.controller("MegaBouquetsController", ["$log", "$scope", "$flowers
     $scope.flowers = $flowers;
     $scope.app = $application;
 
-    $scope.app.currentSectionId = 1;
+    $application.currentSectionId = 3;
 }]);
 
 appControllers.controller("HitBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
     $scope.flowers = $flowers;
     $scope.app = $application;
 
-    $scope.app.currentSectionId = 5;
+    $application.currentSectionId = 2;
 }]);
 
-appControllers.controller("CompositionBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
+appControllers.controller("CompositionsBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
     $scope.flowers = $flowers;
     $scope.app = $application;
 
-    $scope.app.currentSectionId = 2;
+    $scope.app.currentSectionId = 4;
 }]);
 
 appControllers.controller("WeddingBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
     $scope.flowers = $flowers;
     $scope.app = $application;
 
-    $scope.app.currentSectionId = 3;
+    $scope.app.currentSectionId = 5;
 }]);
 
 
@@ -155,7 +156,7 @@ appControllers.controller("KidsBouquetsController", ["$log", "$scope", "$flowers
     $scope.flowers = $flowers;
     $scope.app = $application;
 
-    $scope.app.currentSectionId = 4;
+    $scope.app.currentSectionId = 6;
 }]);
 
 appControllers.controller("BouquetController", ["$log", "$scope", "$cart", function ($log, $scope, $cart) {
@@ -463,6 +464,6 @@ appControllers.controller("AccountController", ["$log", "$scope", "$http", "$ord
 
 
 
-appControllers.controller("ContactsController", ["$log", "$scope", function ($log, $scope) {
-
+appControllers.controller("ContactsController", ["$log", "$scope", "$application", function ($log, $scope, $application) {
+    $application.currentSectionId = 7;
 }]);

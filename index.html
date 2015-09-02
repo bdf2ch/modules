@@ -54,27 +54,31 @@
             </div>
 
             <div id="menu" class="units-row end">
-                <a class="menu-item active" href="/">
+                <a href="{{ item.url }}" ng-repeat="item in menu.items.items track by $index" class="menu-item" ng-class="{'active': item.active == true}">{{ item.title }}</a>
+
+
+                <a class="menu-item" href="/" ng-class="{'active': application.currentSectionId === 1}">
                     Каталог букетов
                 </a>
-                <a class="menu-item" href="#/hits">
+                <a class="menu-item" href="#/hits" ng-class="{'active': application.currentSectionId === 2}">
                     Хиты продаж
                 </a>
-                <a class="menu-item" href="#/mega-bouquets">
+                <a class="menu-item" href="#/mega-bouquets" ng-class="{'active': application.currentSectionId === 3}">
                     Мегабукеты
                 </a>
-                <a class="menu-item" href="#/compositions">
+                <a class="menu-item" href="#/compositions" ng-class="{'active': application.currentSectionId === 4}">
                     Композиции
                 </a>
-                <a class="menu-item" href="#/for-wedding">
+                <a class="menu-item" href="#/wedding" ng-class="{'active': application.currentSectionId === 5}">
                     Для свадеб
                 </a>
-                <a class="menu-item" href="#/for-children">
+                <a class="menu-item" href="#/kids" ng-class="{'active': application.currentSectionId === 6}">
                     Для детей
                 </a>
-                <a class="menu-item" href="#/contacts">
+                <a class="menu-item" href="#/contacts" ng-class="{'active': application.currentSectionId === 7}">
                     Контакты
                 </a>
+
             </div>
 
 
