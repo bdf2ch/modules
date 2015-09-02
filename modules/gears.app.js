@@ -27,6 +27,22 @@ var application = angular.module("gears.app", [
                 templateUrl: "templates/bouquets/mega.html",
                 controller: "MegaBouquetsController"
             })
+            .when("/hits", {
+                templateUrl: "templates/bouquets/hits.html",
+                controller: "HitBouquetsController"
+            })
+            .when("/compositions", {
+                templateUrl: "templates/bouquets/compositions.html",
+                controller: "CompositionsBouquetsController"
+            })
+            .when("/wedding", {
+                templateUrl: "templates/bouquets/wedding.html",
+                controller: "WeddingBouquetsController"
+            })
+            .when("/kids", {
+                templateUrl: "templates/bouquets/kids.html",
+                controller: "KidsBouquetsController"
+            })
             .when("/bouquet/:bouquetId", {
                 templateUrl: "templates/bouquet/bouquet.html",
                 controller: "BouquetController"

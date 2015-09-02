@@ -25,7 +25,7 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
             }
         ];
 
-        $application.currentSectionId = 1;
+        $application.currentSectionId = 3;
 
         /**
          * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
@@ -127,7 +127,7 @@ appControllers.controller("MegaBouquetsController", ["$log", "$scope", "$flowers
     $scope.flowers = $flowers;
     $scope.app = $application;
 
-    $application.currentSectionId = 3;
+    $application.currentSectionId = 1;
 }]);
 
 appControllers.controller("HitBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {

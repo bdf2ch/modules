@@ -10,18 +10,18 @@
                     <form action="" class="forms">
                         <label for="">
                             Подарок для
-                            <select name="" id="" class="width-100"></select>
+                            <select name="" id="" class="width-100" ng-model="app.currentAddresseeId" ng-options="addressee.id.value as addressee.title.value for addressee in misc.addressees.items"></select>
                         </label>
                         <label for="">
                             Цветы в составе
-                            <select name="" id="" class="width-100"></select>
+                            <select name="" id="" class="width-100" ng-model="app.currentCategoryId" ng-options="category.id.value as category.title.value for category in misc.categories.items"></select>
                         </label>
                         <label for="">
                             Цена
-                            <select name="" id="" class="width-100"></select>
+                            <select name="" id="" class="width-100" ng-model="app.currentPriceRangeId" ng-options="price_range.id as price_range.title for price_range in misc.prices.items"></select>
                         </label>
                     </form>
-                    <button class="btn btn-red width-100">Искать подходящие букеты</button>
+                    <!--<button class="btn btn-red width-100">Искать подходящие букеты</button>-->
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<div id="paginator" class="units-row end">
+<div id="paginator" class="units-row end" ng-show="flowers.bouquets._states_.loaded() === true">
     <div class="unit-50">
         <span class="chapter-title" class="width-100">
             <!--Всего букетов: {{ pagination.itemsCount }}-->
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<div class="units-row end">
+<div class="units-row end" ng-show="flowers.bouquets._states_.loaded() === true">
     <div class="unit-100">
         <ul class="blocks-4">
             <li class="bouquet text-centered"
@@ -95,7 +95,7 @@
     </div>
 </div>
 
-<div class="units-row end">
+<div class="units-row">
     <div class="unit-50">
         &nbsp;
     </div>

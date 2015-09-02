@@ -17,22 +17,36 @@
                 </div>
                 <div id="user" class="unit-25">
                     <img src="resources/img/man.png" alt=""/>
-                    Мы рады Вас видеть!<br>
-                    <a href="" ng-click="application.inAuthorizationMode = true" ng-class="{'auth-mode': application.inAuthorizationMode === true}">Войти</a>
+                    <span ng-show="session.user.loggedIn() === false">Мы рады Вас видеть!<br></span>
+                    <span ng-show="session.user.loggedIn() === true">{{ "Здравствуйте, " + session.user.get().name.value + "!" }}</span><br ng-show="session.user.loggedIn() === true">
+                    <a href="#/account" ng-show="session.user.loggedIn() === true">Личный кабинет</a>
+                    <a href="" ng-show="session.user.loggedIn() === false" ng-click="application.inAuthorizationMode = true" ng-class="{'auth-mode': application.inAuthorizationMode === true}">Войти</a>
                     <div id="login-box" class="units-row end" ng-show="application.inAuthorizationMode === true && session.user.loggedIn() === false" ng-controller="AuthorizationController">
                         <div class="units-row end">
                             <div class="unit-100">
-                                <input type="text" name="" id="" class="width-100" placeholder="E-mail"/>
+                                <input type="text"
+                                       name=""
+                                       id=""
+                                       class="width-100"
+                                       placeholder="E-mail"
+                                       ng-model="auth.username"
+                                       ng-class="{'input-error': auth.errors.username.length > 0}"/>
                             </div>
                         </div>
                         <div class="units-row end">
                             <div class="unit-100">
-                                <input type="text" name="" id="" class="unit-100" placeholder="Пароль"/>
+                                <input type="text"
+                                       name=""
+                                       id=""
+                                       class="unit-100"
+                                       placeholder="Пароль"
+                                       ng-model="auth.password"
+                                       ng-class="{'input-error': auth.errors.password.length > 0}"/>
                             </div>
                         </div>
                         <div class="units-row end">
                             <div class="unit-50 text-centered">
-                                <button class="btn btn-smaller btn-green width-100">Войти</button>
+                                <button class="btn btn-smaller btn-green width-100" ng-click="auth.logIn(application.onSuccessLogin)">Войти</button>
                             </div>
                             <div class="unit-50 text-centered">
                                 <button class="btn btn-smaller btn-red width-100" ng-click="application.inAuthorizationMode = false; authorization.reset()">Отмена</button>
@@ -57,13 +71,13 @@
                 <a href="{{ item.url }}" ng-repeat="item in menu.items.items track by $index" class="menu-item" ng-class="{'active': item.active == true}">{{ item.title }}</a>
 
 
-                <a class="menu-item" href="/" ng-class="{'active': application.currentSectionId === 1}">
+                <a class="menu-item" href="/" ng-class="{'active': application.currentSectionId === 3}">
                     Каталог букетов
                 </a>
                 <a class="menu-item" href="#/hits" ng-class="{'active': application.currentSectionId === 2}">
                     Хиты продаж
                 </a>
-                <a class="menu-item" href="#/mega-bouquets" ng-class="{'active': application.currentSectionId === 3}">
+                <a class="menu-item" href="#/mega-bouquets" ng-class="{'active': application.currentSectionId === 1}">
                     Мегабукеты
                 </a>
                 <a class="menu-item" href="#/compositions" ng-class="{'active': application.currentSectionId === 4}">

@@ -55,22 +55,24 @@ html, body {
 
 #user {
   position: relative;
-  float: left;
+  //float: left;
   padding-top: 30px;
 
   img {
     position: relative;
     float: left;
     width: 50px;
-    margin-right: 10px;
+    margin-right: 20px;
   }
 
   a {
     display: inline-block;
     position: relative;
     z-index: 15;
+    margin-left: -10px;
+    margin-top: -5px;
     color: #910D1F;
-    padding: 5px;
+    //padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
     border: 1px solid transparent;
@@ -107,8 +109,9 @@ html, body {
   .empty-cart {
     line-height: 16px;
     font-family: "Helvetica";
-    font-size: 16px;
+    //font-size: 16px;
     text-align: center;
+    line-height: 16px;
   }
 
   .cart-price {
@@ -132,6 +135,7 @@ html, body {
     display: inline-block;
     float: left;
     width: 14.285714285%;
+    height: 100%;
     padding: 5px;
     text-align: center;
     text-decoration: none;
@@ -163,8 +167,8 @@ html, body {
 
   #chooser {
     height: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 13px;
+    padding-bottom: 13px;
     padding-left: 10px;
     padding-right: 10px;
     background: #FAFAFA;
@@ -172,12 +176,12 @@ html, body {
     //border: 1px solid yellow;
     
     form {
-      margin-top: 5px;
-      margin-bottom: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
     }
 
     label {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     select {
@@ -225,8 +229,12 @@ html, body {
   }
 
   .pagination {
-    margin-top: 30px;
+    //margin-top: 30px;
     margin-bottom: 10px !important;
+
+    ul {
+      margin-bottom: 0px !important;
+    }
 
     a {
       background: transparent !important;
@@ -245,13 +253,18 @@ html, body {
 
       &:hover {
         //background: #FFC800 !important;
-        border: 1px solid #FFC800;
+        border: 1px solid #910D1F;
       }
 
       &.active-page {
         font-weight: bold;
-        background: #FFC800 !important;
+        background: #910D1F !important;
+        color: white !important;
         border-radius: 4px;
+
+        a {
+          color: white;
+        }
 
         &:hover {
           border: 1px solid transparent;
@@ -260,6 +273,11 @@ html, body {
     }
 
   }
+}
+
+.pagination-bottom {
+  margin-top: -30px;
+  margin-bottom: 50px;
 }
 
   #footer {
@@ -279,8 +297,8 @@ html, body {
   }
 
   .block-header {
-    //margin-bottom: 5px;
-    padding: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
     padding-top: 0px;
     font-family: 'Lobster', cursive;
     font-size: 18px;
@@ -701,6 +719,17 @@ html, body {
   .bouquet-content {
     border-collapse: separate;
     border-spacing: 5px;
+
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 48px;
+      border: 1px solid #910D1F;
+
+      &.no-border {
+        border: none;
+      }
+    }
   }
 
 
