@@ -183,6 +183,19 @@ var flowers = angular.module("gears.app.bouquets", [])
                             }
 
 
+                            /* Обработка списка секций */
+                            if (data["sections"] !== undefined) {
+                                $misc.sections.clear();
+                                angular.forEach(data["sections"], function (section) {
+                                    var temp_section = $factory({ classes: ["Section", "Model", "States", "Backup"], base_class: "Section"});
+                                    temp_section._model_.fromJSON(section);
+                                    temp_section._backup_.setup();
+                                    $misc.sections.append(temp_section);
+                                });
+                                $log.log("sections = ", $misc.categories.items);
+                            }
+
+
                             /* Р�РЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїРѕРІРѕРґРѕРІ РєСѓРїРёС‚СЊ Р±СѓРєРµС‚ */
                             if (data["reasons"] !== undefined) {
                                 $misc.reasons.clear();

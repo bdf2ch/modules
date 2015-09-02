@@ -177,11 +177,16 @@ var AppFilters = angular.module("gears.app.filters", [])
 
         $filterProvider.register("bySection", ["$log", function ($log) {
             return function (input, sectionId) {
-                angular.forEach(input, function (bouquet) {
-                    if (bouquet.sectionId.value === sectionId) {
-
-                    }
-                });
+                var result = [];
+                if (sectionId !== undefined && sectionId !== 0) {
+                    angular.forEach(input, function (bouquet) {
+                        if (bouquet.sectionId.value === sectionId) {
+                            result.push(bouquet);
+                        }
+                    });
+                } else
+                    return input;
+                return result;
             };
         }]);
 

@@ -64,6 +64,7 @@ var application = angular.module("gears.app", [
             application.currentPriceRangeId = 1;
             application.currentReasonId = 0;
             application.currentAddresseeId = 0;
+            application.currentSectionId = 0;
             application.inAuthorizationMode = false;
             application.isLoading = false;
 

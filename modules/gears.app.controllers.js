@@ -122,8 +122,11 @@ appControllers.controller("BouquetsController", ["$log", "$scope", "$application
 );
 
 
-appControllers.controller("MegaBouquetsController", ["$log", "$scope", "$flowers", function ($log, $scope, $flowers) {
+appControllers.controller("MegaBouquetsController", ["$log", "$scope", "$flowers", "$application", function ($log, $scope, $flowers, $application) {
     $scope.flowers = $flowers;
+    $scope.app = $application;
+
+    $scope.app.currentSectionId = 1;
 }]);
 
 

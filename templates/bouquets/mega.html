@@ -40,7 +40,7 @@
         <div class="unit-100">
             <ul class="blocks-4">
                 <li class="bouquet text-centered"
-                    ng-repeat="bouquet in flowers.bouquets.items | byReason: app.currentReasonId | byAddressee: app.currentAddresseeId | byFlowers: misc.flowers.selectedItems | byPrice: app.currentPriceRangeId | pagination: pagination.itemsOnPage:pagination.currentPage track by $id(bouquet)">
+                    ng-repeat="bouquet in flowers.bouquets.items | bySection: app.currentSectionId | pagination: pagination.itemsOnPage:pagination.currentPage track by $id(bouquet)">
                     <div class="units-row end">
                         <div class="unit-100">
                             <a href="{{ '#/bouquet/' + bouquet.id.value }}">
